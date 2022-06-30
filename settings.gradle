@@ -14,3 +14,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "purenote"
 include ':app'
+include ':architecture'

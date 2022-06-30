@@ -1,4 +1,4 @@
-package com.kunminx.purenote;
+package com.kunminx.purenote.ui.page;
 
 import android.os.Bundle;
 
