@@ -2,8 +2,11 @@ package com.kunminx.purenote.data.repo;
 
 import androidx.room.Room;
 
+import com.kunminx.architecture.data.response.DataResult;
+import com.kunminx.architecture.data.response.ResponseStatus;
 import com.kunminx.architecture.utils.Utils;
 import com.kunminx.purenote.data.bean.Note;
+import com.kunminx.purenote.data.response.AsyncTask;
 
 import java.util.List;
 
@@ -24,19 +27,36 @@ public class DataRepository {
     mDataBase = Room.databaseBuilder(Utils.getApp().getApplicationContext(), NoteDataBase.class, DATABASE_NAME).build();
   }
 
-  public List<Note> getNotes() {
-    return mDataBase.noteDao().getNotes();
+  public void getNotes(DataResult.Result<List<Note>> result) {
+    AsyncTask.doAction(() -> mDataBase.noteDao().getNotes(), notes -> {
+      result.onResult(new DataResult<>(notes, new ResponseStatus()));
+    });
   }
 
-  public void insertNote(Note note) {
-    mDataBase.noteDao().insertNote(note);
+  public void insertNote(Note note, DataResult.Result<Boolean> result) {
+    AsyncTask.doAction(() -> {
+      mDataBase.noteDao().insertNote(note);
+      return true;
+    }, success -> {
+      result.onResult(new DataResult<>(success, new ResponseStatus()));
+    });
   }
 
-  public void updateNote(Note note) {
-    mDataBase.noteDao().updateNote(note);
+  public void updateNote(Note note, DataResult.Result<Boolean> result) {
+    AsyncTask.doAction(() -> {
+      mDataBase.noteDao().updateNote(note);
+      return true;
+    }, success -> {
+      result.onResult(new DataResult<>(success, new ResponseStatus()));
+    });
   }
 
-  public void deleteNote(Note note) {
-    mDataBase.noteDao().deleteNote(note);
+  public void deleteNote(Note note, DataResult.Result<Boolean> result) {
+    AsyncTask.doAction(() -> {
+      mDataBase.noteDao().deleteNote(note);
+      return true;
+    }, success -> {
+      result.onResult(new DataResult<>(success, new ResponseStatus()));
+    });
   }
 }
