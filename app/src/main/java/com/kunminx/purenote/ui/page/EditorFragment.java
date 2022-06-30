@@ -6,7 +6,7 @@ import com.kunminx.architecture.ui.page.DataBindingConfig;
 /**
  * Create by KunMinX at 2022/6/30
  */
-public class ListFragment extends BaseFragment {
+public class EditorFragment extends BaseFragment {
 
   @Override
   protected void initViewModel() {
