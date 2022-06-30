@@ -9,12 +9,30 @@
 
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-    </LinearLayout>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_empty"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerInParent="true" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="16dp" />
+
+    </RelativeLayout>
 
 </layout>
 
