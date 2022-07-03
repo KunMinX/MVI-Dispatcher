@@ -24,10 +24,8 @@ public class MainActivity extends BaseActivity {
   @Override
   protected void onOutput() {
     mMessenger.output(this, messages -> {
-      switch (messages.eventId) {
-        case Messages.EVENT_FINISH_ACTIVITY:
-          finish();
-          break;
+      if (messages.eventId == Messages.EVENT_FINISH_ACTIVITY) {
+        finish();
       }
     });
   }

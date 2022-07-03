@@ -49,10 +49,8 @@ public class ListFragment extends BaseFragment {
   @Override
   protected void onOutput() {
     mMessenger.output(getViewLifecycleOwner(), messages -> {
-      switch (messages.eventId) {
-        case Messages.EVENT_REFRESH_NOTE_LIST:
-          mNoteRequester.input(new NoteListEvent(NoteListEvent.EVENT_GET_NOTE_LIST));
-          break;
+      if (messages.eventId == Messages.EVENT_REFRESH_NOTE_LIST) {
+        mNoteRequester.input(new NoteListEvent(NoteListEvent.EVENT_GET_NOTE_LIST));
       }
     });
 
