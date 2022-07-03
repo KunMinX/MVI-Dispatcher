@@ -24,29 +24,34 @@
             android:src="@drawable/ic_baseline_arrow_back"
             android:tint="@color/gray" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="56dp"
-            android:layout_weight="0"
-            android:gravity="center_vertical"
-            android:paddingStart="12dp"
-            android:paddingEnd="4dp"
-            android:text="@string/edit"
-            android:textColor="@color/gray"
-            android:textSize="24sp" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_time"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_weight="0"
-            android:gravity="center_vertical"
-            android:paddingStart="4dp"
-            android:paddingEnd="12dp"
-            android:textColor="@color/gray"
-            android:textSize="16sp"
-            tools:text="@string/edit" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:gravity="center_vertical"
+                android:paddingStart="12dp"
+                android:paddingEnd="4dp"
+                android:text="@string/edit"
+                android:textColor="@color/gray"
+                android:textSize="24sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_time"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="center_vertical"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textColor="@color/gray"
+                android:textSize="14sp"
+                android:text="@string/new_note" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
