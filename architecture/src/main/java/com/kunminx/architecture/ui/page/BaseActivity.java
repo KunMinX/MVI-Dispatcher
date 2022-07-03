@@ -18,10 +18,13 @@ package com.kunminx.architecture.ui.page;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
@@ -32,14 +35,15 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.kunminx.architecture.BaseApplication;
 import com.kunminx.architecture.utils.AdaptScreenUtils;
-import com.kunminx.architecture.utils.BarUtils;
-import com.kunminx.architecture.utils.ScreenUtils;
+import com.kunminx.architecture.utils.Utils;
 
 
 /**
  * Create by KunMinX at 19/8/1
  */
 public abstract class BaseActivity extends AppCompatActivity {
+
+  private static final int STATUS_BAR_TRANSPARENT_COLOR = 0x33000000;
 
   private ViewModelProvider mActivityProvider;
   private ViewModelProvider mApplicationProvider;
@@ -53,13 +57,23 @@ public abstract class BaseActivity extends AppCompatActivity {
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
 
-    BarUtils.setStatusBarColor(this, Color.TRANSPARENT);
+    transparentStatusBar(this);
 
     super.onCreate(savedInstanceState);
 
     onInit();
     onOutPut();
     onIntPut();
+  }
+
+
+  public static void transparentStatusBar(@NonNull Activity activity) {
+    Window window = activity.getWindow();
+    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+    int option = View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+    int vis = window.getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+    window.getDecorView().setSystemUiVisibility(option | vis);
+    window.setStatusBarColor(STATUS_BAR_TRANSPARENT_COLOR);
   }
 
   //TODO tip 2: Jetpack 通过 "工厂模式" 实现 ViewModel 作用域可控，
@@ -85,7 +99,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
   @Override
   public Resources getResources() {
-    if (ScreenUtils.isPortrait()) {
+    if (Utils.getApp().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
       return AdaptScreenUtils.adaptWidth(super.getResources(), 360);
     } else {
       return AdaptScreenUtils.adaptHeight(super.getResources(), 640);

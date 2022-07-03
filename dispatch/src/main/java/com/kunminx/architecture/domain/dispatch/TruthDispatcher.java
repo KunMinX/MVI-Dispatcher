@@ -18,25 +18,27 @@ public class TruthDispatcher<E extends Event> extends ViewModel {
 
   private LifecycleOwner mOwner;
   private final List<Observer<E>> mObservers = new ArrayList<>();
-  private final List<MutableResult<E>> results = new ArrayList<>();
+  private final List<MutableResult<E>> mResults = new ArrayList<>();
 
   public void outPut(LifecycleOwner owner, Observer<E> observer) {
     this.mOwner = owner;
     this.mObservers.add(observer);
   }
 
-  protected MutableResult<E> getResult(int eventId) {
-    for (MutableResult<E> result : results) {
-      if (Objects.requireNonNull(result.getValue()).eventId == eventId) {
-        return result;
+  protected void sendResult(E event) {
+    MutableResult<E> result = null;
+    for (MutableResult<E> r : mResults) {
+      if (Objects.requireNonNull(r.getValue()).eventId == event.eventId) {
+        result = r;
+        break;
       }
     }
-    return null;
+    if (result != null) result.setValue(event);
   }
 
   public void input(E event) {
     boolean eventExist = false;
-    for (MutableResult<E> result : results) {
+    for (MutableResult<E> result : mResults) {
       if (Objects.requireNonNull(result.getValue()).eventId == event.eventId) {
         eventExist = true;
         break;
@@ -47,7 +49,7 @@ public class TruthDispatcher<E extends Event> extends ViewModel {
       for (Observer<E> observer : mObservers) {
         result.observe(mOwner, observer);
       }
-      results.add(result);
+      mResults.add(result);
     }
   }
 }
