@@ -12,6 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "purenote"
+rootProject.name = "PureNote"
 include ':app'
 include ':architecture'
