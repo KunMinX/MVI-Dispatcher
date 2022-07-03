@@ -24,7 +24,7 @@ public class NoteAdapter extends BaseAdapter<Note, AdapterNoteListBinding> {
     holder.getBinding().btnMark.setImageResource(note.isMarked() ? R.drawable.icon_star : R.drawable.icon_star_board);
     holder.getBinding().tvTime.setText(note.getModifyDate());
     holder.getBinding().tvTopped.setVisibility(note.isTopping() ? View.VISIBLE : View.GONE);
-    holder.getBinding().tvTitle.setOnClickListener(v -> {
+    holder.getBinding().cl.setOnClickListener(v -> {
       if (listener != null) listener.onItemClick(v.getId(), position, note);
     });
     holder.getBinding().btnMark.setOnClickListener(v -> {
