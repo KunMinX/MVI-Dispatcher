@@ -1,19 +1,19 @@
 package com.kunminx.purenote.ui.page;
 
-import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModel;
 
 import com.kunminx.architecture.ui.page.BaseFragment;
-import com.kunminx.architecture.ui.page.DataBindingConfig;
-import com.kunminx.architecture.ui.page.State;
-import com.kunminx.purenote.BR;
 import com.kunminx.purenote.R;
 import com.kunminx.purenote.data.bean.Note;
+import com.kunminx.purenote.databinding.FragmentListBinding;
 import com.kunminx.purenote.domain.event.NoteListEvent;
+import com.kunminx.purenote.domain.message.PageMessenger;
 import com.kunminx.purenote.domain.request.NoteRequester;
 import com.kunminx.purenote.ui.adapter.NoteAdapter;
 
@@ -25,39 +25,28 @@ import java.util.List;
  */
 public class ListFragment extends BaseFragment {
 
+  private FragmentListBinding mBinding;
   private ListViewModel mStates;
   private NoteRequester mNoteRequester;
+  private PageMessenger mMessenger;
+  private NoteAdapter mAdapter;
 
   @Override
-  protected void initViewModel() {
+  protected View onInit(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
     mStates = getFragmentScopeViewModel(ListViewModel.class);
     mNoteRequester = getFragmentScopeViewModel(NoteRequester.class);
+    mMessenger = getApplicationScopeViewModel(PageMessenger.class);
+
+    mBinding = FragmentListBinding.inflate(inflater, container, false);
+    return mBinding.getRoot();
   }
 
   @Override
-  protected DataBindingConfig getDataBindingConfig() {
-    NoteAdapter adapter = new NoteAdapter(mActivity.getApplicationContext());
-    adapter.setOnItemClickListener((viewId, item, position) -> {
-      if (viewId == R.id.btn_mark) {
-        item.toggleType(Note.TYPE_MARKED);
-      } else if (viewId == R.id.btn_topping) {
-        item.toggleType(Note.TYPE_TOPPING);
-      } else if (viewId == R.id.tv_title) {
-
-      }
-    });
-    return new DataBindingConfig(R.layout.fragment_list, BR.vm, mStates)
-            .addBindingParam(BR.adapter, adapter);
-  }
-
-  @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
-
+  protected void onOutPut() {
     mNoteRequester.outPut(getViewLifecycleOwner(), noteListEvent -> {
       switch (noteListEvent.eventId) {
         case NoteListEvent.EVENT_GET_NOTE_LIST:
-          mStates.list.set(noteListEvent.result.notes);
+//          mStates.list.set(noteListEvent.result.notes);
           break;
         case NoteListEvent.EVENT_MARK_ITEM:
           break;
@@ -67,11 +56,28 @@ public class ListFragment extends BaseFragment {
           break;
       }
     });
+  }
+
+  @Override
+  protected void onIntPut() {
+    mAdapter.setListener((viewId, position, item) -> {
+      if (viewId == R.id.btn_mark) {
+        item.toggleType(Note.TYPE_MARKED);
+      } else if (viewId == R.id.btn_topping) {
+        item.toggleType(Note.TYPE_TOPPING);
+      } else if (viewId == R.id.tv_title) {
+
+      }
+    });
+
+    mBinding.fab.setOnClickListener(v -> {
+
+    });
 
     mNoteRequester.input(new NoteListEvent(NoteListEvent.EVENT_GET_NOTE_LIST));
   }
 
   public static class ListViewModel extends ViewModel {
-    public State<List<Note>> list = new State<>(new ArrayList<>());
+    public List<Note> list = new ArrayList<>();
   }
 }

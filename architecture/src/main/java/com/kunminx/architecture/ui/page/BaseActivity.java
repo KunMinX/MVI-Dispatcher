@@ -26,11 +26,11 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.kunminx.architecture.BaseApplication;
-import com.kunminx.architecture.data.response.manager.NetworkStateManager;
 import com.kunminx.architecture.utils.AdaptScreenUtils;
 import com.kunminx.architecture.utils.BarUtils;
 import com.kunminx.architecture.utils.ScreenUtils;
@@ -39,67 +39,68 @@ import com.kunminx.architecture.utils.ScreenUtils;
 /**
  * Create by KunMinX at 19/8/1
  */
-public abstract class BaseActivity extends DataBindingActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
-    private ViewModelProvider mActivityProvider;
-    private ViewModelProvider mApplicationProvider;
+  private ViewModelProvider mActivityProvider;
+  private ViewModelProvider mApplicationProvider;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+  protected abstract void onInit();
 
-        BarUtils.setStatusBarColor(this, Color.TRANSPARENT);
-        BarUtils.setStatusBarLightMode(this, true);
+  protected abstract void onOutPut();
 
-        super.onCreate(savedInstanceState);
+  protected abstract void onIntPut();
 
-        getLifecycle().addObserver(NetworkStateManager.getInstance());
+  @Override
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
 
-        //TODO tip 1: DataBinding 严格模式（详见 DataBindingActivity - - - - - ）：
-        // 将 DataBinding 实例限制于 base 页面中，默认不向子类暴露，
-        // 通过这方式，彻底解决 View 实例 Null 安全一致性问题，
-        // 如此，View 实例 Null 安全性将和基于函数式编程思想的 Jetpack Compose 持平。
+    BarUtils.setStatusBarColor(this, Color.TRANSPARENT);
+    BarUtils.setStatusBarLightMode(this, true);
 
-        // 如这么说无体会，详见 https://xiaozhuanlan.com/topic/9816742350 和 https://xiaozhuanlan.com/topic/2356748910
+    super.onCreate(savedInstanceState);
+
+    onInit();
+    onOutPut();
+    onIntPut();
+  }
+
+  //TODO tip 2: Jetpack 通过 "工厂模式" 实现 ViewModel 作用域可控，
+  //目前我们在项目中提供了 Application、Activity、Fragment 三个级别的作用域，
+  //值得注意的是，通过不同作用域 Provider 获得 ViewModel 实例非同一个，
+  //故若 ViewModel 状态信息保留不符合预期，可从该角度出发排查 是否眼前 ViewModel 实例非目标实例所致。
+
+  //如这么说无体会，详见 https://xiaozhuanlan.com/topic/6257931840
+
+  protected <T extends ViewModel> T getActivityScopeViewModel(@NonNull Class<T> modelClass) {
+    if (mActivityProvider == null) {
+      mActivityProvider = new ViewModelProvider(this);
     }
+    return mActivityProvider.get(modelClass);
+  }
 
-    //TODO tip 2: Jetpack 通过 "工厂模式" 实现 ViewModel 作用域可控，
-    //目前我们在项目中提供了 Application、Activity、Fragment 三个级别的作用域，
-    //值得注意的是，通过不同作用域 Provider 获得 ViewModel 实例非同一个，
-    //故若 ViewModel 状态信息保留不符合预期，可从该角度出发排查 是否眼前 ViewModel 实例非目标实例所致。
-
-    //如这么说无体会，详见 https://xiaozhuanlan.com/topic/6257931840
-
-    protected <T extends ViewModel> T getActivityScopeViewModel(@NonNull Class<T> modelClass) {
-        if (mActivityProvider == null) {
-            mActivityProvider = new ViewModelProvider(this);
-        }
-        return mActivityProvider.get(modelClass);
+  protected <T extends ViewModel> T getApplicationScopeViewModel(@NonNull Class<T> modelClass) {
+    if (mApplicationProvider == null) {
+      mApplicationProvider = new ViewModelProvider((BaseApplication) this.getApplicationContext());
     }
+    return mApplicationProvider.get(modelClass);
+  }
 
-    protected <T extends ViewModel> T getApplicationScopeViewModel(@NonNull Class<T> modelClass) {
-        if (mApplicationProvider == null) {
-            mApplicationProvider = new ViewModelProvider((BaseApplication) this.getApplicationContext());
-        }
-        return mApplicationProvider.get(modelClass);
+  @Override
+  public Resources getResources() {
+    if (ScreenUtils.isPortrait()) {
+      return AdaptScreenUtils.adaptWidth(super.getResources(), 360);
+    } else {
+      return AdaptScreenUtils.adaptHeight(super.getResources(), 640);
     }
+  }
 
-    @Override
-    public Resources getResources() {
-        if (ScreenUtils.isPortrait()) {
-            return AdaptScreenUtils.adaptWidth(super.getResources(), 360);
-        } else {
-            return AdaptScreenUtils.adaptHeight(super.getResources(), 640);
-        }
-    }
+  protected void toggleSoftInput() {
+    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+  }
 
-    protected void toggleSoftInput() {
-        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-    }
-
-    protected void openUrlInBrowser(String url) {
-        Uri uri = Uri.parse(url);
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
-    }
+  protected void openUrlInBrowser(String url) {
+    Uri uri = Uri.parse(url);
+    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+    startActivity(intent);
+  }
 }
