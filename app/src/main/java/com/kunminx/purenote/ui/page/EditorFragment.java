@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.navigation.NavController;
 
 import com.kunminx.architecture.ui.page.BaseFragment;
+import com.kunminx.architecture.utils.ToastUtils;
 import com.kunminx.purenote.R;
 import com.kunminx.purenote.data.bean.Note;
 import com.kunminx.purenote.databinding.FragmentEditorBinding;
@@ -61,6 +62,7 @@ public class EditorFragment extends BaseFragment {
       switch (noteListEvent.eventId) {
         case NoteListEvent.EVENT_ADD_ITEM:
           mMessenger.input(new Messages(Messages.EVENT_REFRESH_NOTE_LIST));
+          ToastUtils.showShortToast(getString(R.string.saved));
           nav().navigateUp();
           break;
       }
@@ -89,9 +91,7 @@ public class EditorFragment extends BaseFragment {
     }
     mStates.tempNote.modifyTime = time;
 
-    NoteListEvent event = new NoteListEvent(NoteListEvent.EVENT_ADD_ITEM);
-    event.param.note = mStates.tempNote;
-    mNoteRequester.input(event);
+    mNoteRequester.input(new NoteListEvent(NoteListEvent.EVENT_ADD_ITEM).setNote(mStates.tempNote));
   }
 
   @Override

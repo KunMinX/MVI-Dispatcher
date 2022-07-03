@@ -73,25 +73,17 @@ public class ListFragment extends BaseFragment {
 
     mAdapter.setListener((viewId, position, item) -> {
       if (viewId == R.id.btn_mark) {
-        NoteListEvent event = new NoteListEvent(NoteListEvent.EVENT_MARK_ITEM);
-        event.param.note = item;
-        mNoteRequester.input(event);
+        mNoteRequester.input(new NoteListEvent(NoteListEvent.EVENT_MARK_ITEM).setNote(item));
       } else if (viewId == R.id.btn_topping) {
-        NoteListEvent event = new NoteListEvent(NoteListEvent.EVENT_TOPPING_ITEM);
-        event.param.note = item;
-        mNoteRequester.input(event);
+        mNoteRequester.input(new NoteListEvent(NoteListEvent.EVENT_TOPPING_ITEM).setNote(item));
       } else if (viewId == R.id.btn_delete) {
-        NoteListEvent event = new NoteListEvent(NoteListEvent.EVENT_REMOVE_ITEM);
-        event.param.note = item;
-        mNoteRequester.input(event);
+        mNoteRequester.input(new NoteListEvent(NoteListEvent.EVENT_REMOVE_ITEM).setNote(item));
       } else if (viewId == R.id.tv_title) {
         EditorFragment.start(nav(), item);
       }
     });
 
-    mBinding.fab.setOnClickListener(v -> {
-      EditorFragment.start(nav(), new Note());
-    });
+    mBinding.fab.setOnClickListener(v -> EditorFragment.start(nav(), new Note()));
 
     mNoteRequester.input(new NoteListEvent(NoteListEvent.EVENT_GET_NOTE_LIST));
   }

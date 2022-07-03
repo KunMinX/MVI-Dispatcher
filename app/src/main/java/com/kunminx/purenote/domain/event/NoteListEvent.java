@@ -22,6 +22,11 @@ public class NoteListEvent extends Event<NoteListEvent.Param, NoteListEvent.Resu
     this.result = new Result();
   }
 
+  public NoteListEvent setNote(Note note) {
+    this.param.note = note;
+    return this;
+  }
+
   public static class Param {
     public Note note;
   }
