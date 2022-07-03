@@ -33,13 +33,22 @@ public class ListFragment extends BaseFragment {
   private NoteAdapter mAdapter;
 
   @Override
-  protected View onInit(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
+  protected void onInitViewModel() {
     mStates = getFragmentScopeViewModel(ListViewModel.class);
     mNoteRequester = getFragmentScopeViewModel(NoteRequester.class);
-    mMessenger = getActivityScopeViewModel(PageMessenger.class);
+    mMessenger = getApplicationScopeViewModel(PageMessenger.class);
+  }
 
+  @Override
+  protected View onInitView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
     mBinding = FragmentListBinding.inflate(inflater, container, false);
+    mBinding.rv.setAdapter(mAdapter = new NoteAdapter());
     return mBinding.getRoot();
+  }
+
+  @Override
+  protected void onInitData() {
+
   }
 
   @Override
@@ -69,8 +78,6 @@ public class ListFragment extends BaseFragment {
 
   @Override
   protected void onIntPut() {
-    mBinding.rv.setAdapter(mAdapter = new NoteAdapter());
-
     mAdapter.setListener((viewId, position, item) -> {
       if (viewId == R.id.btn_mark) {
         mNoteRequester.input(new NoteListEvent(NoteListEvent.EVENT_MARK_ITEM).setNote(item));

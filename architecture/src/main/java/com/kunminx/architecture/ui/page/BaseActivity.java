@@ -48,7 +48,11 @@ public abstract class BaseActivity extends AppCompatActivity {
   private ViewModelProvider mActivityProvider;
   private ViewModelProvider mApplicationProvider;
 
-  protected abstract void onInit();
+  protected abstract void onInitViewModel();
+
+  protected abstract void onInitView();
+
+  protected abstract void onInitData();
 
   protected abstract void onOutPut();
 
@@ -61,7 +65,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     super.onCreate(savedInstanceState);
 
-    onInit();
+    onInitViewModel();
+    onInitView();
+    onInitData();
     onOutPut();
     onIntPut();
   }

@@ -49,7 +49,11 @@ public abstract class BaseFragment extends Fragment {
   private ViewModelProvider mApplicationProvider;
   protected AppCompatActivity mActivity;
 
-  protected abstract View onInit(@NonNull LayoutInflater inflater, @Nullable ViewGroup container);
+  protected abstract void onInitViewModel();
+
+  protected abstract View onInitView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container);
+
+  protected abstract void onInitData();
 
   protected abstract void onOutPut();
 
@@ -61,16 +65,23 @@ public abstract class BaseFragment extends Fragment {
     mActivity = (AppCompatActivity) context;
   }
 
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    onInitViewModel();
+    addOnBackPressed();
+  }
+
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    return onInit(inflater, container);
+    return onInitView(inflater, container);
   }
 
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    addOnBackPressed();
+    onInitData();
     onOutPut();
     onIntPut();
   }
@@ -124,7 +135,7 @@ public abstract class BaseFragment extends Fragment {
   }
 
   private void addOnBackPressed() {
-    requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+    requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
       @Override
       public void handleOnBackPressed() {
         if (!onBackPressed()) requireActivity().getOnBackPressedDispatcher().onBackPressed();

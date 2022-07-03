@@ -42,18 +42,24 @@ public class EditorFragment extends BaseFragment {
   }
 
   @Override
-  protected View onInit(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
+  protected void onInitViewModel() {
     mStates = getFragmentScopeViewModel(EditorViewModel.class);
     mNoteRequester = getFragmentScopeViewModel(NoteRequester.class);
-    mMessenger = getActivityScopeViewModel(PageMessenger.class);
+    mMessenger = getApplicationScopeViewModel(PageMessenger.class);
+  }
 
+  @Override
+  protected View onInitView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
+    mBinding = FragmentEditorBinding.inflate(inflater, container, false);
+    return mBinding.getRoot();
+  }
+
+  @Override
+  protected void onInitData() {
     if (getArguments() != null) {
       mStates.originNote = getArguments().getParcelable(NOTE);
       mStates.tempNote = mStates.originNote.clone();
     }
-
-    mBinding = FragmentEditorBinding.inflate(inflater, container, false);
-    return mBinding.getRoot();
   }
 
   @Override
@@ -71,9 +77,7 @@ public class EditorFragment extends BaseFragment {
 
   @Override
   protected void onIntPut() {
-    mBinding.toolbar.setNavigationOnClickListener(v -> {
-      save();
-    });
+    mBinding.toolbar.setNavigationOnClickListener(v -> save());
   }
 
   private void save() {
@@ -97,7 +101,7 @@ public class EditorFragment extends BaseFragment {
   @Override
   protected boolean onBackPressed() {
     save();
-    return true;
+    return super.onBackPressed();
   }
 
   public static class EditorViewModel extends ViewModel {

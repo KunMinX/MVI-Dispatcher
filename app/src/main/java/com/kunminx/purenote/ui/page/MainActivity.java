@@ -1,6 +1,8 @@
 package com.kunminx.purenote.ui.page;
 
 import com.kunminx.architecture.ui.page.BaseActivity;
+import com.kunminx.architecture.utils.Utils;
+import com.kunminx.purenote.App;
 import com.kunminx.purenote.R;
 import com.kunminx.purenote.domain.event.Messages;
 import com.kunminx.purenote.domain.message.PageMessenger;
@@ -10,9 +12,18 @@ public class MainActivity extends BaseActivity {
   private PageMessenger mMessenger;
 
   @Override
-  protected void onInit() {
-    mMessenger = getActivityScopeViewModel(PageMessenger.class);
+  protected void onInitViewModel() {
+    mMessenger = getApplicationScopeViewModel(PageMessenger.class);
+  }
+
+  @Override
+  protected void onInitView() {
     setContentView(R.layout.activity_main);
+  }
+
+  @Override
+  protected void onInitData() {
+
   }
 
   @Override
@@ -29,5 +40,11 @@ public class MainActivity extends BaseActivity {
   @Override
   protected void onIntPut() {
 
+  }
+
+  @Override
+  public void finish() {
+    super.finish();
+    ((App) Utils.getApp()).getViewModelStore().clear();
   }
 }
