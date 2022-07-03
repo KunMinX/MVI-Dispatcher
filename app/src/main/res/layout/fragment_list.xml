@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="vm"
             type="com.kunminx.purenote.ui.page.ListFragment.ListViewModel" />
+
+        <variable
+            name="adapter"
+            type="com.kunminx.purenote.ui.adapter.NoteAdapter" />
 
     </data>
 
@@ -21,8 +26,11 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv"
+            adapter="@{adapter}"
+            submitList="@{vm.list}"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            app:layoutManager="com.kunminx.binding_recyclerview.layout_manager.WrapContentLinearLayoutManager" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
@@ -30,7 +38,8 @@
             android:layout_height="64dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_margin="16dp" />
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_baseline_add" />
 
     </RelativeLayout>
 

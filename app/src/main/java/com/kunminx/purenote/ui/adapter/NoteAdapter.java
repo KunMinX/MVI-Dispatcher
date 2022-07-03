@@ -3,6 +3,8 @@ package com.kunminx.purenote.ui.adapter;
 import android.content.Context;
 import android.graphics.Color;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kunminx.binding_recyclerview.adapter.SimpleDataBindingAdapter;
@@ -16,7 +18,17 @@ import com.kunminx.purenote.databinding.AdapterNoteListBinding;
 public class NoteAdapter extends SimpleDataBindingAdapter<Note, AdapterNoteListBinding> {
 
   public NoteAdapter(Context context) {
-    super(context, R.layout.adapter_note_list, DiffUtils.getInstance().getNoteItemCallback());
+    super(context, R.layout.adapter_note_list, new DiffUtil.ItemCallback<Note>() {
+      @Override
+      public boolean areItemsTheSame(@NonNull Note oldItem, @NonNull Note newItem) {
+        return oldItem.equals(newItem);
+      }
+
+      @Override
+      public boolean areContentsTheSame(@NonNull Note oldItem, @NonNull Note newItem) {
+        return oldItem.getModifyDate().equals(newItem.getModifyDate());
+      }
+    });
   }
 
   @Override
