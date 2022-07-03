@@ -70,7 +70,7 @@ public class EditorFragment extends BaseFragment {
   @Override
   protected void onIntPut() {
     mBinding.toolbar.setNavigationOnClickListener(v -> {
-
+      save();
     });
   }
 
@@ -89,6 +89,12 @@ public class EditorFragment extends BaseFragment {
     NoteListEvent event = new NoteListEvent(NoteListEvent.EVENT_ADD_ITEM);
     event.param.note = mStates.tempNote;
     mNoteRequester.input(event);
+  }
+
+  @Override
+  protected boolean onBackPressed() {
+    save();
+    return true;
   }
 
   public static class EditorViewModel extends ViewModel {

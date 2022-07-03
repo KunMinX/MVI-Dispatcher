@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -69,6 +70,7 @@ public abstract class BaseFragment extends Fragment {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+    addOnBackPressed();
     onOutPut();
     onIntPut();
   }
@@ -121,4 +123,16 @@ public abstract class BaseFragment extends Fragment {
     return mActivity.getApplicationContext();
   }
 
+  private void addOnBackPressed() {
+    requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+      @Override
+      public void handleOnBackPressed() {
+        if (!onBackPressed()) requireActivity().getOnBackPressedDispatcher().onBackPressed();
+      }
+    });
+  }
+
+  protected boolean onBackPressed() {
+    return nav().navigateUp();
+  }
 }
