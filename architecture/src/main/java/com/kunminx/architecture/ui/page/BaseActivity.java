@@ -45,7 +45,7 @@ import com.kunminx.architecture.utils.Utils;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-  private static final int STATUS_BAR_TRANSPARENT_COLOR = 0x33000000;
+  private static final int STATUS_BAR_TRANSPARENT_COLOR = 0x00000000;
 
   private ViewModelProvider mActivityProvider;
   private ViewModelProvider mApplicationProvider;
@@ -84,7 +84,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     Window window = activity.getWindow();
     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
     int option = View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-    int vis = window.getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+    int vis = window.getDecorView().getSystemUiVisibility();
     window.getDecorView().setSystemUiVisibility(option | vis);
     window.setStatusBarColor(STATUS_BAR_TRANSPARENT_COLOR);
   }

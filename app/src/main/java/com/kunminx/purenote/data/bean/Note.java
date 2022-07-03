@@ -40,12 +40,12 @@ public class Note implements Parcelable, Cloneable {
 
   @Ignore
   public String getCreateDate() {
-    return TimeUtils.getTime(createTime, TimeUtils.YY_MM_DD);
+    return TimeUtils.getTime(createTime, TimeUtils.YYYY_MM_DD_HH_MM_SS);
   }
 
   @Ignore
   public String getModifyDate() {
-    return TimeUtils.getTime(modifyTime, TimeUtils.YY_MM_DD);
+    return TimeUtils.getTime(modifyTime, TimeUtils.YYYY_MM_DD_HH_MM_SS);
   }
 
   @Ignore

@@ -6,5 +6,6 @@
     <string name="note">笔记</string>
     <string name="new_note">新建笔记</string>
     <string name="saved">已保存</string>
+    <string name="top">置顶</string>
 
 </resources>
