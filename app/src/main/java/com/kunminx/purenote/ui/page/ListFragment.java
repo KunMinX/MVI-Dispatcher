@@ -80,7 +80,7 @@ public class ListFragment extends BaseFragment {
         mNoteRequester.input(new NoteListEvent(NoteListEvent.EVENT_TOPPING_ITEM).setNote(item));
       } else if (viewId == R.id.btn_delete) {
         mNoteRequester.input(new NoteListEvent(NoteListEvent.EVENT_REMOVE_ITEM).setNote(item));
-      } else if (viewId == R.id.tv_title) {
+      } else if (viewId == R.id.cl) {
         EditorFragment.start(nav(), item);
       }
     });

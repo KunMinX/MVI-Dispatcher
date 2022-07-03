@@ -20,7 +20,7 @@
             android:layout_height="56dp"
             android:layout_marginStart="12dp"
             android:scaleType="centerInside"
-            android:src="@drawable/avatar" />
+            android:src="@drawable/icon_avatar" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_title"
@@ -46,12 +46,6 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_empty"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerInParent="true" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
@@ -61,6 +55,14 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="9"
         tools:listitem="@layout/adapter_note_list" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_empty"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/bg_empty"
+        android:visibility="gone" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
