@@ -9,15 +9,14 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Purenote"
+        android:theme="@style/Theme.PureNote"
         tools:targetApi="31">
         <activity
             android:name=".ui.page.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Purenote.NoActionBar">
+            android:theme="@style/Theme.PureNote">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -4,5 +4,6 @@
     <string name="content">内容</string>
     <string name="edit">编辑</string>
     <string name="note">笔记</string>
+    <string name="new_note">新建笔记</string>
 
 </resources>

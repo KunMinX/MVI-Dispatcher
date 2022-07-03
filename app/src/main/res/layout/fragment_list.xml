@@ -32,7 +32,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_baseline_add" />
+        android:src="@drawable/ic_baseline_add"
+        android:contentDescription="@string/new_note" />
 
 </RelativeLayout>
 

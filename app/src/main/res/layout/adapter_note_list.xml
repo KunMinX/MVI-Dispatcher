@@ -48,7 +48,7 @@
             android:layout_height="24dp"
             android:layout_margin="4dp"
             android:background="@color/transparent"
-            android:src="@drawable/ic_baseline_push_pin"
+            android:src="@drawable/ic_baseline_pin"
             android:tint="#aaaaaa"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -62,7 +62,7 @@
         android:layout_height="48dp"
         android:layout_marginEnd="16dp"
         android:background="@color/transparent"
-        android:src="@drawable/ic_baseline_push_pin"
+        android:src="@drawable/ic_baseline_pin"
         android:tint="#aaaaaa" />
 
     <androidx.appcompat.widget.AppCompatImageButton

@@ -21,7 +21,7 @@ public class NoteAdapter extends BaseAdapter<Note, AdapterNoteListBinding> {
   protected void onBindingData(BaseHolder<AdapterNoteListBinding> holder, Note note, int position) {
     holder.getBinding().tvTitle.setText(note.title);
     holder.getBinding().btnMark.setImageResource(note.isMarked() ? R.drawable.ic_baseline_star : R.drawable.ic_baseline_star_border);
-    holder.getBinding().ivTopped.setImageResource(note.isTopping() ? R.drawable.ic_baseline_push_pin : Color.TRANSPARENT);
+    holder.getBinding().ivTopped.setImageResource(note.isTopping() ? R.drawable.ic_baseline_pin : Color.TRANSPARENT);
     holder.getBinding().tvTitle.setOnClickListener(v -> {
       if (listener != null) listener.onItemClick(v.getId(), position, note);
     });
