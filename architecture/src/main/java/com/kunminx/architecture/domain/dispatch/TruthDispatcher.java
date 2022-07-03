@@ -17,12 +17,12 @@ import java.util.Objects;
 public class TruthDispatcher<E extends Event> extends ViewModel {
 
   private LifecycleOwner mOwner;
-  private Observer<E> mObserver;
+  private final List<Observer<E>> mObservers = new ArrayList<>();
   private final List<MutableResult<E>> results = new ArrayList<>();
 
   public void outPut(LifecycleOwner owner, Observer<E> observer) {
     this.mOwner = owner;
-    this.mObserver = observer;
+    this.mObservers.add(observer);
   }
 
   protected MutableResult<E> getResult(int eventId) {
@@ -44,7 +44,9 @@ public class TruthDispatcher<E extends Event> extends ViewModel {
     }
     if (!eventExist) {
       MutableResult<E> result = new MutableResult<>(event);
-      result.observe(mOwner, mObserver);
+      for (Observer<E> observer : mObservers) {
+        result.observe(mOwner, observer);
+      }
       results.add(result);
     }
   }

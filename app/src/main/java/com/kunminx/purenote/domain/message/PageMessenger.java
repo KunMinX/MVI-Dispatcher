@@ -8,4 +8,9 @@ import com.kunminx.purenote.domain.event.Messages;
  */
 public class PageMessenger extends TruthDispatcher<Messages> {
 
+  @Override
+  public void input(Messages event) {
+    super.input(event);
+    getResult(event.eventId).setValue(event);
+  }
 }
