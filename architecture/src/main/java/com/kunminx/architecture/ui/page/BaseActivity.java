@@ -16,8 +16,10 @@
 
 package com.kunminx.architecture.ui.page;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -61,10 +63,12 @@ public abstract class BaseActivity extends AppCompatActivity {
   protected void onInput() {
   }
 
+  @SuppressLint("SourceLockedOrientationActivity")
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
 
     transparentStatusBar(this);
+    this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
     super.onCreate(savedInstanceState);
 

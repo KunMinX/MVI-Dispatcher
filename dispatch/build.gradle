@@ -4,7 +4,7 @@ plugins {
 
 ext {
     PUBLISH_GROUP_ID = 'com.kunminx.arch'
-    PUBLISH_ARTIFACT_ID = 'dispatch'
+    PUBLISH_ARTIFACT_ID = 'truth-dispatcher'
     PUBLISH_VERSION = appVersionName
     VERSION_CODE = appVersionCode
 
