@@ -34,7 +34,7 @@
             android:paddingEnd="4dp"
             android:textColor="@color/gray"
             android:textSize="24sp"
-            tools:text="@string/edit" />
+            android:text="@string/edit" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_time"

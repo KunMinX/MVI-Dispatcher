@@ -62,6 +62,7 @@ public class ListFragment extends BaseFragment {
         case NoteListEvent.EVENT_GET_NOTE_LIST:
           mStates.list = noteListEvent.result.notes;
           mAdapter.setData(mStates.list);
+          mBinding.ivEmpty.setVisibility(mStates.list.size() == 0 ? View.VISIBLE : View.GONE);
           break;
         case NoteListEvent.EVENT_MARK_ITEM:
           break;
