@@ -12,6 +12,7 @@ import com.kunminx.architecture.ui.page.BaseFragment;
 import com.kunminx.purenote.R;
 import com.kunminx.purenote.data.bean.Note;
 import com.kunminx.purenote.databinding.FragmentListBinding;
+import com.kunminx.purenote.domain.event.Messages;
 import com.kunminx.purenote.domain.event.NoteListEvent;
 import com.kunminx.purenote.domain.message.PageMessenger;
 import com.kunminx.purenote.domain.request.NoteRequester;
@@ -43,10 +44,19 @@ public class ListFragment extends BaseFragment {
 
   @Override
   protected void onOutPut() {
+    mMessenger.outPut(getViewLifecycleOwner(), messages -> {
+      switch (messages.eventId) {
+        case Messages.EVENT_REFRESH_NOTE_LIST:
+          mNoteRequester.input(new NoteListEvent(NoteListEvent.EVENT_GET_NOTE_LIST));
+          break;
+      }
+    });
+
     mNoteRequester.outPut(getViewLifecycleOwner(), noteListEvent -> {
       switch (noteListEvent.eventId) {
         case NoteListEvent.EVENT_GET_NOTE_LIST:
-//          mStates.list.set(noteListEvent.result.notes);
+          mStates.list = noteListEvent.result.notes;
+          mAdapter.setData(mStates.list);
           break;
         case NoteListEvent.EVENT_MARK_ITEM:
           break;
@@ -66,12 +76,12 @@ public class ListFragment extends BaseFragment {
       } else if (viewId == R.id.btn_topping) {
         item.toggleType(Note.TYPE_TOPPING);
       } else if (viewId == R.id.tv_title) {
-
+        EditorFragment.start(nav(), item);
       }
     });
 
     mBinding.fab.setOnClickListener(v -> {
-
+      EditorFragment.start(nav(), new Note());
     });
 
     mNoteRequester.input(new NoteListEvent(NoteListEvent.EVENT_GET_NOTE_LIST));

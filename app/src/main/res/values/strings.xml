@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">purenote</string>
+    <string name="title">标题</string>
+    <string name="content">内容</string>
+    <string name="edit">编辑</string>
+    <string name="note">笔记</string>
 
 </resources>

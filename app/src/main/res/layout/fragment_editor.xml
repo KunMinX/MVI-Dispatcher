@@ -1,7 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar"
+        android:background="@color/black"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back"
+        app:title="@string/edit"
+        app:titleTextColor="@color/white" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_title"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/transparent"
+        android:gravity="center_vertical"
+        android:hint="@string/title"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textSize="24sp" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent"
+        android:gravity="top"
+        android:hint="@string/content"
+        android:padding="12dp"
+        android:textSize="16sp" />
 
 </LinearLayout>
