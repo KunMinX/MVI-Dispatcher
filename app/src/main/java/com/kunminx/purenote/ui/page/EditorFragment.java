@@ -78,7 +78,10 @@ public class EditorFragment extends BaseFragment {
     mStates.tempNote.title = Objects.requireNonNull(mBinding.etTitle.getText()).toString();
     mStates.tempNote.content = Objects.requireNonNull(mBinding.etContent.getText()).toString();
 
-    if (mStates.originNote.equals(mStates.tempNote)) return;
+    if (mStates.originNote.equals(mStates.tempNote)) {
+      nav().navigateUp();
+      return;
+    }
     long time = System.currentTimeMillis();
     if (TextUtils.isEmpty(mStates.originNote.id)) {
       mStates.tempNote.createTime = time;

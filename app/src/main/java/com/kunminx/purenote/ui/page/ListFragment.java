@@ -37,7 +37,7 @@ public class ListFragment extends BaseFragment {
     mStates = getFragmentScopeViewModel(ListViewModel.class);
     mNoteRequester = getFragmentScopeViewModel(NoteRequester.class);
     mMessenger = getApplicationScopeViewModel(PageMessenger.class);
-    mAdapter = new NoteAdapter();
+
     mBinding = FragmentListBinding.inflate(inflater, container, false);
     return mBinding.getRoot();
   }
@@ -70,6 +70,8 @@ public class ListFragment extends BaseFragment {
 
   @Override
   protected void onIntPut() {
+    mBinding.rv.setAdapter(mAdapter = new NoteAdapter());
+
     mAdapter.setListener((viewId, position, item) -> {
       if (viewId == R.id.btn_mark) {
         item.toggleType(Note.TYPE_MARKED);
