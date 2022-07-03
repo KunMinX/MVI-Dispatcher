@@ -52,4 +52,12 @@ public class TruthDispatcher<E extends Event> extends ViewModel {
       mResults.add(result);
     }
   }
+
+  @Override
+  protected void onCleared() {
+    super.onCleared();
+    mObservers.clear();
+    mResults.clear();
+    mOwner = null;
+  }
 }
