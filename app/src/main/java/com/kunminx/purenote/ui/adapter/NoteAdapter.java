@@ -26,12 +26,19 @@ public class NoteAdapter extends BaseAdapter<Note, AdapterNoteListBinding> {
       if (listener != null) listener.onItemClick(v.getId(), position, note);
     });
     holder.getBinding().btnMark.setOnClickListener(v -> {
+      note.toggleType(Note.TYPE_MARKED);
+      notifyItemChanged(position);
+      notifyItemRangeChanged(position, 1);
       if (listener != null) listener.onItemClick(v.getId(), position, note);
     });
     holder.getBinding().btnTopping.setOnClickListener(v -> {
+      note.toggleType(Note.TYPE_TOPPING);
       if (listener != null) listener.onItemClick(v.getId(), position, note);
     });
     holder.getBinding().btnDelete.setOnClickListener(v -> {
+      notifyItemRemoved(position);
+      notifyItemRangeRemoved(position, 1);
+      getData().remove(position);
       if (listener != null) listener.onItemClick(v.getId(), position, note);
     });
   }

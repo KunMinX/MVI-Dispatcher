@@ -54,13 +54,12 @@ public class ListFragment extends BaseFragment {
 
     mNoteRequester.outPut(getViewLifecycleOwner(), noteListEvent -> {
       switch (noteListEvent.eventId) {
+        case NoteListEvent.EVENT_TOPPING_ITEM:
         case NoteListEvent.EVENT_GET_NOTE_LIST:
           mStates.list = noteListEvent.result.notes;
           mAdapter.setData(mStates.list);
           break;
         case NoteListEvent.EVENT_MARK_ITEM:
-          break;
-        case NoteListEvent.EVENT_TOPPING_ITEM:
           break;
         case NoteListEvent.EVENT_REMOVE_ITEM:
           break;
@@ -74,9 +73,17 @@ public class ListFragment extends BaseFragment {
 
     mAdapter.setListener((viewId, position, item) -> {
       if (viewId == R.id.btn_mark) {
-        item.toggleType(Note.TYPE_MARKED);
+        NoteListEvent event = new NoteListEvent(NoteListEvent.EVENT_MARK_ITEM);
+        event.param.note = item;
+        mNoteRequester.input(event);
       } else if (viewId == R.id.btn_topping) {
-        item.toggleType(Note.TYPE_TOPPING);
+        NoteListEvent event = new NoteListEvent(NoteListEvent.EVENT_TOPPING_ITEM);
+        event.param.note = item;
+        mNoteRequester.input(event);
+      } else if (viewId == R.id.btn_delete) {
+        NoteListEvent event = new NoteListEvent(NoteListEvent.EVENT_REMOVE_ITEM);
+        event.param.note = item;
+        mNoteRequester.input(event);
       } else if (viewId == R.id.tv_title) {
         EditorFragment.start(nav(), item);
       }
