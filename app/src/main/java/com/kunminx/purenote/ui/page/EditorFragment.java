@@ -67,8 +67,8 @@ public class EditorFragment extends BaseFragment {
   }
 
   @Override
-  protected void onOutPut() {
-    mNoteRequester.outPut(getViewLifecycleOwner(), noteListEvent -> {
+  protected void onOutput() {
+    mNoteRequester.output(getViewLifecycleOwner(), noteListEvent -> {
       switch (noteListEvent.eventId) {
         case NoteListEvent.EVENT_ADD_ITEM:
           mMessenger.input(new Messages(Messages.EVENT_REFRESH_NOTE_LIST));
@@ -80,7 +80,7 @@ public class EditorFragment extends BaseFragment {
   }
 
   @Override
-  protected void onIntPut() {
+  protected void onInput() {
     mBinding.toolbar.setNavigationOnClickListener(v -> save());
   }
 

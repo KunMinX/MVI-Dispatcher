@@ -47,8 +47,8 @@ public class ListFragment extends BaseFragment {
   }
 
   @Override
-  protected void onOutPut() {
-    mMessenger.outPut(getViewLifecycleOwner(), messages -> {
+  protected void onOutput() {
+    mMessenger.output(getViewLifecycleOwner(), messages -> {
       switch (messages.eventId) {
         case Messages.EVENT_REFRESH_NOTE_LIST:
           mNoteRequester.input(new NoteListEvent(NoteListEvent.EVENT_GET_NOTE_LIST));
@@ -56,7 +56,7 @@ public class ListFragment extends BaseFragment {
       }
     });
 
-    mNoteRequester.outPut(getViewLifecycleOwner(), noteListEvent -> {
+    mNoteRequester.output(getViewLifecycleOwner(), noteListEvent -> {
       switch (noteListEvent.eventId) {
         case NoteListEvent.EVENT_TOPPING_ITEM:
         case NoteListEvent.EVENT_GET_NOTE_LIST:
@@ -72,7 +72,7 @@ public class ListFragment extends BaseFragment {
   }
 
   @Override
-  protected void onIntPut() {
+  protected void onInput() {
     mAdapter.setListener((viewId, position, item) -> {
       if (viewId == R.id.btn_mark) {
         mNoteRequester.input(new NoteListEvent(NoteListEvent.EVENT_MARK_ITEM).setNote(item));

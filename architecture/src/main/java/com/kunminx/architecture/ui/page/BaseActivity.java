@@ -55,10 +55,10 @@ public abstract class BaseActivity extends AppCompatActivity {
   protected void onInitData() {
   }
 
-  protected void onOutPut() {
+  protected void onOutput() {
   }
 
-  protected void onIntPut() {
+  protected void onInput() {
   }
 
   @Override
@@ -71,8 +71,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     onInitViewModel();
     onInitView();
     onInitData();
-    onOutPut();
-    onIntPut();
+    onOutput();
+    onInput();
   }
 
 

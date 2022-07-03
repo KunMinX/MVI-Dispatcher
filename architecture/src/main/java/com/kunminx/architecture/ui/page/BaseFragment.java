@@ -56,10 +56,10 @@ public abstract class BaseFragment extends Fragment {
   protected void onInitData() {
   }
 
-  protected void onOutPut() {
+  protected void onOutput() {
   }
 
-  protected void onIntPut() {
+  protected void onInput() {
   }
 
   @Override
@@ -85,8 +85,8 @@ public abstract class BaseFragment extends Fragment {
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     onInitData();
-    onOutPut();
-    onIntPut();
+    onOutput();
+    onInput();
   }
 
   //TODO tip 2: Jetpack 通过 "工厂模式" 实现 ViewModel 作用域可控，

@@ -20,7 +20,7 @@ public class TruthDispatcher<E extends Event> extends ViewModel {
   private final List<Observer<E>> mObservers = new ArrayList<>();
   private final List<MutableResult<E>> mResults = new ArrayList<>();
 
-  public void outPut(LifecycleOwner owner, Observer<E> observer) {
+  public void output(LifecycleOwner owner, Observer<E> observer) {
     this.mOwner = owner;
     this.mObservers.add(observer);
   }
