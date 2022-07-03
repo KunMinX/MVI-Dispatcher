@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="81dp"
+        android:layout_height="89dp"
         android:background="@color/color_white"
         android:elevation="8dp"
         android:orientation="horizontal"
@@ -57,7 +58,9 @@
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
         android:background="@color/light_gray"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="9"
+        tools:listitem="@layout/adapter_note_list" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
