@@ -38,7 +38,7 @@ public class EditorFragment extends BaseFragment {
   public static void start(NavController controller, Note note) {
     Bundle bundle = new Bundle();
     bundle.putParcelable(NOTE, note);
-    controller.navigate(R.id.action_ListFragment_to_EditorFragment);
+    controller.navigate(R.id.action_ListFragment_to_EditorFragment, bundle);
   }
 
   @Override
@@ -59,6 +59,10 @@ public class EditorFragment extends BaseFragment {
     if (getArguments() != null) {
       mStates.originNote = getArguments().getParcelable(NOTE);
       mStates.tempNote = mStates.originNote.clone();
+      if (!TextUtils.isEmpty(mStates.originNote.id)) {
+        mBinding.etTitle.setText(mStates.tempNote.title);
+        mBinding.etContent.setText(mStates.tempNote.content);
+      }
     }
   }
 
