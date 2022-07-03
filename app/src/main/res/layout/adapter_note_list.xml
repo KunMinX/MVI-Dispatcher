@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="note"
+            type="com.kunminx.purenote.data.bean.Note" />
+
+    </data>
+
+    <com.kunminx.purenote.ui.view.SwipeMenuLayout
+        android:id="@+id/swipe_container"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_margin="4dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:ios="true"
+        app:leftSwipe="true"
+        app:swipeEnable="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@{note.title}"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="TEST 测试 123" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_mark"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/transparent"
+                android:src="@drawable/ic_baseline_star_border"
+                android:tint="#aaaaaa"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_topped"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="4dp"
+                android:background="@color/transparent"
+                android:src="@drawable/ic_baseline_push_pin"
+                android:tint="#aaaaaa"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/black" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_topping"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/transparent"
+            android:src="@drawable/ic_baseline_push_pin"
+            android:tint="#aaaaaa" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_delete"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/transparent"
+            android:src="@drawable/ic_baseline_delete"
+            android:tint="#aaaaaa" />
+
+    </com.kunminx.purenote.ui.view.SwipeMenuLayout>
+
+</layout>

@@ -44,6 +44,7 @@ dependencies {
     implementation 'com.kunminx.arch:unpeek-livedata:7.6.0'
     implementation 'com.kunminx.arch:smooth-navigation:4.0.0-beta1'
     implementation 'com.kunminx.arch:strict-databinding:5.1.0-beta1'
+    implementation "com.kunminx.arch:binding-recyclerview:3.9.0-beta1"
 
     implementation "androidx.room:room-runtime:2.4.2"
     annotationProcessor "androidx.room:room-compiler:2.4.2"
