@@ -53,11 +53,14 @@ public abstract class BaseFragment extends Fragment {
 
   protected abstract View onInitView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container);
 
-  protected abstract void onInitData();
+  protected void onInitData() {
+  }
 
-  protected abstract void onOutPut();
+  protected void onOutPut() {
+  }
 
-  protected abstract void onIntPut();
+  protected void onIntPut() {
+  }
 
   @Override
   public void onAttach(@NonNull Context context) {

@@ -22,11 +22,6 @@ public class MainActivity extends BaseActivity {
   }
 
   @Override
-  protected void onInitData() {
-
-  }
-
-  @Override
   protected void onOutPut() {
     mMessenger.outPut(this, messages -> {
       switch (messages.eventId) {
@@ -35,11 +30,6 @@ public class MainActivity extends BaseActivity {
           break;
       }
     });
-  }
-
-  @Override
-  protected void onIntPut() {
-
   }
 
   @Override

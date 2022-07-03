@@ -47,11 +47,6 @@ public class ListFragment extends BaseFragment {
   }
 
   @Override
-  protected void onInitData() {
-
-  }
-
-  @Override
   protected void onOutPut() {
     mMessenger.outPut(getViewLifecycleOwner(), messages -> {
       switch (messages.eventId) {

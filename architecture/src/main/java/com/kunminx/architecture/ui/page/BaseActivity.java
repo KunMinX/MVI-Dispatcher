@@ -52,11 +52,14 @@ public abstract class BaseActivity extends AppCompatActivity {
 
   protected abstract void onInitView();
 
-  protected abstract void onInitData();
+  protected void onInitData() {
+  }
 
-  protected abstract void onOutPut();
+  protected void onOutPut() {
+  }
 
-  protected abstract void onIntPut();
+  protected void onIntPut() {
+  }
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
