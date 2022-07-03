@@ -88,6 +88,12 @@ public class ListFragment extends BaseFragment {
     mNoteRequester.input(new NoteListEvent(NoteListEvent.EVENT_GET_NOTE_LIST));
   }
 
+  @Override
+  protected boolean onBackPressed() {
+    mMessenger.input(new Messages(Messages.EVENT_FINISH_ACTIVITY));
+    return super.onBackPressed();
+  }
+
   public static class ListViewModel extends ViewModel {
     public List<Note> list = new ArrayList<>();
   }

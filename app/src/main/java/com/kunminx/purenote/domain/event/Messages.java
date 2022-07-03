@@ -7,6 +7,7 @@ import com.kunminx.architecture.domain.event.Event;
  */
 public class Messages extends Event<Messages.Param, Messages.Result> {
   public final static int EVENT_REFRESH_NOTE_LIST = 1;
+  public final static int EVENT_FINISH_ACTIVITY = 2;
 
   public Messages(int eventId) {
     this.eventId = eventId;

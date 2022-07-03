@@ -54,7 +54,6 @@ public abstract class BaseActivity extends AppCompatActivity {
   protected void onCreate(@Nullable Bundle savedInstanceState) {
 
     BarUtils.setStatusBarColor(this, Color.TRANSPARENT);
-    BarUtils.setStatusBarLightMode(this, true);
 
     super.onCreate(savedInstanceState);
 

@@ -47,7 +47,7 @@ public abstract class BaseFragment extends Fragment {
   private ViewModelProvider mFragmentProvider;
   private ViewModelProvider mActivityProvider;
   private ViewModelProvider mApplicationProvider;
-  private AppCompatActivity mActivity;
+  protected AppCompatActivity mActivity;
 
   protected abstract View onInit(@NonNull LayoutInflater inflater, @Nullable ViewGroup container);
 
@@ -133,6 +133,6 @@ public abstract class BaseFragment extends Fragment {
   }
 
   protected boolean onBackPressed() {
-    return nav().navigateUp();
+    return true;
   }
 }

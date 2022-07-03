@@ -36,9 +36,9 @@ public class NoteAdapter extends BaseAdapter<Note, AdapterNoteListBinding> {
       if (listener != null) listener.onItemClick(v.getId(), position, note);
     });
     holder.getBinding().btnDelete.setOnClickListener(v -> {
+      getData().remove(position);
       notifyItemRemoved(position);
       notifyItemRangeRemoved(position, 1);
-      getData().remove(position);
       if (listener != null) listener.onItemClick(v.getId(), position, note);
     });
   }
