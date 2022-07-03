@@ -26,7 +26,7 @@ public class Note implements Parcelable, Cloneable {
   @NonNull
   public String id = "";
 
-  public String title;
+  public String title = "";
 
   public String content = "";
 
