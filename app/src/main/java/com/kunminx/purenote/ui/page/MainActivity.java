@@ -11,7 +11,7 @@ public class MainActivity extends BaseActivity {
 
   @Override
   protected void onInit() {
-    mMessenger = getApplicationScopeViewModel(PageMessenger.class);
+    mMessenger = getActivityScopeViewModel(PageMessenger.class);
     setContentView(R.layout.activity_main);
   }
 

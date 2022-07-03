@@ -36,7 +36,7 @@ public class ListFragment extends BaseFragment {
   protected View onInit(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
     mStates = getFragmentScopeViewModel(ListViewModel.class);
     mNoteRequester = getFragmentScopeViewModel(NoteRequester.class);
-    mMessenger = getApplicationScopeViewModel(PageMessenger.class);
+    mMessenger = getActivityScopeViewModel(PageMessenger.class);
 
     mBinding = FragmentListBinding.inflate(inflater, container, false);
     return mBinding.getRoot();

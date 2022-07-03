@@ -17,14 +17,14 @@ public class NoteRequester extends TruthDispatcher<NoteListEvent> {
       case NoteListEvent.EVENT_GET_NOTE_LIST:
         DataRepository.getInstance().getNotes(dataResult -> {
           event.result.notes = dataResult.getResult();
-          getResult(event.eventId).setValue(event);
+          sendResult(event);
         });
         break;
       case NoteListEvent.EVENT_UPDATE_ITEM:
       case NoteListEvent.EVENT_MARK_ITEM:
         DataRepository.getInstance().updateNote(event.param.note, dataResult -> {
           event.result.isSuccess = dataResult.getResult();
-          getResult(event.eventId).setValue(event);
+          sendResult(event);
         });
         break;
       case NoteListEvent.EVENT_TOPPING_ITEM:
@@ -33,7 +33,7 @@ public class NoteRequester extends TruthDispatcher<NoteListEvent> {
           if (event.result.isSuccess) {
             DataRepository.getInstance().getNotes(dataResult1 -> {
               event.result.notes = dataResult1.getResult();
-              getResult(event.eventId).setValue(event);
+              sendResult(event);
             });
           }
         });
@@ -41,13 +41,13 @@ public class NoteRequester extends TruthDispatcher<NoteListEvent> {
       case NoteListEvent.EVENT_ADD_ITEM:
         DataRepository.getInstance().insertNote(event.param.note, dataResult -> {
           event.result.isSuccess = dataResult.getResult();
-          getResult(event.eventId).setValue(event);
+          sendResult(event);
         });
         break;
       case NoteListEvent.EVENT_REMOVE_ITEM:
         DataRepository.getInstance().deleteNote(event.param.note, dataResult -> {
           event.result.isSuccess = dataResult.getResult();
-          getResult(event.eventId).setValue(event);
+          sendResult(event);
         });
         break;
     }

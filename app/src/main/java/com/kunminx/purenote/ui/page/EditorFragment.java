@@ -45,7 +45,7 @@ public class EditorFragment extends BaseFragment {
   protected View onInit(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
     mStates = getFragmentScopeViewModel(EditorViewModel.class);
     mNoteRequester = getFragmentScopeViewModel(NoteRequester.class);
-    mMessenger = getApplicationScopeViewModel(PageMessenger.class);
+    mMessenger = getActivityScopeViewModel(PageMessenger.class);
 
     if (getArguments() != null) {
       mStates.originNote = getArguments().getParcelable(NOTE);
