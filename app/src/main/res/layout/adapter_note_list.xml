@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@{note.title}"
-            android:textColor="@color/black"
+            android:textColor="@color/color_black"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -52,7 +52,7 @@
             android:tint="#aaaaaa"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/black" />
+            app:tint="@color/color_black" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -6,13 +6,13 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/toolbar"
-        android:background="@color/black"
+        android:background="@color/color_black"
         app:navigationIcon="@drawable/ic_baseline_arrow_back"
         app:title="@string/edit"
-        app:titleTextColor="@color/white" />
+        app:titleTextColor="@color/color_white" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/et_title"
