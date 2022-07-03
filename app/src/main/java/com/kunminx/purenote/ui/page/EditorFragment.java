@@ -62,6 +62,8 @@ public class EditorFragment extends BaseFragment {
       if (!TextUtils.isEmpty(mStates.originNote.id)) {
         mBinding.etTitle.setText(mStates.tempNote.title);
         mBinding.etContent.setText(mStates.tempNote.content);
+        mBinding.tvTitle.setText(getString(R.string.last_time_modify));
+        mBinding.tvTime.setText(mStates.tempNote.getModifyDate());
       }
     }
   }
@@ -81,7 +83,7 @@ public class EditorFragment extends BaseFragment {
 
   @Override
   protected void onInput() {
-    mBinding.toolbar.setNavigationOnClickListener(v -> save());
+    mBinding.btnBack.setOnClickListener(v -> save());
   }
 
   private void save() {

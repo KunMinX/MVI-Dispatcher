@@ -1,19 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="81dp"
-        android:background="@color/color_black"
-        android:paddingTop="25dp"
-        app:navigationIcon="@drawable/ic_baseline_arrow_back"
-        app:title="@string/edit"
-        app:titleTextColor="@color/color_white" />
+        android:layout_height="89dp"
+        android:background="@color/color_white"
+        android:elevation="8dp"
+        android:orientation="horizontal"
+        android:paddingTop="25dp">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="36dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="12dp"
+            android:background="@color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_baseline_arrow_back"
+            android:tint="@color/gray" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_weight="0"
+            android:gravity="center_vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="4dp"
+            android:textColor="@color/gray"
+            android:textSize="24sp"
+            tools:text="@string/edit" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_time"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_weight="0"
+            android:gravity="center_vertical"
+            android:paddingStart="4dp"
+            android:paddingEnd="12dp"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            tools:text="@string/edit" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/et_title"

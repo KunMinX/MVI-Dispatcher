@@ -7,5 +7,6 @@
     <string name="new_note">新建笔记</string>
     <string name="saved">已保存</string>
     <string name="top">置顶</string>
+    <string name="last_time_modify">最后编辑于</string>
 
 </resources>
