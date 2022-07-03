@@ -20,6 +20,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -31,8 +35,6 @@ dependencies {
 
     implementation "androidx.appcompat:appcompat:1.4.2"
     implementation "androidx.navigation:navigation-runtime:2.5.0"
-
-    implementation 'com.kunminx.arch:unpeek-livedata:7.6.0'
     implementation 'com.kunminx.arch:smooth-navigation:4.0.0-beta1'
-    implementation 'com.kunminx.arch:strict-databinding:5.1.0-beta1'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
 }

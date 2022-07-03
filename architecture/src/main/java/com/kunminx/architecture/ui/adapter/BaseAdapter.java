@@ -1,4 +1,4 @@
-package com.kunminx.purenote.ui.adapter;
+package com.kunminx.architecture.ui.adapter;
 
 import android.view.ViewGroup;
 
