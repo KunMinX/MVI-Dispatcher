@@ -30,7 +30,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar", "*.aar"])
 
     implementation project(":architecture")
-    implementation project(":dispatch")
+    implementation project(':mvi-viewmodel')
 
     testImplementation "junit:junit:4.13.2"
     androidTestImplementation "androidx.test.ext:junit:1.1.3"

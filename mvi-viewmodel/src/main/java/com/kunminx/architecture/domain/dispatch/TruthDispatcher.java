@@ -1,5 +1,7 @@
 package com.kunminx.architecture.domain.dispatch;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
@@ -20,7 +22,15 @@ public class TruthDispatcher<E extends Event> extends ViewModel {
   private final List<Observer<E>> mObservers = new ArrayList<>();
   private final List<MutableResult<E>> mResults = new ArrayList<>();
 
-  public void output(LifecycleOwner owner, Observer<E> observer) {
+  public void output(AppCompatActivity activity, Observer<E> observer) {
+    outputTo(activity, observer);
+  }
+
+  public void output(Fragment fragment, Observer<E> observer) {
+    outputTo(fragment.getViewLifecycleOwner(), observer);
+  }
+
+  private void outputTo(LifecycleOwner owner, Observer<E> observer) {
     this.mOwner = owner;
     this.mObservers.add(observer);
   }
