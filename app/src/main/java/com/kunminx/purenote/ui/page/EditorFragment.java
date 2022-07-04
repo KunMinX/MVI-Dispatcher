@@ -58,6 +58,8 @@ public class EditorFragment extends BaseFragment {
   protected void onInitData() {
     if (getArguments() != null) {
       mStates.tempNote = getArguments().getParcelable(NOTE);
+      mStates.title = mStates.tempNote.title;
+      mStates.content = mStates.tempNote.content;
       if (!TextUtils.isEmpty(mStates.tempNote.id)) {
         mBinding.etTitle.setText(mStates.tempNote.title);
         mBinding.etContent.setText(mStates.tempNote.content);
@@ -86,8 +88,8 @@ public class EditorFragment extends BaseFragment {
   private void save() {
     mStates.tempNote.title = Objects.requireNonNull(mBinding.etTitle.getText()).toString();
     mStates.tempNote.content = Objects.requireNonNull(mBinding.etContent.getText()).toString();
-
-    if (TextUtils.isEmpty(mStates.tempNote.title) && TextUtils.isEmpty(mStates.tempNote.content)) {
+    if (TextUtils.isEmpty(mStates.tempNote.title) && TextUtils.isEmpty(mStates.tempNote.content)
+            || mStates.tempNote.title.equals(mStates.title) && mStates.tempNote.content.equals(mStates.content)) {
       nav().navigateUp();
       return;
     }
@@ -109,5 +111,7 @@ public class EditorFragment extends BaseFragment {
 
   public static class EditorViewModel extends ViewModel {
     public Note tempNote = new Note();
+    public String title = "";
+    public String content = "";
   }
 }
