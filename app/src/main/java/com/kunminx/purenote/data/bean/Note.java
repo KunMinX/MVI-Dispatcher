@@ -11,13 +11,11 @@ import androidx.room.PrimaryKey;
 
 import com.kunminx.architecture.utils.TimeUtils;
 
-import java.util.Objects;
-
 /**
- * Created by Myatejx on 2015/7/31.
+ * Created by KunMinX on 2015/7/31.
  */
 @Entity
-public class Note implements Parcelable, Cloneable {
+public class Note implements Parcelable {
 
   public final static int TYPE_TOPPING = 0x0001;
   public final static int TYPE_MARKED = 0x0002;
@@ -104,28 +102,5 @@ public class Note implements Parcelable, Cloneable {
     dest.writeLong(createTime);
     dest.writeLong(modifyTime);
     dest.writeInt(type);
-  }
-
-  @NonNull
-  @Override
-  public Note clone() {
-    try {
-      return (Note) super.clone();
-    } catch (CloneNotSupportedException e) {
-      throw new AssertionError();
-    }
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    Note note = (Note) o;
-    return type == note.type && id.equals(note.id) && Objects.equals(title, note.title) && Objects.equals(content, note.content) && Objects.equals(createTime, note.createTime) && Objects.equals(modifyTime, note.modifyTime);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, title, content, createTime, modifyTime, type);
   }
 }

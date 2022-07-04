@@ -57,9 +57,8 @@ public class EditorFragment extends BaseFragment {
   @Override
   protected void onInitData() {
     if (getArguments() != null) {
-      mStates.originNote = getArguments().getParcelable(NOTE);
-      mStates.tempNote = mStates.originNote.clone();
-      if (!TextUtils.isEmpty(mStates.originNote.id)) {
+      mStates.tempNote = getArguments().getParcelable(NOTE);
+      if (!TextUtils.isEmpty(mStates.tempNote.id)) {
         mBinding.etTitle.setText(mStates.tempNote.title);
         mBinding.etContent.setText(mStates.tempNote.content);
         mBinding.tvTitle.setText(getString(R.string.last_time_modify));
@@ -88,12 +87,12 @@ public class EditorFragment extends BaseFragment {
     mStates.tempNote.title = Objects.requireNonNull(mBinding.etTitle.getText()).toString();
     mStates.tempNote.content = Objects.requireNonNull(mBinding.etContent.getText()).toString();
 
-    if (mStates.originNote.equals(mStates.tempNote)) {
+    if (TextUtils.isEmpty(mStates.tempNote.title) && TextUtils.isEmpty(mStates.tempNote.content)) {
       nav().navigateUp();
       return;
     }
     long time = System.currentTimeMillis();
-    if (TextUtils.isEmpty(mStates.originNote.id)) {
+    if (TextUtils.isEmpty(mStates.tempNote.id)) {
       mStates.tempNote.createTime = time;
       mStates.tempNote.id = UUID.randomUUID().toString();
     }
@@ -109,7 +108,6 @@ public class EditorFragment extends BaseFragment {
   }
 
   public static class EditorViewModel extends ViewModel {
-    public Note originNote = new Note();
     public Note tempNote = new Note();
   }
 }
