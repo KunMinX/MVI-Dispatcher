@@ -10,7 +10,9 @@ import com.kunminx.architecture.domain.event.Event;
 import com.kunminx.architecture.domain.message.MutableResult;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -18,24 +20,27 @@ import java.util.Objects;
  */
 public class MviDispatcher<E extends Event> extends ViewModel {
 
-  private LifecycleOwner mOwner;
-  private final List<Observer<E>> mObservers = new ArrayList<>();
+  private final HashMap<String, LifecycleOwner> mOwner = new HashMap<>();
+  private final HashMap<String, Observer<E>> mObservers = new HashMap<>();
   private final List<MutableResult<E>> mResults = new ArrayList<>();
 
   public final void output(AppCompatActivity activity, Observer<E> observer) {
-    outputTo(activity, observer);
+    outputTo(activity.getClass().getName(), activity, observer);
   }
 
   public final void output(Fragment fragment, Observer<E> observer) {
-    outputTo(fragment.getViewLifecycleOwner(), observer);
+    outputTo(fragment.getClass().getName(), fragment.getViewLifecycleOwner(), observer);
   }
 
-  private void outputTo(LifecycleOwner owner, Observer<E> observer) {
-    this.mOwner = owner;
-    this.mObservers.add(observer);
+  private void outputTo(String fullName, LifecycleOwner owner, Observer<E> observer) {
+    this.mOwner.put(fullName, owner);
+    this.mObservers.put(fullName, observer);
+    for (MutableResult<E> result : mResults) {
+      result.observe(owner, observer);
+    }
   }
 
-  protected void sendResult(E event) {
+  protected final void sendResult(E event) {
     MutableResult<E> result = null;
     for (MutableResult<E> r : mResults) {
       if (Objects.requireNonNull(r.getValue()).eventId == event.eventId) {
@@ -56,8 +61,12 @@ public class MviDispatcher<E extends Event> extends ViewModel {
     }
     if (!eventExist) {
       MutableResult<E> result = new MutableResult<>(event);
-      for (Observer<E> observer : mObservers) {
-        result.observe(mOwner, observer);
+      for (Map.Entry<String, Observer<E>> entry : mObservers.entrySet()) {
+        String key = entry.getKey();
+        Observer<E> observer = entry.getValue();
+        LifecycleOwner owner = mOwner.get(key);
+        assert owner != null;
+        result.observe(owner, observer);
       }
       mResults.add(result);
     }
@@ -68,6 +77,6 @@ public class MviDispatcher<E extends Event> extends ViewModel {
     super.onCleared();
     mObservers.clear();
     mResults.clear();
-    mOwner = null;
+    mOwner.clear();
   }
 }
