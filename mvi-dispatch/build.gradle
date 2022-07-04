@@ -4,7 +4,7 @@ plugins {
 
 ext {
     PUBLISH_GROUP_ID = 'com.kunminx.arch'
-    PUBLISH_ARTIFACT_ID = 'mvi-viewmodel'
+    PUBLISH_ARTIFACT_ID = 'mvi-dispatch'
     PUBLISH_VERSION = appVersionName
     VERSION_CODE = appVersionCode
 

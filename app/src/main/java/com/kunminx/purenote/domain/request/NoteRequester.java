@@ -1,13 +1,13 @@
 package com.kunminx.purenote.domain.request;
 
-import com.kunminx.architecture.domain.dispatch.TruthDispatcher;
+import com.kunminx.architecture.domain.dispatch.MviDispatcher;
 import com.kunminx.purenote.data.repo.DataRepository;
 import com.kunminx.purenote.domain.event.NoteListEvent;
 
 /**
  * Create by KunMinX at 2022/6/14
  */
-public class NoteRequester extends TruthDispatcher<NoteListEvent> {
+public class NoteRequester extends MviDispatcher<NoteListEvent> {
 
   @Override
   public void input(NoteListEvent event) {

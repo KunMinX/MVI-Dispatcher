@@ -16,7 +16,7 @@ import java.util.Objects;
 /**
  * Create by KunMinX at 2022/7/3
  */
-public class TruthDispatcher<E extends Event> extends ViewModel {
+public class MviDispatcher<E extends Event> extends ViewModel {
 
   private LifecycleOwner mOwner;
   private final List<Observer<E>> mObservers = new ArrayList<>();
