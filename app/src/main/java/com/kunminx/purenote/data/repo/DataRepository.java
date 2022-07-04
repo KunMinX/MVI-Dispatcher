@@ -23,7 +23,8 @@ public class DataRepository {
   }
 
   private DataRepository() {
-    mDataBase = Room.databaseBuilder(Utils.getApp().getApplicationContext(), NoteDataBase.class, DATABASE_NAME).build();
+    mDataBase = Room.databaseBuilder(Utils.getApp().getApplicationContext(),
+            NoteDataBase.class, DATABASE_NAME).build();
   }
 
   public void getNotes(DataResult.Result<List<Note>> result) {
