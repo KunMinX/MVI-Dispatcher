@@ -22,11 +22,11 @@ public class MviDispatcher<E extends Event> extends ViewModel {
   private final List<Observer<E>> mObservers = new ArrayList<>();
   private final List<MutableResult<E>> mResults = new ArrayList<>();
 
-  public void output(AppCompatActivity activity, Observer<E> observer) {
+  public final void output(AppCompatActivity activity, Observer<E> observer) {
     outputTo(activity, observer);
   }
 
-  public void output(Fragment fragment, Observer<E> observer) {
+  public final void output(Fragment fragment, Observer<E> observer) {
     outputTo(fragment.getViewLifecycleOwner(), observer);
   }
 
