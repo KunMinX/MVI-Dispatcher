@@ -1,6 +1,5 @@
 package com.kunminx.architecture.domain.dispatch;
 
-import com.kunminx.architecture.domain.dispatch.TruthDispatcher;
 import com.kunminx.architecture.domain.event.Event;
 
 /**

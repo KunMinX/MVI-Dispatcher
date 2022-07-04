@@ -69,7 +69,7 @@ public class EditorFragment extends BaseFragment {
 
   @Override
   protected void onOutput() {
-    mNoteRequester.output(getViewLifecycleOwner(), noteListEvent -> {
+    mNoteRequester.output(this, noteListEvent -> {
       if (noteListEvent.eventId == NoteListEvent.EVENT_ADD_ITEM) {
         mMessenger.input(new Messages(Messages.EVENT_REFRESH_NOTE_LIST));
         ToastUtils.showShortToast(getString(R.string.saved));
