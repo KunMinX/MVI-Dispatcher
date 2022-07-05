@@ -32,7 +32,7 @@ implementation 'com.kunminx.arch:mvi-dispatch:2.1.0-beta'
 
 &nbsp;
 
-MVI-Dispatcher 适用 Java，通过它，
+亲爱的 MVI-Dispatcher，你已是个成熟的 '唯一可信源'，该学会自己去完成以下几点：
 
 > 1.**可彻底消除 mutable 样板代码**，一行不必写
 >
@@ -42,7 +42,7 @@ MVI-Dispatcher 适用 Java，通过它，
 >
 > 4.可移除 LiveData 或 UnPeekLiveData 依赖，杜绝团队新手误用
 >
-> 5.团队新手在不熟 LiveData、UnPeekLiveData、mutable、MVI 情况下，仅根据 MVI-Dispatcher 简明易懂 **“唯一入口 + 唯一出口” I/O 设计** 亦可自动实现 “单向数据流” 开发
+> 5.团队新手在不熟 LiveData、UnPeekLiveData、mutable、MVI 情况下，仅根据 MVI-Dispatcher 简明易懂 input-output 设计亦可自动实现 “单向数据流” 开发
 
 ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vupvpzprj21o40h90wp.jpg)
 
