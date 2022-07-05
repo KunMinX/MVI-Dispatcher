@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.kunminx.architecture.domain.event.Event;
 import com.kunminx.architecture.domain.message.MutableResult;
+import com.kunminx.architecture.domain.queue.FixedLengthList;
 
 import java.util.HashMap;
 import java.util.Map;

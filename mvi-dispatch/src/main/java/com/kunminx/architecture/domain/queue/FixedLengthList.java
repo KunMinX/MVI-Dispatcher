@@ -1,4 +1,4 @@
-package com.kunminx.architecture.domain.dispatch;
+package com.kunminx.architecture.domain.queue;
 
 import java.util.LinkedList;
 
