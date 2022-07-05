@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class MviDispatcher<E extends Event> extends ViewModel {
 
-  private final static int DEFAULT_QUEUE_LENGTH = 30;
+  private final static int DEFAULT_QUEUE_LENGTH = 10;
   private final HashMap<String, LifecycleOwner> mOwner = new HashMap<>();
   private final HashMap<String, Observer<E>> mObservers = new HashMap<>();
   private final FixedLengthList<MutableResult<E>> mResults = new FixedLengthList<>();
@@ -45,7 +45,12 @@ public class MviDispatcher<E extends Event> extends ViewModel {
   }
 
   protected final void sendResult(@NonNull E event) {
-    mResults.setMaxLength(initQueueMaxLength());
+    mResults.init(initQueueMaxLength(), mutableResult -> {
+      for (Map.Entry<String, Observer<E>> entry : mObservers.entrySet()) {
+        Observer<E> observer = entry.getValue();
+        mutableResult.removeObserver(observer);
+      }
+    });
     boolean eventExist = false;
     for (MutableResult<E> result : mResults) {
       int id1 = System.identityHashCode(result.getValue());

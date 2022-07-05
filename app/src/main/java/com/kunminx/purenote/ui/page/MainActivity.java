@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity {
   protected void onInput() {
     super.onInput();
 
-    //TODO 此处展示通过 dispatcher.input 可连续发送多事件而不被覆盖
+    //TODO 此处展示通过 dispatcher.input 连续发送多事件而不被覆盖
 
     mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_1));
     mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_2));
