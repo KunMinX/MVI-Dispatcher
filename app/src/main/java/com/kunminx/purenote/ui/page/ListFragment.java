@@ -46,6 +46,10 @@ public class ListFragment extends BaseFragment {
     return mBinding.getRoot();
   }
 
+  /**
+   * TODO tip 1：
+   *  通过唯一出口 'dispatcher.output' 统一接收 '唯一可信源' 回推之消息，根据 id 分流处理 UI 逻辑。
+   */
   @Override
   protected void onOutput() {
     mMessenger.output(this, messages -> {
@@ -70,6 +74,10 @@ public class ListFragment extends BaseFragment {
     });
   }
 
+  /**
+   * TODO tip 2：
+   *  通过唯一入口 'dispatcher.input' 发消息至 "唯一可信源"，由其内部统一处理业务逻辑和结果分发。
+   */
   @Override
   protected void onInput() {
     mAdapter.setListener((viewId, position, item) -> {

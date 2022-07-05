@@ -21,6 +21,10 @@ public class MainActivity extends BaseActivity {
     setContentView(R.layout.activity_main);
   }
 
+  /**
+   * TODO tip 1：
+   *  通过唯一出口 'dispatcher.output' 统一接收 '唯一可信源' 回推之消息，根据 id 分流处理 UI 逻辑。
+   */
   @Override
   protected void onOutput() {
     mMessenger.output(this, messages -> {
