@@ -91,8 +91,14 @@ public class MviDispatcher<E extends Event> extends ViewModel {
   @Override
   protected void onCleared() {
     super.onCleared();
-    mObservers.clear();
+    for (MutableResult<E> mutableResult : mResults) {
+      for (Map.Entry<String, Observer<E>> entry : mObservers.entrySet()) {
+        Observer<E> observer = entry.getValue();
+        mutableResult.removeObserver(observer);
+      }
+    }
     mResults.clear();
+    mObservers.clear();
     mOwner.clear();
   }
 }

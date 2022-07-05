@@ -27,7 +27,7 @@
 &nbsp;
 
 ```Groovy
-implementation 'com.kunminx.arch:mvi-dispatch:3.2.0-beta'
+implementation 'com.kunminx.arch:mvi-dispatch:3.3.0-beta'
 ```
 
 &nbsp;
@@ -36,7 +36,7 @@ implementation 'com.kunminx.arch:mvi-dispatch:3.2.0-beta'
 
 > 1.**可彻底消除 mutable 样板代码**，一行不必写
 >
-> 2.**可连续发送多类型事件**，解决 MVI 场景 LiveData 事件覆盖
+> 2.**可连续发送多事件**，解决 MVI 场景 LiveData 事件覆盖
 >
 > 3.**可杜绝团队新手滥用** mutableLiveData.setValue( ) 于 Activity/Fragment
 >
