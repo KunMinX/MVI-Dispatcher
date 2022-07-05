@@ -1,5 +1,6 @@
 package com.kunminx.architecture.domain.dispatch;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
@@ -24,11 +25,11 @@ public class MviDispatcher<E extends Event> extends ViewModel {
   private final HashMap<String, Observer<E>> mObservers = new HashMap<>();
   private final List<MutableResult<E>> mResults = new ArrayList<>();
 
-  public final void output(AppCompatActivity activity, Observer<E> observer) {
+  public final void output(@NonNull AppCompatActivity activity, @NonNull Observer<E> observer) {
     outputTo(activity.getClass().getName(), activity, observer);
   }
 
-  public final void output(Fragment fragment, Observer<E> observer) {
+  public final void output(@NonNull Fragment fragment, @NonNull Observer<E> observer) {
     outputTo(fragment.getClass().getName(), fragment.getViewLifecycleOwner(), observer);
   }
 
@@ -40,7 +41,7 @@ public class MviDispatcher<E extends Event> extends ViewModel {
     }
   }
 
-  protected final void sendResult(E event) {
+  protected final void sendResult(@NonNull E event) {
     boolean eventExist = false;
     for (MutableResult<E> result : mResults) {
       if (Objects.requireNonNull(result.getValue()).eventId == event.eventId) {
@@ -71,7 +72,7 @@ public class MviDispatcher<E extends Event> extends ViewModel {
   }
 
   public void input(E event) {
-    
+
   }
 
   @Override
