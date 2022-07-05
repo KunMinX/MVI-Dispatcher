@@ -1,4 +1,4 @@
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vuq7yoq9j218t0u0wjq.jpg)
+![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vz58k6asj218r0u0jwr.jpg)
 
 &nbsp;
 
@@ -10,7 +10,7 @@
 
 只可惜，当下 Android MVI 网文或代码案例 皆基于 Kotlin 语言特性编写，对 Java 不算友好，这使 MVI 模式感兴趣 Java 开发者左右为难。
 
-好消息是，这一期我们带着精心打磨 Jetpack MVI 实践案例而来。
+好消息是，这一期我们带着精心打磨 MVI 实践案例而来。
 
 |                          收藏或置顶                          |                           顺滑转场                           |                           删除笔记                           |
 | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
@@ -22,7 +22,7 @@
 
 本人长期专注 “业务架构” 模式，所开源 [UnPeekLiveData](https://github.com/KunMinX/UnPeek-LiveData) 等组件已经过 QQ 音乐等月活过亿生产环境历练。
 
-在本案例中，我将为你展示，Jetpack MVI 是如何 **以简驭繁** 将原本 "繁杂易出错" 之消息分发流程，通过 **寥寥几行代码** 轻而易举完成。
+在本案例中，我将为你展示，MVI-Dispatcher 是如何 **以简驭繁** 将原本 "繁杂易出错" 之消息分发流程，通过 **寥寥几行代码** 轻而易举完成。
 
 &nbsp;
 
@@ -32,7 +32,7 @@ implementation 'com.kunminx.arch:mvi-dispatch:2.1.0-beta'
 
 &nbsp;
 
-该项目核心组件 MVI-Dispatcher 适用 Java，通过它，
+MVI-Dispatcher 适用 Java，通过它，
 
 > 1.**可彻底消除 mutable 样板代码**，一行不必写
 >
@@ -48,7 +48,7 @@ implementation 'com.kunminx.arch:mvi-dispatch:2.1.0-beta'
 
 &nbsp;
 
-除 **在 “以简驭繁” 代码中掌握 Jetpack MVI 最佳实践**，你还可从该项目获得内容包括：
+除 **在 “以简驭繁” 代码中掌握 “唯一可信源” 最佳实践**，你还可从该项目获得内容包括：
 
 1.整洁代码风格 & 标准命名规范
 
@@ -56,15 +56,11 @@ implementation 'com.kunminx.arch:mvi-dispatch:2.1.0-beta'
 
 3.AndroidX 和 Material Design 全面使用
 
-4.ConstraintLayout 约束布局最佳实践
+4.ConstraintLayout 约束布局使用
 
-5.十六进制复合状态管理最佳实践
+5.**十六进制复合状态管理最佳实践**
 
-6.**优秀用户体验 & 交互设计**
-
-7.The one more thing is：
-
-（答案审核中，几日便揭晓）
+6.优秀用户体验 & 交互设计
 
 &nbsp;
 
@@ -84,7 +80,7 @@ implementation 'com.kunminx.arch:mvi-dispatch:2.1.0-beta'
 
 本项目场景案例及 MVI-Dispatcher 框架，均属本人独立原创设计，本人对此享有最终解释权。
 
-任何个人或组织，未经与作者本人当面沟通，不得将本项目代码设计及本人对 Jetpack MVI 独家理解用于 "**打包贩卖、引流、出书、卖课**" 等商业用途。
+任何个人或组织，未经与作者本人当面沟通，不得将本项目代码设计及本人对 “唯一可信源” 及 MVI 独家理解用于 "**打包贩卖、引流、出书、卖课**" 等商业用途。
 
 如需引用借鉴 “本项目框架设计背景及思路” 写作发行，请注明**链接出处**。
 

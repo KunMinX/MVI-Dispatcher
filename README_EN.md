@@ -1,4 +1,4 @@
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vuq7yoq9j218t0u0wjq.jpg)
+![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vz58k6asj218r0u0jwr.jpg)
 
 &nbsp;
 
@@ -10,7 +10,7 @@ According to the actual situation, most of the company’s “ancient giant proj
 
 Unfortunately, the current Android MVI articles or code cases are all written based on Kotlin language features, which are not friendly to Java, which makes Java developers interested in MVI mode in a dilemma.
 
-The good news is that this issue comes with a well-polished Jetpack MVI practice case.
+The good news is that this issue comes with a well-polished MVI practice case.
 
 |                          Collect or topped                   |                           Smooth transition                  |                           Delete notes                           |
 | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
@@ -22,7 +22,7 @@ The good news is that this issue comes with a well-polished Jetpack MVI practice
 
 I have been focusing on the “business architecture” model for a long time, and the open source components such as [UnPeekLiveData](https://github.com/KunMinX/UnPeek-LiveData) have been experienced in production environments such as QQ Music with over 100 million monthly lives.
 
-In this case, I will show you how Jetpack MVI can simplify the otherwise “complicated and error-prone” message distribution process with just a few lines of code.
+In this case, I will show you how MVI-Dispatcher can simplify the otherwise “complicated and error-prone” message distribution process with just a few lines of code.
 
 &nbsp;
 
@@ -32,7 +32,7 @@ implementation 'com.kunminx.arch:mvi-dispatch:2.1.0-beta'
 
 &nbsp;
 
-The core component of the project, MVI-Dispatcher, is applicable to Java, through which,
+MVI-Dispatcher is applicable to Java, through which,
 
 > 1.Can completely eliminate mutable boilerplate code, no need to write one line
 >
@@ -48,7 +48,7 @@ The core component of the project, MVI-Dispatcher, is applicable to Java, throug
 
 &nbsp;
 
-In addition to mastering Jetpack MVI best practices in “Simple and Simple” code, you can also get content from this project including:
+In addition to mastering "Single Source of Truth" best practices in “Simple and Simple” code, you can also get content from this project including:
 
 1.Clean code style & standard naming conventions
 
