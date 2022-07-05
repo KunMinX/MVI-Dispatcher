@@ -19,7 +19,7 @@ public class ComplexRequester extends MviDispatcher<ComplexEvent> {
    */
   @Override
   protected int initQueueMaxLength() {
-    return 20;
+    return 5;
   }
 
   /**
