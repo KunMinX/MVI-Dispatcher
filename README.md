@@ -1,4 +1,4 @@
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3v14d8u74j218z0u0te9.jpg)
+![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vuq7yoq9j218t0u0wjq.jpg)
 
 &nbsp;
 
@@ -6,15 +6,15 @@
 
 随着 LiveData、ViewModel 普及，开发者亦尝试 “局部 MVI 模式” 消除 mutable 样板代码。
 
-根据现实情况，多数公司 “远古巨型项目” 仍需 Java 升级维护，且 Java 恰是一致性问题频发大户，亟待架构组件相助，将隐患扼杀在摇篮。
+根据现实情况，多数公司 “远古巨型项目” 仍需 Java 升级维护，且 Java 恰是一致性问题频发大户，亟待 "架构组件" 助力消除隐患。
 
-只可惜，当下 Android MVI 网文或代码案例皆基于 Kotlin 语言特性编写，对 Java 不算友好，这使 MVI 模式感兴趣 Java 开发者左右为难。
+只可惜，当下 Android MVI 网文或代码案例 皆基于 Kotlin 语言特性编写，对 Java 不算友好，这使 MVI 模式感兴趣 Java 开发者左右为难。
 
 好消息是，这一期我们带着精心打磨 Jetpack MVI 实践案例而来。
 
 |                          收藏或置顶                          |                           顺滑转场                           |                           删除笔记                           |
 | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3v2edejg3g20u01o01ju.gif) | ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3v2eeqf6mg20u01o04qq.gif) | ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3v2ecrr0gg20u01o01kx.gif) |
+| ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vup9ck57g20u01o0hbm.gif) | ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vupfbex2g20u01o0qv6.gif) | ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vuplwiuqg20u01o0x2t.gif) |
 
 &nbsp;
 
@@ -22,23 +22,29 @@
 
 本人长期专注 “业务架构” 模式，所开源 [UnPeekLiveData](https://github.com/KunMinX/UnPeek-LiveData) 等组件已经过 QQ 音乐等月活过亿生产环境历练。
 
-在本案例中，我将为你展示，Jetpack MVI 是如何 **以简驭繁** 将原本繁杂易出错之消息分发流程，通过 **寥寥几行代码** 轻而易举完成。
+在本案例中，我将为你展示，Jetpack MVI 是如何 **以简驭繁** 将原本 "繁杂易出错" 之消息分发流程，通过 **寥寥几行代码** 轻而易举完成。
+
+&nbsp;
+
+```Groovy
+implementation 'com.kunminx.arch:mvi-dispatch:2.1.0-beta'
+```
 
 &nbsp;
 
 该项目核心组件 MVI-Dispatcher 适用 Java，通过它，
 
-> 1.**可连续发送多类型事件**，解决 MVI 场景 LiveData 事件覆盖
+> 1.**可彻底消除 mutable 样板代码**，一行不必写
 >
-> 2.**彻底消除 mutable 样板代码**，一行也不用写
+> 2.**可连续发送多类型事件**，解决 MVI 场景 LiveData 事件覆盖
+>
+> 3.**可杜绝团队新手滥用** mutableLiveData.setValue( ) 于 Activity/Fragment
+>
+> 4.可移除 LiveData 或 UnPeekLiveData 依赖，杜绝团队新手误用
+>
+> 5.团队新手在不熟 LiveData、UnPeekLiveData、mutable、MVI 情况下，仅根据 MVI-Dispatcher 简明易懂 **“唯一入口 + 唯一出口” I/O 设计** 亦可自动实现 “单向数据流” 开发
 
-> 3.屏蔽内嵌 LiveData，杜绝团队新手于 Activity/Fragment 滥用 mutableLiveData.setValue( )
-
-> 4.项目可移除 LiveData 或 UnPeekLiveData 依赖，杜绝团队新手误用
-
-> 5.团队新手甚至无需知道 LiveData、UnPeekLiveData、mutable，根据 MVI-Dispatcher 简明易懂 **“唯一入口 + 唯一出口” I/O 设计** 即可自动实现 “单向数据流” 开发
-
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3v3fxvc8ij21o90hk42i.jpg)
+![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vupvpzprj21o40h90wp.jpg)
 
 &nbsp;
 
@@ -58,7 +64,7 @@
 
 7.The one more thing is：
 
-即日起，可于应用商店下载体验
+（答案审核中，几日便揭晓）
 
 &nbsp;
 
@@ -80,7 +86,7 @@
 
 任何个人或组织，未经与作者本人当面沟通，不得将本项目代码设计及本人对 Jetpack MVI 独家理解用于 "**打包贩卖、引流、出书、卖课**" 等商业用途。
 
-如需引用借鉴 “本项目框架设计背景及思路” 写作发行，须注明链接出处。
+如需引用借鉴 “本项目框架设计背景及思路” 写作发行，请注明**链接出处**。
 
 &nbsp;
 
