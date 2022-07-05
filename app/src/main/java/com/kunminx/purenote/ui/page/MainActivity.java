@@ -63,10 +63,4 @@ public class MainActivity extends BaseActivity {
     mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_3));
     mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_3));
   }
-
-  @Override
-  public void finish() {
-    super.finish();
-    ((App) Utils.getApp()).getViewModelStore().clear();
-  }
 }

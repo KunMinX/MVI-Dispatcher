@@ -3,6 +3,7 @@ package com.kunminx.architecture.domain.dispatch;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
@@ -17,10 +18,11 @@ import java.util.Map;
 /**
  * Create by KunMinX at 2022/7/3
  */
-public class MviDispatcher<E extends Event> extends ViewModel {
+public class MviDispatcher<E extends Event> extends ViewModel implements DefaultLifecycleObserver {
 
   private final static int DEFAULT_QUEUE_LENGTH = 10;
   private final HashMap<String, LifecycleOwner> mOwner = new HashMap<>();
+  private final HashMap<String, LifecycleOwner> mFragmentOwner = new HashMap<>();
   private final HashMap<String, Observer<E>> mObservers = new HashMap<>();
   private final FixedLengthList<MutableResult<E>> mResults = new FixedLengthList<>();
 
@@ -29,10 +31,13 @@ public class MviDispatcher<E extends Event> extends ViewModel {
   }
 
   public final void output(@NonNull AppCompatActivity activity, @NonNull Observer<E> observer) {
+    activity.getLifecycle().addObserver(this);
     outputTo(activity.getClass().getName(), activity, observer);
   }
 
   public final void output(@NonNull Fragment fragment, @NonNull Observer<E> observer) {
+    fragment.getLifecycle().addObserver(this);
+    this.mFragmentOwner.put(fragment.getClass().getName(), fragment);
     outputTo(fragment.getClass().getName(), fragment.getViewLifecycleOwner(), observer);
   }
 
@@ -89,16 +94,26 @@ public class MviDispatcher<E extends Event> extends ViewModel {
   }
 
   @Override
-  protected void onCleared() {
-    super.onCleared();
-    for (MutableResult<E> mutableResult : mResults) {
-      for (Map.Entry<String, Observer<E>> entry : mObservers.entrySet()) {
-        Observer<E> observer = entry.getValue();
-        mutableResult.removeObserver(observer);
+  public void onDestroy(@NonNull LifecycleOwner owner) {
+    DefaultLifecycleObserver.super.onDestroy(owner);
+
+    boolean isFragment = owner instanceof Fragment;
+    for (Map.Entry<String, LifecycleOwner> entry : isFragment ? mFragmentOwner.entrySet() : mOwner.entrySet()) {
+      LifecycleOwner owner2 = entry.getValue();
+      if (owner2.equals(owner)) {
+        String key = entry.getKey();
+        mOwner.remove(key);
+        if (isFragment) mFragmentOwner.remove(key);
+        for (MutableResult<E> mutableResult : mResults) {
+          mutableResult.removeObserver(mObservers.get(key));
+        }
+        mObservers.remove(key);
+        break;
       }
     }
-    mResults.clear();
-    mObservers.clear();
-    mOwner.clear();
+    if (mObservers.size() == 0) {
+      mResults.clear();
+    }
   }
 }
+
