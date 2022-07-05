@@ -10,20 +10,22 @@ import androidx.lifecycle.ViewModel;
 import com.kunminx.architecture.domain.event.Event;
 import com.kunminx.architecture.domain.message.MutableResult;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Create by KunMinX at 2022/7/3
  */
 public class MviDispatcher<E extends Event> extends ViewModel {
 
+  private final static int DEFAULT_QUEUE_LENGTH = 30;
   private final HashMap<String, LifecycleOwner> mOwner = new HashMap<>();
   private final HashMap<String, Observer<E>> mObservers = new HashMap<>();
-  private final List<MutableResult<E>> mResults = new ArrayList<>();
+  private final FixedLengthList<MutableResult<E>> mResults = new FixedLengthList<>();
+
+  protected int initQueueMaxLength() {
+    return DEFAULT_QUEUE_LENGTH;
+  }
 
   public final void output(@NonNull AppCompatActivity activity, @NonNull Observer<E> observer) {
     outputTo(activity.getClass().getName(), activity, observer);
@@ -42,9 +44,12 @@ public class MviDispatcher<E extends Event> extends ViewModel {
   }
 
   protected final void sendResult(@NonNull E event) {
+    mResults.setMaxLength(initQueueMaxLength());
     boolean eventExist = false;
     for (MutableResult<E> result : mResults) {
-      if (Objects.requireNonNull(result.getValue()).eventId == event.eventId) {
+      int id1 = System.identityHashCode(result.getValue());
+      int id2 = System.identityHashCode(event);
+      if (id1 == id2) {
         eventExist = true;
         break;
       }
@@ -63,7 +68,9 @@ public class MviDispatcher<E extends Event> extends ViewModel {
 
     MutableResult<E> result = null;
     for (MutableResult<E> r : mResults) {
-      if (Objects.requireNonNull(r.getValue()).eventId == event.eventId) {
+      int id1 = System.identityHashCode(r.getValue());
+      int id2 = System.identityHashCode(event);
+      if (id1 == id2) {
         result = r;
         break;
       }

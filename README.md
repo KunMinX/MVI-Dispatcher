@@ -27,7 +27,7 @@
 &nbsp;
 
 ```Groovy
-implementation 'com.kunminx.arch:mvi-dispatch:2.3.0-beta'
+implementation 'com.kunminx.arch:mvi-dispatch:3.0.0-beta'
 ```
 
 &nbsp;
