@@ -41,17 +41,6 @@ public class MviDispatcher<E extends Event> extends ViewModel {
   }
 
   protected final void sendResult(E event) {
-    MutableResult<E> result = null;
-    for (MutableResult<E> r : mResults) {
-      if (Objects.requireNonNull(r.getValue()).eventId == event.eventId) {
-        result = r;
-        break;
-      }
-    }
-    if (result != null) result.setValue(event);
-  }
-
-  public void input(E event) {
     boolean eventExist = false;
     for (MutableResult<E> result : mResults) {
       if (Objects.requireNonNull(result.getValue()).eventId == event.eventId) {
@@ -70,6 +59,19 @@ public class MviDispatcher<E extends Event> extends ViewModel {
       }
       mResults.add(result);
     }
+
+    MutableResult<E> result = null;
+    for (MutableResult<E> r : mResults) {
+      if (Objects.requireNonNull(r.getValue()).eventId == event.eventId) {
+        result = r;
+        break;
+      }
+    }
+    if (result != null) result.setValue(event);
+  }
+
+  public void input(E event) {
+    
   }
 
   @Override

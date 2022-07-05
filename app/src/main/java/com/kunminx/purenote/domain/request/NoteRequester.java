@@ -11,8 +11,6 @@ public class NoteRequester extends MviDispatcher<NoteListEvent> {
 
   @Override
   public void input(NoteListEvent event) {
-    super.input(event);
-
     switch (event.eventId) {
       case NoteListEvent.EVENT_GET_NOTE_LIST:
         DataRepository.getInstance().getNotes(dataResult -> {
