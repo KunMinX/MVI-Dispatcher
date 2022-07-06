@@ -21,9 +21,9 @@ import java.util.Map;
 public class MviDispatcher<E extends Event> extends ViewModel implements DefaultLifecycleObserver {
 
   private final static int DEFAULT_QUEUE_LENGTH = 10;
-  private final HashMap<String, LifecycleOwner> mOwner = new HashMap<>();
-  private final HashMap<String, LifecycleOwner> mFragmentOwner = new HashMap<>();
-  private final HashMap<String, Observer<E>> mObservers = new HashMap<>();
+  private final HashMap<Integer, LifecycleOwner> mOwner = new HashMap<>();
+  private final HashMap<Integer, LifecycleOwner> mFragmentOwner = new HashMap<>();
+  private final HashMap<Integer, Observer<E>> mObservers = new HashMap<>();
   private final FixedLengthList<MutableResult<E>> mResults = new FixedLengthList<>();
 
   protected int initQueueMaxLength() {
@@ -32,18 +32,20 @@ public class MviDispatcher<E extends Event> extends ViewModel implements Default
 
   public final void output(@NonNull AppCompatActivity activity, @NonNull Observer<E> observer) {
     activity.getLifecycle().addObserver(this);
-    outputTo(activity.getClass().getName(), activity, observer);
+    Integer identityId = System.identityHashCode(activity);
+    outputTo(identityId, activity, observer);
   }
 
   public final void output(@NonNull Fragment fragment, @NonNull Observer<E> observer) {
     fragment.getLifecycle().addObserver(this);
-    this.mFragmentOwner.put(fragment.getClass().getName(), fragment);
-    outputTo(fragment.getClass().getName(), fragment.getViewLifecycleOwner(), observer);
+    Integer identityId = System.identityHashCode(fragment);
+    this.mFragmentOwner.put(identityId, fragment);
+    outputTo(identityId, fragment.getViewLifecycleOwner(), observer);
   }
 
-  private void outputTo(String fullName, LifecycleOwner owner, Observer<E> observer) {
-    this.mOwner.put(fullName, owner);
-    this.mObservers.put(fullName, observer);
+  private void outputTo(Integer identityId, LifecycleOwner owner, Observer<E> observer) {
+    this.mOwner.put(identityId, owner);
+    this.mObservers.put(identityId, observer);
     for (MutableResult<E> result : mResults) {
       result.observe(owner, observer);
     }
@@ -51,7 +53,7 @@ public class MviDispatcher<E extends Event> extends ViewModel implements Default
 
   protected final void sendResult(@NonNull E event) {
     mResults.init(initQueueMaxLength(), mutableResult -> {
-      for (Map.Entry<String, Observer<E>> entry : mObservers.entrySet()) {
+      for (Map.Entry<Integer, Observer<E>> entry : mObservers.entrySet()) {
         Observer<E> observer = entry.getValue();
         mutableResult.removeObserver(observer);
       }
@@ -67,8 +69,8 @@ public class MviDispatcher<E extends Event> extends ViewModel implements Default
     }
     if (!eventExist) {
       MutableResult<E> result = new MutableResult<>(event);
-      for (Map.Entry<String, Observer<E>> entry : mObservers.entrySet()) {
-        String key = entry.getKey();
+      for (Map.Entry<Integer, Observer<E>> entry : mObservers.entrySet()) {
+        Integer key = entry.getKey();
         Observer<E> observer = entry.getValue();
         LifecycleOwner owner = mOwner.get(key);
         assert owner != null;
@@ -96,12 +98,11 @@ public class MviDispatcher<E extends Event> extends ViewModel implements Default
   @Override
   public void onDestroy(@NonNull LifecycleOwner owner) {
     DefaultLifecycleObserver.super.onDestroy(owner);
-
     boolean isFragment = owner instanceof Fragment;
-    for (Map.Entry<String, LifecycleOwner> entry : isFragment ? mFragmentOwner.entrySet() : mOwner.entrySet()) {
-      LifecycleOwner owner2 = entry.getValue();
-      if (owner2.equals(owner)) {
-        String key = entry.getKey();
+    for (Map.Entry<Integer, LifecycleOwner> entry : isFragment ? mFragmentOwner.entrySet() : mOwner.entrySet()) {
+      LifecycleOwner owner1 = entry.getValue();
+      if (owner1.equals(owner)) {
+        Integer key = entry.getKey();
         mOwner.remove(key);
         if (isFragment) mFragmentOwner.remove(key);
         for (MutableResult<E> mutableResult : mResults) {
