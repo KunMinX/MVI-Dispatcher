@@ -12,6 +12,8 @@
 
 好消息是，这一期我们带着精心打磨 MVI 实践案例而来。
 
+&nbsp;
+
 |                          收藏或置顶                          |                           顺滑转场                           |                           删除笔记                           |
 | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
 | ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vup9ck57g20u01o0hbm.gif) | ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vupfbex2g20u01o0qv6.gif) | ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vuplwiuqg20u01o0x2t.gif) |
@@ -43,6 +45,8 @@ implementation 'com.kunminx.arch:mvi-dispatch:4.2.0-beta'
 > 4.可移除 LiveData 或 UnPeekLiveData 依赖，杜绝团队新手误用
 >
 > 5.团队新手在不熟 LiveData、UnPeekLiveData、mutable、MVI 情况下，仅根据 MVI-Dispatcher 简明易懂 input-output 设计亦可自动实现 “单向数据流” 开发
+
+&nbsp;
 
 ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vupvpzprj21o40h90wp.jpg)
 

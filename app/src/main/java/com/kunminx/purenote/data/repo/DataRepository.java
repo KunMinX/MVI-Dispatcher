@@ -5,7 +5,7 @@ import androidx.room.Room;
 import com.kunminx.architecture.data.response.DataResult;
 import com.kunminx.architecture.utils.Utils;
 import com.kunminx.purenote.data.bean.Note;
-import com.kunminx.purenote.data.response.AsyncTask;
+import com.kunminx.architecture.data.response.AsyncTask;
 
 import java.util.List;
 

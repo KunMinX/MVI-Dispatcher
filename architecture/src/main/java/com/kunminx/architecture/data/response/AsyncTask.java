@@ -1,4 +1,4 @@
-package com.kunminx.purenote.data.response;
+package com.kunminx.architecture.data.response;
 
 import android.annotation.SuppressLint;
 
