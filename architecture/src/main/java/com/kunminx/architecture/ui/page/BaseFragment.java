@@ -32,11 +32,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.kunminx.architecture.BaseApplication;
+import com.kunminx.architecture.ui.scope.ViewModelScope;
 
 
 /**
@@ -44,9 +43,7 @@ import com.kunminx.architecture.BaseApplication;
  */
 public abstract class BaseFragment extends Fragment {
 
-  private ViewModelProvider mFragmentProvider;
-  private ViewModelProvider mActivityProvider;
-  private ViewModelProvider mApplicationProvider;
+  private final ViewModelScope mViewModelScope = new ViewModelScope();
   protected AppCompatActivity mActivity;
 
   protected abstract void onInitViewModel();
@@ -97,24 +94,15 @@ public abstract class BaseFragment extends Fragment {
   //如这么说无体会，详见 https://xiaozhuanlan.com/topic/6257931840
 
   protected <T extends ViewModel> T getFragmentScopeViewModel(@NonNull Class<T> modelClass) {
-    if (mFragmentProvider == null) {
-      mFragmentProvider = new ViewModelProvider(this);
-    }
-    return mFragmentProvider.get(modelClass);
+    return mViewModelScope.getFragmentScopeViewModel(this, modelClass);
   }
 
   protected <T extends ViewModel> T getActivityScopeViewModel(@NonNull Class<T> modelClass) {
-    if (mActivityProvider == null) {
-      mActivityProvider = new ViewModelProvider(mActivity);
-    }
-    return mActivityProvider.get(modelClass);
+    return mViewModelScope.getActivityScopeViewModel(mActivity, modelClass);
   }
 
   protected <T extends ViewModel> T getApplicationScopeViewModel(@NonNull Class<T> modelClass) {
-    if (mApplicationProvider == null) {
-      mApplicationProvider = new ViewModelProvider((BaseApplication) mActivity.getApplicationContext());
-    }
-    return mApplicationProvider.get(modelClass);
+    return mViewModelScope.getApplicationScopeViewModel(modelClass);
   }
 
   protected NavController nav() {

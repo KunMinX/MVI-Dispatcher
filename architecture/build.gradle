@@ -37,4 +37,5 @@ dependencies {
     implementation "androidx.navigation:navigation-runtime:2.5.0"
     implementation 'com.kunminx.arch:smooth-navigation:4.0.0-beta1'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation project(":mvi-dispatch")
 }

@@ -19,7 +19,6 @@ package com.kunminx.architecture.ui.page;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -33,9 +32,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.kunminx.architecture.BaseApplication;
+import com.kunminx.architecture.ui.scope.ViewModelScope;
 import com.kunminx.architecture.utils.AdaptScreenUtils;
 import com.kunminx.architecture.utils.Utils;
 
@@ -46,9 +44,7 @@ import com.kunminx.architecture.utils.Utils;
 public abstract class BaseActivity extends AppCompatActivity {
 
   private static final int STATUS_BAR_TRANSPARENT_COLOR = 0x00000000;
-
-  private ViewModelProvider mActivityProvider;
-  private ViewModelProvider mApplicationProvider;
+  private final ViewModelScope mViewModelScope = new ViewModelScope();
 
   protected abstract void onInitViewModel();
 
@@ -96,17 +92,11 @@ public abstract class BaseActivity extends AppCompatActivity {
   //如这么说无体会，详见 https://xiaozhuanlan.com/topic/6257931840
 
   protected <T extends ViewModel> T getActivityScopeViewModel(@NonNull Class<T> modelClass) {
-    if (mActivityProvider == null) {
-      mActivityProvider = new ViewModelProvider(this);
-    }
-    return mActivityProvider.get(modelClass);
+    return mViewModelScope.getActivityScopeViewModel(this, modelClass);
   }
 
   protected <T extends ViewModel> T getApplicationScopeViewModel(@NonNull Class<T> modelClass) {
-    if (mApplicationProvider == null) {
-      mApplicationProvider = new ViewModelProvider((BaseApplication) this.getApplicationContext());
-    }
-    return mApplicationProvider.get(modelClass);
+    return mViewModelScope.getApplicationScopeViewModel(modelClass);
   }
 
   @Override
