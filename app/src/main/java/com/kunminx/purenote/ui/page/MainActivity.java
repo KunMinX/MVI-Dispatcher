@@ -3,8 +3,6 @@ package com.kunminx.purenote.ui.page;
 import android.util.Log;
 
 import com.kunminx.architecture.ui.page.BaseActivity;
-import com.kunminx.architecture.utils.Utils;
-import com.kunminx.purenote.App;
 import com.kunminx.purenote.R;
 import com.kunminx.purenote.domain.event.ComplexEvent;
 import com.kunminx.purenote.domain.event.Messages;
@@ -39,8 +37,8 @@ public class MainActivity extends BaseActivity {
 
     mComplexRequester.output(this, complexEvent -> {
       if (complexEvent.eventId == ComplexEvent.EVENT_TEST_1) Log.d("complexEvent", "---1");
-      if (complexEvent.eventId == ComplexEvent.EVENT_TEST_2) Log.d("complexEvent", "---2");
-      if (complexEvent.eventId == ComplexEvent.EVENT_TEST_3) Log.d("complexEvent", "---3");
+      else if (complexEvent.eventId == ComplexEvent.EVENT_TEST_2) Log.d("complexEvent", "---2");
+      else if (complexEvent.eventId == ComplexEvent.EVENT_TEST_3) Log.d("complexEvent", "---3");
     });
   }
 
