@@ -40,7 +40,7 @@ implementation 'com.kunminx.arch:mvi-dispatch:4.2.0-beta'
 >
 > 2.**可连续发送多事件**，解决 MVI 场景 LiveData 事件覆盖
 >
-> 3.**高性能定长队列，随取随用，自动释放过时消息，且绝不丢失事件**
+> 3.**高性能定长队列，随取随用，用完即走，绝不丢失事件**
 >
 > 4.**可杜绝团队新手滥用** mutableLiveData.setValue( ) 于 Activity/Fragment
 >

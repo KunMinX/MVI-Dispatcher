@@ -38,7 +38,7 @@ MVI-Dispatcher is applicable to Java, through which,
 >
 > 2.Multiple events can be sent continuously to solve MVI scene LiveData event coverage
 > 
-> 3.High performance fixed length queue, on demand, automatically release obsolete messages, and never lose events
+> 3.High performance fixed length queue, use as you go, run out of it, and never lose events
 >
 > 4.It can prevent team newbies from indiscriminately using mutableLiveData.setValue( ) in Activity/Fragment
 >
