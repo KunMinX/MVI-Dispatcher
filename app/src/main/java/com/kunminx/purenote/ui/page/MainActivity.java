@@ -39,6 +39,8 @@ public class MainActivity extends BaseActivity {
       if (complexEvent.eventId == ComplexEvent.EVENT_TEST_1) Log.d("complexEvent", "---1");
       else if (complexEvent.eventId == ComplexEvent.EVENT_TEST_2) Log.d("complexEvent", "---2");
       else if (complexEvent.eventId == ComplexEvent.EVENT_TEST_3) Log.d("complexEvent", "---3");
+      else if (complexEvent.eventId == ComplexEvent.EVENT_TEST_4)
+        Log.d("complexEvent", "---4 " + complexEvent.result.count);
     });
   }
 

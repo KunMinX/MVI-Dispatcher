@@ -35,8 +35,18 @@ public class ComplexRequester extends MviDispatcher<ComplexEvent> {
 
     switch (event.eventId) {
       case ComplexEvent.EVENT_TEST_1:
-      case ComplexEvent.EVENT_TEST_3:
-        sendResult(event);
+
+        //TODO tip 3: 定长队列，随取随用，绝不丢失事件
+        // 此处通过 RxJava 轮询模拟事件连发，可于 Logcat Debug 见输出
+
+        Observable.interval(1, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aLong -> {
+                  ComplexEvent event1 = new ComplexEvent(ComplexEvent.EVENT_TEST_4);
+                  event1.param.count = aLong;
+                  input(event1);
+                });
         break;
       case ComplexEvent.EVENT_TEST_2:
         Observable.timer(200, TimeUnit.MILLISECONDS)
@@ -45,6 +55,13 @@ public class ComplexRequester extends MviDispatcher<ComplexEvent> {
                 .subscribe(aLong -> {
                   sendResult(event);
                 });
+        break;
+      case ComplexEvent.EVENT_TEST_3:
+        sendResult(event);
+        break;
+      case ComplexEvent.EVENT_TEST_4:
+        event.result.count = event.param.count;
+        sendResult(event);
         break;
     }
   }

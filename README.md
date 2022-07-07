@@ -40,11 +40,13 @@ implementation 'com.kunminx.arch:mvi-dispatch:4.2.0-beta'
 >
 > 2.**可连续发送多事件**，解决 MVI 场景 LiveData 事件覆盖
 >
-> 3.**可杜绝团队新手滥用** mutableLiveData.setValue( ) 于 Activity/Fragment
+> 3.**高性能定长队列，随取随用，自动释放过时消息，且绝不丢失事件**
 >
-> 4.可移除 LiveData 或 UnPeekLiveData 依赖，杜绝团队新手误用
+> 4.**可杜绝团队新手滥用** mutableLiveData.setValue( ) 于 Activity/Fragment
 >
-> 5.团队新手在不熟 LiveData、UnPeekLiveData、mutable、MVI 情况下，仅根据 MVI-Dispatcher 简明易懂 input-output 设计亦可自动实现 “单向数据流” 开发
+> 5.可移除 LiveData 或 UnPeekLiveData 依赖，杜绝团队新手误用
+>
+> 6.团队新手在不熟 LiveData、UnPeekLiveData、mutable、MVI 情况下，仅根据 MVI-Dispatcher 简明易懂 input-output 设计亦可自动实现 “单向数据流” 开发
 
 &nbsp;
 
