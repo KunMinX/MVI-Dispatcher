@@ -29,6 +29,9 @@ In this case, I will show you how MVI-Dispatcher can simplify the otherwise “c
 ```Groovy
 implementation 'com.kunminx.arch:mvi-dispatch:4.2.0-beta'
 ```
+&nbsp;
+
+![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vupvpzprj21o40h90wp.jpg)
 
 &nbsp;
 
@@ -46,7 +49,9 @@ MVI-Dispatcher is applicable to Java, through which,
 >
 > 6.If the new team members are not familiar with LiveData, UnPeekLiveData, mutable and MVI, they can also automatically realize the development of “one-way data flow” based on the simple and easy-to-understand I/O design of MVI-Dispatcher “single entry + single exit”
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vupvpzprj21o40h90wp.jpg)
+&nbsp;
+
+![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3zapx57qmj21md0u0wm5.jpg)
 
 &nbsp;
 
