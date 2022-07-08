@@ -54,7 +54,7 @@ implementation 'com.kunminx.arch:mvi-dispatch:4.2.0-beta'
 
 &nbsp;
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3zapx57qmj21md0u0wm5.jpg)
+![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3zghmu13ej21j80u0tfn.jpg)
 
 &nbsp;
 

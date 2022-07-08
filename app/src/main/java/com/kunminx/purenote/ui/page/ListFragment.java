@@ -13,7 +13,7 @@ import com.kunminx.purenote.R;
 import com.kunminx.purenote.data.bean.Note;
 import com.kunminx.purenote.databinding.FragmentListBinding;
 import com.kunminx.purenote.domain.event.Messages;
-import com.kunminx.purenote.domain.event.NoteListEvent;
+import com.kunminx.purenote.domain.event.NoteEvent;
 import com.kunminx.purenote.domain.message.PageMessenger;
 import com.kunminx.purenote.domain.request.NoteRequester;
 import com.kunminx.purenote.ui.adapter.NoteAdapter;
@@ -54,21 +54,21 @@ public class ListFragment extends BaseFragment {
   protected void onOutput() {
     mMessenger.output(this, messages -> {
       if (messages.eventId == Messages.EVENT_REFRESH_NOTE_LIST) {
-        mNoteRequester.input(new NoteListEvent(NoteListEvent.EVENT_GET_NOTE_LIST));
+        mNoteRequester.input(new NoteEvent(NoteEvent.EVENT_GET_NOTE_LIST));
       }
     });
 
-    mNoteRequester.output(this, noteListEvent -> {
-      switch (noteListEvent.eventId) {
-        case NoteListEvent.EVENT_TOPPING_ITEM:
-        case NoteListEvent.EVENT_GET_NOTE_LIST:
-          mStates.list = noteListEvent.result.notes;
+    mNoteRequester.output(this, noteEvent -> {
+      switch (noteEvent.eventId) {
+        case NoteEvent.EVENT_TOPPING_ITEM:
+        case NoteEvent.EVENT_GET_NOTE_LIST:
+          mStates.list = noteEvent.result.notes;
           mAdapter.setData(mStates.list);
           mBinding.ivEmpty.setVisibility(mStates.list.size() == 0 ? View.VISIBLE : View.GONE);
           break;
-        case NoteListEvent.EVENT_MARK_ITEM:
+        case NoteEvent.EVENT_MARK_ITEM:
           break;
-        case NoteListEvent.EVENT_REMOVE_ITEM:
+        case NoteEvent.EVENT_REMOVE_ITEM:
           break;
       }
     });
@@ -82,11 +82,11 @@ public class ListFragment extends BaseFragment {
   protected void onInput() {
     mAdapter.setListener((viewId, position, item) -> {
       if (viewId == R.id.btn_mark) {
-        mNoteRequester.input(new NoteListEvent(NoteListEvent.EVENT_MARK_ITEM).setNote(item));
+        mNoteRequester.input(new NoteEvent(NoteEvent.EVENT_MARK_ITEM).setNote(item));
       } else if (viewId == R.id.btn_topping) {
-        mNoteRequester.input(new NoteListEvent(NoteListEvent.EVENT_TOPPING_ITEM).setNote(item));
+        mNoteRequester.input(new NoteEvent(NoteEvent.EVENT_TOPPING_ITEM).setNote(item));
       } else if (viewId == R.id.btn_delete) {
-        mNoteRequester.input(new NoteListEvent(NoteListEvent.EVENT_REMOVE_ITEM).setNote(item));
+        mNoteRequester.input(new NoteEvent(NoteEvent.EVENT_REMOVE_ITEM).setNote(item));
       } else if (viewId == R.id.cl) {
         EditorFragment.start(nav(), item);
       }
@@ -94,7 +94,7 @@ public class ListFragment extends BaseFragment {
 
     mBinding.fab.setOnClickListener(v -> EditorFragment.start(nav(), new Note()));
 
-    mNoteRequester.input(new NoteListEvent(NoteListEvent.EVENT_GET_NOTE_LIST));
+    mNoteRequester.input(new NoteEvent(NoteEvent.EVENT_GET_NOTE_LIST));
   }
 
   @Override

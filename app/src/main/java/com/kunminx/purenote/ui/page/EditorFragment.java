@@ -17,7 +17,7 @@ import com.kunminx.purenote.R;
 import com.kunminx.purenote.data.bean.Note;
 import com.kunminx.purenote.databinding.FragmentEditorBinding;
 import com.kunminx.purenote.domain.event.Messages;
-import com.kunminx.purenote.domain.event.NoteListEvent;
+import com.kunminx.purenote.domain.event.NoteEvent;
 import com.kunminx.purenote.domain.message.PageMessenger;
 import com.kunminx.purenote.domain.request.NoteRequester;
 
@@ -75,8 +75,8 @@ public class EditorFragment extends BaseFragment {
    */
   @Override
   protected void onOutput() {
-    mNoteRequester.output(this, noteListEvent -> {
-      if (noteListEvent.eventId == NoteListEvent.EVENT_ADD_ITEM) {
+    mNoteRequester.output(this, noteEvent -> {
+      if (noteEvent.eventId == NoteEvent.EVENT_ADD_ITEM) {
         mMessenger.input(new Messages(Messages.EVENT_REFRESH_NOTE_LIST));
         ToastUtils.showShortToast(getString(R.string.saved));
         nav().navigateUp();
@@ -108,7 +108,7 @@ public class EditorFragment extends BaseFragment {
     }
     mStates.tempNote.modifyTime = time;
 
-    mNoteRequester.input(new NoteListEvent(NoteListEvent.EVENT_ADD_ITEM).setNote(mStates.tempNote));
+    mNoteRequester.input(new NoteEvent(NoteEvent.EVENT_ADD_ITEM).setNote(mStates.tempNote));
   }
 
   @Override

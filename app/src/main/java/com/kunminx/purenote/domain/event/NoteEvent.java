@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Create by KunMinX at 2022/6/16
  */
-public class NoteListEvent extends Event<NoteListEvent.Param, NoteListEvent.Result> {
+public class NoteEvent extends Event<NoteEvent.Param, NoteEvent.Result> {
   public final static int EVENT_GET_NOTE_LIST = 1;
   public final static int EVENT_REMOVE_ITEM = 2;
   public final static int EVENT_UPDATE_ITEM = 3;
@@ -16,13 +16,13 @@ public class NoteListEvent extends Event<NoteListEvent.Param, NoteListEvent.Resu
   public final static int EVENT_TOPPING_ITEM = 5;
   public final static int EVENT_ADD_ITEM = 6;
 
-  public NoteListEvent(int eventId) {
+  public NoteEvent(int eventId) {
     this.eventId = eventId;
     this.param = new Param();
     this.result = new Result();
   }
 
-  public NoteListEvent setNote(Note note) {
+  public NoteEvent setNote(Note note) {
     this.param.note = note;
     return this;
   }
