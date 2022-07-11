@@ -48,9 +48,11 @@ implementation 'com.kunminx.arch:mvi-dispatch:4.2.0-beta'
 >
 > 4.**可杜绝团队新手滥用** mutableLiveData.setValue( ) 于 Activity/Fragment
 >
-> 5.可移除 LiveData 或 UnPeekLiveData 依赖，杜绝团队新手误用
+> 5.开发者只需关注 input、output 二处，**从唯一入口 input 注入 Event，并于唯一出口 output 观察**
 >
 > 6.团队新手在不熟 LiveData、UnPeekLiveData、mutable、MVI 情况下，仅根据 MVI-Dispatcher 简明易懂 input-output 设计亦可自动实现 “单向数据流” 开发
+>
+> 7.可无缝整合至 Jetpack MVVM 等模式项目
 
 &nbsp;
 
@@ -90,7 +92,7 @@ implementation 'com.kunminx.arch:mvi-dispatch:4.2.0-beta'
 
 本项目场景案例及 MVI-Dispatcher 框架，均属本人独立原创设计，本人对此享有最终解释权。
 
-任何个人或组织，未经与作者本人当面沟通，不得将本项目代码设计及本人对 “唯一可信源” 及 MVI 独家理解用于 "**打包贩卖、引流、出书、卖课**" 等商业用途。
+任何个人或组织，未经与作者本人当面沟通，不得将本项目代码设计及本人对 “唯一可信源” 及 MVI 独家理解用于 "**打包贩卖、出书、卖课**" 等商业用途。
 
 如需引用借鉴 “本项目框架设计背景及思路” 写作发行，请注明**链接出处**。
 

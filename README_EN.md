@@ -40,14 +40,16 @@ MVI-Dispatcher is applicable to Java, through which,
 > 1.Can completely eliminate mutable boilerplate code, no need to write one line
 >
 > 2.Multiple events can be sent continuously to solve MVI scene LiveData event coverage
-> 
+>
 > 3.High performance fixed length queue, use as you go, run out of it, and never lose events
 >
 > 4.It can prevent team newbies from indiscriminately using mutableLiveData.setValue( ) in Activity/Fragment
 >
-> 5.The dependency of LiveData or UnPeekLiveData can be removed to prevent misuse by newcomers to the team
+> 5.Developers only need to pay attention to input and output, inject events from the unique entry input (), and observe at the unique exit output ()
 >
 > 6.If the new team members are not familiar with LiveData, UnPeekLiveData, mutable and MVI, they can also automatically realize the development of “one-way data flow” based on the simple and easy-to-understand I/O design of MVI-Dispatcher “single entry + single exit”
+>
+> 7.It can be seamlessly integrated into jetpack MVVM and other mode projects
 
 &nbsp;
 
