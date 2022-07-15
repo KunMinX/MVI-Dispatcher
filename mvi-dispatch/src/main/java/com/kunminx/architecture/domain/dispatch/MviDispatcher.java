@@ -14,6 +14,7 @@ import com.kunminx.architecture.domain.queue.FixedLengthList;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Create by KunMinX at 2022/7/3
@@ -88,7 +89,7 @@ public class MviDispatcher<E extends Event> extends ViewModel implements Default
         break;
       }
     }
-    if (result != null) result.setValue(event);
+    if (result != null) result.postValue(event);
   }
 
   public void input(E event) {
@@ -106,7 +107,7 @@ public class MviDispatcher<E extends Event> extends ViewModel implements Default
         mOwner.remove(key);
         if (isFragment) mFragmentOwner.remove(key);
         for (MutableResult<E> mutableResult : mResults) {
-          mutableResult.removeObserver(mObservers.get(key));
+          mutableResult.removeObserver(Objects.requireNonNull(mObservers.get(key)));
         }
         mObservers.remove(key);
         break;
