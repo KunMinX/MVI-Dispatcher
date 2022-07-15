@@ -89,7 +89,7 @@ public class MviDispatcher<E extends Event> extends ViewModel implements Default
         break;
       }
     }
-    if (result != null) result.postValue(event);
+    if (result != null) result.setValue(event);
   }
 
   public void input(E event) {
