@@ -60,7 +60,10 @@ public class EditorFragment extends BaseFragment {
       mStates.tempNote = getArguments().getParcelable(NOTE);
       mStates.title = mStates.tempNote.title;
       mStates.content = mStates.tempNote.content;
-      if (!TextUtils.isEmpty(mStates.tempNote.id)) {
+      if (TextUtils.isEmpty(mStates.tempNote.id)) {
+        mBinding.etTitle.requestFocus();
+        mBinding.etTitle.post(this::toggleSoftInput);
+      } else {
         mBinding.etTitle.setText(mStates.tempNote.title);
         mBinding.etContent.setText(mStates.tempNote.content);
         mBinding.tvTitle.setText(getString(R.string.last_time_modify));
@@ -93,13 +96,12 @@ public class EditorFragment extends BaseFragment {
     mBinding.btnBack.setOnClickListener(v -> save());
   }
 
-  private void save() {
+  private boolean save() {
     mStates.tempNote.title = Objects.requireNonNull(mBinding.etTitle.getText()).toString();
     mStates.tempNote.content = Objects.requireNonNull(mBinding.etContent.getText()).toString();
     if (TextUtils.isEmpty(mStates.tempNote.title) && TextUtils.isEmpty(mStates.tempNote.content)
             || mStates.tempNote.title.equals(mStates.title) && mStates.tempNote.content.equals(mStates.content)) {
-      nav().navigateUp();
-      return;
+      return nav().navigateUp();
     }
     long time = System.currentTimeMillis();
     if (TextUtils.isEmpty(mStates.tempNote.id)) {
@@ -109,12 +111,12 @@ public class EditorFragment extends BaseFragment {
     mStates.tempNote.modifyTime = time;
 
     mNoteRequester.input(new NoteEvent(NoteEvent.EVENT_ADD_ITEM).setNote(mStates.tempNote));
+    return true;
   }
 
   @Override
   protected boolean onBackPressed() {
-    save();
-    return super.onBackPressed();
+    return save();
   }
 
   public static class EditorViewModel extends ViewModel {
