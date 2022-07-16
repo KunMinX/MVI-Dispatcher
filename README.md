@@ -29,7 +29,13 @@
 &nbsp;
 
 ```Groovy
-implementation 'com.kunminx.arch:mvi-dispatch:4.4.0-beta'
+implementation 'com.kunminx.arch:mvi-dispatch:4.5.0-beta'
+```
+
+Tip: Kotlin 开发者可仅依赖以下版本，详情请见 [MVI-Dispatcher-KTX](https://github.com/KunMinX/MVI-Dispatcher-KTX)
+
+```Groovy
+implementation 'com.kunminx.arch:mvi-dispatch-ktx:4.5.0-beta'
 ```
 
 &nbsp;

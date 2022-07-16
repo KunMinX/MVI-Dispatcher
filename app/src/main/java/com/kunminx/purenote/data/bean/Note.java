@@ -56,7 +56,7 @@ public class Note implements Parcelable {
     return (type & TYPE_TOPPING) != 0;
   }
 
-
+  @Ignore
   public void toggleType(int param) {
     if ((type & param) != 0) {
       type = type & ~param;
