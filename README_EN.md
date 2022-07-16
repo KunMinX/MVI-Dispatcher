@@ -60,7 +60,7 @@ MVI-Dispatcher is applicable to Java, through which,
 
 &nbsp;
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3zghmu13ej21j80u0tfn.jpg)
+![](https://tva1.sinaimg.cn/large/e6c9d24ely1h48md0v02kj21dp0u0wl9.jpg)
 
 &nbsp;
 

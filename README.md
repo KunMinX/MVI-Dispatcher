@@ -28,11 +28,13 @@
 
 &nbsp;
 
+以下 UnPeek-LiveData 内核版，Java 或 Kotlin 皆可用
+
 ```Groovy
 implementation 'com.kunminx.arch:mvi-dispatch:4.5.0-beta'
 ```
 
-Tip: Kotlin 开发者可仅依赖以下版本，详情请见 [MVI-Dispatcher-KTX](https://github.com/KunMinX/MVI-Dispatcher-KTX)
+以下 SharedFlow 内核版，仅可用于 Kotlin，详情请见 [MVI-Dispatcher-KTX](https://github.com/KunMinX/MVI-Dispatcher-KTX)
 
 ```Groovy
 implementation 'com.kunminx.arch:mvi-dispatch-ktx:4.5.0-beta'
@@ -62,7 +64,7 @@ implementation 'com.kunminx.arch:mvi-dispatch-ktx:4.5.0-beta'
 
 &nbsp;
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3zghmu13ej21j80u0tfn.jpg)
+![](https://tva1.sinaimg.cn/large/e6c9d24ely1h48md0v02kj21dp0u0wl9.jpg)
 
 &nbsp;
 
