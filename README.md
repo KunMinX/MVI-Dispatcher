@@ -2,6 +2,10 @@
 
 &nbsp;
 
+### [🌏 English README](https://github.com/KunMinX/MVI-Dispatcher/blob/main/README_EN.md)
+
+&nbsp;
+
 # 背景
 
 随着 LiveData、ViewModel 普及，开发者亦尝试 “局部 MVI 模式” 消除 mutable 样板代码。
@@ -28,16 +32,8 @@
 
 &nbsp;
 
-以下 UnPeek-LiveData 内核版，Java 或 Kotlin 皆可用
-
 ```Groovy
 implementation 'com.kunminx.arch:mvi-dispatch:4.5.0-beta'
-```
-
-以下 SharedFlow 内核版，仅可用于 Kotlin，详情请见 [MVI-Dispatcher-KTX](https://github.com/KunMinX/MVI-Dispatcher-KTX)
-
-```Groovy
-implementation 'com.kunminx.arch:mvi-dispatch-ktx:4.5.0-beta'
 ```
 
 &nbsp;
@@ -100,7 +96,7 @@ implementation 'com.kunminx.arch:mvi-dispatch-ktx:4.5.0-beta'
 
 本项目场景案例及 MVI-Dispatcher 框架，均属本人独立原创设计，本人对此享有最终解释权。
 
-任何个人或组织，未经与作者本人当面沟通，不得将本项目代码设计及本人对 “唯一可信源” 及 MVI 独家理解用于 "**打包贩卖、出书、卖课**" 等商业用途。
+任何个人或组织，未经与作者本人当面沟通，不得将本项目代码设计及本人对 “唯一可信源” 及 MVI 独家理解用于 "**打包贩卖、引流、出书、卖课**" 等商业用途。
 
 如需引用借鉴 “本项目框架设计背景及思路” 写作发行，请注明**链接出处**。
 
