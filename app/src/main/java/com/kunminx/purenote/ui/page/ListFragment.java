@@ -91,9 +91,7 @@ public class ListFragment extends BaseFragment {
         EditorFragment.start(nav(), item);
       }
     });
-
     mBinding.fab.setOnClickListener(v -> EditorFragment.start(nav(), new Note()));
-
     mNoteRequester.input(new NoteEvent(NoteEvent.EVENT_GET_NOTE_LIST));
   }
 

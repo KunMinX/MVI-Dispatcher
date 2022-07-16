@@ -1,4 +1,4 @@
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vz58k6asj218r0u0jwr.jpg)
+![](https://tva1.sinaimg.cn/large/e6c9d24ely1h48wrrwn0oj21890u00y9.jpg)
 
 &nbsp;
 
