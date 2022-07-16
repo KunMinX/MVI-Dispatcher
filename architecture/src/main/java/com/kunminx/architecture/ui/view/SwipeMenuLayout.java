@@ -1,8 +1,9 @@
-package com.kunminx.purenote.ui.view;
+package com.kunminx.architecture.ui.view;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.PointF;
@@ -15,7 +16,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 
-import com.kunminx.purenote.R;
+import com.kunminx.architecture.R;
 
 /**
  * Created by zhangxutong .
@@ -34,6 +35,7 @@ public class SwipeMenuLayout extends ViewGroup {
   private boolean isUnMoved = true;
   private final PointF mFirstP = new PointF();
   private boolean isUserSwiped;
+  @SuppressLint("StaticFieldLeak")
   private static SwipeMenuLayout mViewCache;
   private static boolean isTouching;
   private VelocityTracker mVelocityTracker;
