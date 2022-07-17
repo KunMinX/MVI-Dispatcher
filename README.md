@@ -60,7 +60,7 @@ implementation 'com.kunminx.arch:mvi-dispatch:5.1.0-beta'
 
 &nbsp;
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h48md0v02kj21dp0u0wl9.jpg)
+![](https://tva1.sinaimg.cn/large/e6c9d24ely1h4a5qpgev1j21am0s9ag1.jpg)
 
 &nbsp;
 
@@ -96,7 +96,7 @@ implementation 'com.kunminx.arch:mvi-dispatch:5.1.0-beta'
 
 本项目场景案例及 MVI-Dispatcher 框架，均属本人独立原创设计，本人对此享有最终解释权。
 
-任何个人或组织，未经与作者本人当面沟通，不得将本项目代码设计及本人对 “唯一可信源” 及 MVI 独家理解用于 "**打包贩卖、引流、出书、卖课**" 等商业用途。
+任何个人或组织，未经与作者本人当面沟通，不得将本项目代码设计及本人对 “唯一可信源” 及 MVI 独家理解用于 "**打包贩卖、出书、卖课**" 等商业用途。
 
 如需引用借鉴 “本项目框架设计背景及思路” 写作发行，请注明**链接出处**。
 

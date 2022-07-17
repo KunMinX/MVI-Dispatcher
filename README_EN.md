@@ -12,7 +12,7 @@ Unfortunately, the current Android MVI articles or code cases are all written ba
 
 The good news is that this issue comes with a well-polished MVI practice case.
 
-|                          Collect or topped                   |                           Smooth transition                  |                           Delete notes                           |
+|                      Collect or topped                       |                      Smooth transition                       |                         Delete notes                         |
 | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
 | ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vup9ck57g20u01o0hbm.gif) | ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vupfbex2g20u01o0qv6.gif) | ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vuplwiuqg20u01o0x2t.gif) |
 
@@ -54,7 +54,7 @@ MVI-Dispatcher is applicable to Java, through which,
 
 &nbsp;
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h48md0v02kj21dp0u0wl9.jpg)
+![](https://tva1.sinaimg.cn/large/e6c9d24ely1h4a5qpgev1j21am0s9ag1.jpg)
 
 &nbsp;
 
