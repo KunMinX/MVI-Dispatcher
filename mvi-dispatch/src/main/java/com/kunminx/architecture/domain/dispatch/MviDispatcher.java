@@ -93,10 +93,10 @@ public class MviDispatcher<E extends Event> extends ViewModel implements Default
   }
 
   public final void input(E event) {
-    onInput(event);
+    onHandle(event);
   }
 
-  protected void onInput(E event) {
+  protected void onHandle(E event) {
 
   }
 
@@ -117,9 +117,7 @@ public class MviDispatcher<E extends Event> extends ViewModel implements Default
         break;
       }
     }
-    if (mObservers.size() == 0) {
-      mResults.clear();
-    }
+    if (mObservers.size() == 0) mResults.clear();
   }
 }
 

@@ -33,7 +33,7 @@
 &nbsp;
 
 ```Groovy
-implementation 'com.kunminx.arch:mvi-dispatch:5.1.0-beta'
+implementation 'com.kunminx.arch:mvi-dispatch:6.0.0-beta'
 ```
 
 &nbsp;
@@ -60,7 +60,7 @@ implementation 'com.kunminx.arch:mvi-dispatch:5.1.0-beta'
 
 &nbsp;
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h4a5qpgev1j21am0s9ag1.jpg)
+![](https://tva1.sinaimg.cn/large/e6c9d24ely1h4al1milgpj21dj0u045c.jpg)
 
 &nbsp;
 

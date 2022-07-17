@@ -17,7 +17,7 @@ public class NoteRequester extends MviDispatcher<NoteEvent> {
    *  自动消除 “mutable 样板代码 + LiveData 连发事件覆盖 + LiveData.setValue 误用滥用” 高频痛点。
    */
   @Override
-  protected void onInput(NoteEvent event) {
+  protected void onHandle(NoteEvent event) {
     switch (event.eventId) {
       case NoteEvent.EVENT_GET_NOTE_LIST:
         DataRepository.getInstance().getNotes(dataResult -> {
