@@ -16,7 +16,7 @@ public class PageMessenger extends MviDispatcher<Messages> {
    *  自动消除 “mutable 样板代码 + LiveData 连发事件覆盖 + LiveData.setValue 误用滥用” 高频痛点。
    */
   @Override
-  public void input(Messages event) {
+  protected void onInput(Messages event) {
     sendResult(event);
 
 // TODO：tip 2：除接收 Activity/Fragment 事件，亦可从 Dispatcher 内部发送事件（作为副作用）：

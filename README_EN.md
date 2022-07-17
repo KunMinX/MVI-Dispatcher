@@ -27,13 +27,7 @@ In this case, I will show you how MVI-Dispatcher can simplify the otherwise “c
 &nbsp;
 
 ```Groovy
-implementation 'com.kunminx.arch:mvi-dispatch:4.5.0-beta'
-```
-
-Tip: kotlin developers can priority rely on the following versions. For details, see [MVI-Dispatcher-KTX](https://github.com/KunMinX/MVI-Dispatcher-KTX)
-
-```Groovy
-implementation 'com.kunminx.arch:mvi-dispatch-ktx:4.5.0-beta'
+implementation 'com.kunminx.arch:mvi-dispatch:5.1.0-beta'
 ```
 
 &nbsp;

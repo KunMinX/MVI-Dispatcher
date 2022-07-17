@@ -30,9 +30,7 @@ public class ComplexRequester extends MviDispatcher<ComplexEvent> {
    *  自动消除 “mutable 样板代码 + LiveData 连发事件覆盖 + LiveData.setValue 误用滥用” 高频痛点。
    */
   @Override
-  public void input(ComplexEvent event) {
-    super.input(event);
-
+  protected void onInput(ComplexEvent event) {
     switch (event.eventId) {
       case ComplexEvent.EVENT_TEST_1:
 

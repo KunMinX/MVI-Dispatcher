@@ -92,7 +92,11 @@ public class MviDispatcher<E extends Event> extends ViewModel implements Default
     if (result != null) result.setValue(event);
   }
 
-  public void input(E event) {
+  public final void input(E event) {
+    onInput(event);
+  }
+
+  protected void onInput(E event) {
 
   }
 
