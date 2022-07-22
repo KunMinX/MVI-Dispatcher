@@ -1,12 +1,10 @@
-plugins {
-    id 'com.android.library'
-}
+apply plugin: 'com.android.library'
 
 android {
-    compileSdk appTargetSdk
+    compileSdkVersion appTargetSdk
     defaultConfig {
-        minSdk appMinSdk
-        targetSdk appTargetSdk
+        minSdkVersion appMinSdk
+        targetSdkVersion appTargetSdk
         versionCode appVersionCode
         versionName appVersionName
 
@@ -24,6 +22,11 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -35,10 +38,10 @@ dependencies {
 
     implementation "androidx.appcompat:appcompat:1.4.2"
     implementation "androidx.navigation:navigation-runtime:2.5.0"
-    implementation 'com.kunminx.arch:smooth-navigation:4.0.0-beta1'
+    implementation 'com.github.KunMinX:Smooth-Navigation:v4.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation project(":mvi-dispatch")
 
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.13'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
 }
