@@ -27,15 +27,15 @@ public class PageMessenger extends MviDispatcher<Messages> {
   protected void onHandle(Messages event) {
     sendResult(event);
 
-// TODO：tip 2：除接收 Activity/Fragment 事件，亦可从 Dispatcher 内部发送事件（作为副作用）：
-//  ~
-//  In addition to receiving events from Activity/Fragment,
-//  events can also be sent from within the Dispatcher (as a side effect)
-//  ~
-//  if (sent from within) {
-//    Messages msg = new Messages(Messages.EVENT_SHOW_DIALOG);
-//    sendResult(msg);
-//  }
+    // TODO：tip 2：除接收 Activity/Fragment 事件，亦可从 Dispatcher 内部发送事件（作为副作用）：
+    //  ~
+    //  In addition to receiving events from Activity/Fragment,
+    //  events can also be sent from within the Dispatcher (as a side effect)
+    //  ~
+    //  if (sent from within) {
+    //    Messages msg = new Messages(Messages.EVENT_SHOW_DIALOG);
+    //    sendResult(msg);
+    //  }
 
   }
 }
