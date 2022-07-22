@@ -28,6 +28,14 @@ public class ComplexRequester extends MviDispatcher<ComplexEvent> {
    *  ~
    *  与此同时，作为唯一可信源成熟态，
    *  自动消除 “mutable 样板代码 + LiveData 连发事件覆盖 + LiveData.setValue 误用滥用” 高频痛点。
+   *  ~
+   *  ~
+   *  As the 'only credible source', it receives messages sent from the page,
+   *  processes the business logic internally, and distributes them through sendResult results.
+   *  ~
+   *  At the same time, as the adult stage of Single Source of Truth,
+   *  automatically eliminates the high-frequency pain spots of "mutable boilerplate code
+   *  & Livedata serial event coverage & mutableLiveData.setValue abuse".
    */
   @Override
   protected void onHandle(ComplexEvent event) {
@@ -36,6 +44,9 @@ public class ComplexRequester extends MviDispatcher<ComplexEvent> {
 
         //TODO tip 3: 定长队列，随取随用，绝不丢失事件
         // 此处通过 RxJava 轮询模拟事件连发，可于 Logcat Debug 见输出
+        // ~
+        // Fixed length queue, on demand, never lose events
+        // Here, rxjava polling simulation events are sent repeatedly, and the output can be seen in logcat debug
 
         Observable.interval(1, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
