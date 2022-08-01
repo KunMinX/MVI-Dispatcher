@@ -33,7 +33,7 @@
 &nbsp;
 
 ```Groovy
-implementation 'com.kunminx.arch:mvi-dispatch:6.0.0-beta'
+implementation 'com.kunminx.arch:mvi-dispatch:6.1.0-beta'
 ```
 
 &nbsp;
