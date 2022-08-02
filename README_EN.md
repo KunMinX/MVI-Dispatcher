@@ -2,6 +2,11 @@
 
 &nbsp;
 
+development story:[《Jetpack Architecture Component Design Analysis and Improvement Suggestions
+》](https://medium.com/@kunminx/google-android-official-architecture-example-i-am-waiting-for-you-at-the-starting-line-b4752d97f283)
+
+&nbsp;
+
 # Foreword
 
 With the popularity of LiveData and ViewModel, developers also try to eliminate mutable boilerplate code by “local MVI pattern”.
