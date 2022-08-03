@@ -4,7 +4,7 @@
 
 ### [🌏 English README](https://github.com/KunMinX/MVI-Dispatcher/blob/main/README_EN.md)
 
-研发故事：[《Jetpack 架构组件设计拆解及改善建议》](https://juejin.cn/post/7117498113983512589)
+研发故事：[《Jetpack 领域层组件设计拆解及改善建议》](https://juejin.cn/post/7117498113983512589)
 
 &nbsp;
 
