@@ -84,6 +84,8 @@ implementation 'com.kunminx.arch:mvi-dispatch:6.1.0-beta'
 
 # Thanks to
 
+感谢小伙伴冰咖啡、苏旗的测试反馈
+
 [AndroidX](https://developer.android.google.cn/jetpack/androidx)
 
 [Jetpack](https://developer.android.google.cn/jetpack/)
