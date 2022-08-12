@@ -6,9 +6,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModel;
 
 import com.kunminx.architecture.ui.page.BaseFragment;
+import com.kunminx.architecture.ui.page.StateHolder;
 import com.kunminx.purenote.R;
 import com.kunminx.purenote.data.bean.Note;
 import com.kunminx.purenote.databinding.FragmentListBinding;
@@ -107,7 +107,7 @@ public class ListFragment extends BaseFragment {
     return super.onBackPressed();
   }
 
-  public static class ListViewModel extends ViewModel {
+  public static class ListViewModel extends StateHolder {
     public List<Note> list = new ArrayList<>();
   }
 }

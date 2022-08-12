@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModel;
 import androidx.navigation.NavController;
 
 import com.kunminx.architecture.ui.page.BaseFragment;
+import com.kunminx.architecture.ui.page.StateHolder;
 import com.kunminx.architecture.utils.ToastUtils;
 import com.kunminx.purenote.R;
 import com.kunminx.purenote.data.bean.Note;
@@ -125,7 +125,7 @@ public class EditorFragment extends BaseFragment {
     return save();
   }
 
-  public static class EditorViewModel extends ViewModel {
+  public static class EditorViewModel extends StateHolder {
     public Note tempNote = new Note();
     public String title = "";
     public String content = "";
