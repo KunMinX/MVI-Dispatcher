@@ -35,7 +35,10 @@
 &nbsp;
 
 ```Groovy
-implementation 'com.kunminx.arch:mvi-dispatch:6.1.0-beta'
+implementation 'com.kunminx.arch:mvi-dispatch:6.2.0-beta'
+
+//可选分支，简便安全完成 Config 读写
+implementation 'com.kunminx.arch:keyvalue-dispatch:6.2.0-beta'
 ```
 
 &nbsp;
