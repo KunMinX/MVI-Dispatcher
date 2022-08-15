@@ -14,6 +14,7 @@ import com.kunminx.architecture.ui.page.BaseFragment;
  */
 public class SettingFragment extends BaseFragment {
 
+
   @Override
   protected void onInitViewModel() {
 
@@ -23,4 +24,6 @@ public class SettingFragment extends BaseFragment {
   protected View onInitView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
     return null;
   }
+
+
 }

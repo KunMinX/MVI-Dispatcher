@@ -41,6 +41,7 @@ dependencies {
     implementation 'com.github.KunMinX:Smooth-Navigation:v4.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation project(":mvi-dispatch")
+    implementation project(":keyvalue-dispatch")
 
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
