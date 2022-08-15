@@ -35,8 +35,8 @@
                 android:gravity="center_vertical"
                 android:paddingStart="12dp"
                 android:paddingEnd="4dp"
-                android:text="@string/edit"
-                android:textColor="@color/gray"
+                android:text="@string/setting"
+                android:textColor="@color/color_black"
                 android:textSize="24sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -46,34 +46,14 @@
                 android:gravity="center_vertical"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:text="@string/new_note"
-                android:textColor="@color/gray"
+                android:text="@string/setting_summary"
+                android:textColor="@color/dark_gray"
                 android:textSize="14sp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/et_title"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@color/color_white"
-        android:gravity="center_vertical"
-        android:hint="@string/title"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:singleLine="true"
-        android:textSize="24sp" />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/et_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/color_white"
-        android:gravity="top"
-        android:hint="@string/content"
-        android:padding="12dp"
-        android:textSize="16sp" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
