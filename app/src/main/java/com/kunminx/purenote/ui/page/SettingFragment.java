@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 
 import com.kunminx.architecture.domain.dispatch.GlobalConfigs;
 import com.kunminx.architecture.ui.page.BaseFragment;
-import com.kunminx.purenote.data.config.ConfigKey;
+import com.kunminx.purenote.data.config.Key;
 import com.kunminx.purenote.databinding.FragmentSettingsBinding;
 
 import java.util.Objects;
@@ -29,8 +29,8 @@ public class SettingFragment extends BaseFragment {
   protected View onInitView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
     mBinding = FragmentSettingsBinding.inflate(inflater, container, false);
 
-    String s = GlobalConfigs.getString(ConfigKey.TEST_STRING);
-    boolean b = GlobalConfigs.getBoolean(ConfigKey.TEST_BOOLEAN);
+    String s = GlobalConfigs.getString(Key.TEST_STRING);
+    boolean b = GlobalConfigs.getBoolean(Key.TEST_BOOLEAN);
 
     mBinding.etValue1.setText(s);
     mBinding.swValue2.setChecked(b);
@@ -42,10 +42,10 @@ public class SettingFragment extends BaseFragment {
   protected void onInput() {
     mBinding.btnSure1.setOnClickListener(v -> {
       String value = Objects.requireNonNull(mBinding.etValue1.getText()).toString();
-      GlobalConfigs.put(ConfigKey.TEST_STRING, value);
+      GlobalConfigs.put(Key.TEST_STRING, value);
     });
     mBinding.swValue2.setOnCheckedChangeListener((compoundButton, b) -> {
-      GlobalConfigs.put(ConfigKey.TEST_BOOLEAN, b);
+      GlobalConfigs.put(Key.TEST_BOOLEAN, b);
     });
   }
 

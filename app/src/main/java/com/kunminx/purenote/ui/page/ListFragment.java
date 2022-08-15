@@ -12,7 +12,7 @@ import com.kunminx.architecture.ui.page.BaseFragment;
 import com.kunminx.architecture.ui.page.StateHolder;
 import com.kunminx.purenote.R;
 import com.kunminx.purenote.data.bean.Note;
-import com.kunminx.purenote.data.config.ConfigKey;
+import com.kunminx.purenote.data.config.Key;
 import com.kunminx.purenote.databinding.FragmentListBinding;
 import com.kunminx.purenote.domain.event.Messages;
 import com.kunminx.purenote.domain.event.NoteEvent;
@@ -83,9 +83,9 @@ public class ListFragment extends BaseFragment {
 
     GlobalConfigs.output(this, keyValueEvent -> {
       switch (keyValueEvent.currentKey) {
-        case ConfigKey.TEST_STRING:
+        case Key.TEST_STRING:
           break;
-        case ConfigKey.TEST_BOOLEAN:
+        case Key.TEST_BOOLEAN:
           break;
       }
     });
