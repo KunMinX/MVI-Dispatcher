@@ -8,6 +8,9 @@ import androidx.lifecycle.Observer;
 import com.kunminx.architecture.domain.event.KeyValueEvent;
 
 /**
+ * TODO tip: 此处基于 KeyValueDispatcher 提供全局配置的默认实现，
+ *  开发者亦可继承 KeyValueDispatcher 或效仿本类实现局部或全局用 KeyValueStore
+ *
  * Create by KunMinX at 2022/8/15
  */
 public class GlobalConfigs {

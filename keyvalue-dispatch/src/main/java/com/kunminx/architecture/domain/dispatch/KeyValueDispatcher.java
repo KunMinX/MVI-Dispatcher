@@ -6,6 +6,10 @@ import com.kunminx.architecture.utils.SPUtils;
 import java.util.HashMap;
 
 /**
+ * TODO tip：通过内聚，消除 Key Value Getter Putter init 样板代码，
+ *  开发者只需声明 Key 列表即可使用 get() put()，
+ *  且顺带可从唯一出口 output 处响应配置变化完成 UI 刷新
+ *
  * Create by KunMinX at 2022/8/15
  */
 public class KeyValueDispatcher extends MviDispatcher<KeyValueEvent> {
