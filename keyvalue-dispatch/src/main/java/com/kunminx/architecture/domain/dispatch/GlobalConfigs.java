@@ -24,7 +24,23 @@ public class GlobalConfigs {
     instance.output(fragment, observer);
   }
 
-  public static void put(String key, Object value) {
+  public static void put(String key, String value) {
+    instance.put(key, value);
+  }
+
+  public static void put(String key, Integer value) {
+    instance.put(key, value);
+  }
+
+  public static void put(String key, Long value) {
+    instance.put(key, value);
+  }
+
+  public static void put(String key, Float value) {
+    instance.put(key, value);
+  }
+
+  public static void put(String key, Boolean value) {
     instance.put(key, value);
   }
 

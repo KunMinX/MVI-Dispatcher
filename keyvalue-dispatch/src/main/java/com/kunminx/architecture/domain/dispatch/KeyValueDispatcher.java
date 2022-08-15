@@ -21,8 +21,33 @@ public class KeyValueDispatcher extends MviDispatcher<KeyValueEvent> {
     sendResult(event);
   }
 
-  public void put(String key, Object value) {
+  public void put(String key, String value) {
     keyValues.put(key, value);
+    mSPUtils.put(key, value);
+    input(new KeyValueEvent(key));
+  }
+
+  public void put(String key, Integer value) {
+    keyValues.put(key, value);
+    mSPUtils.put(key, value);
+    input(new KeyValueEvent(key));
+  }
+
+  public void put(String key, Long value) {
+    keyValues.put(key, value);
+    mSPUtils.put(key, value);
+    input(new KeyValueEvent(key));
+  }
+
+  public void put(String key, Float value) {
+    keyValues.put(key, value);
+    mSPUtils.put(key, value);
+    input(new KeyValueEvent(key));
+  }
+
+  public void put(String key, Boolean value) {
+    keyValues.put(key, value);
+    mSPUtils.put(key, value);
     input(new KeyValueEvent(key));
   }
 
