@@ -16,11 +16,11 @@ public class GlobalConfigs {
   private GlobalConfigs() {
   }
 
-  public static void updateUI(@NonNull AppCompatActivity activity, @NonNull Observer<KeyValueEvent> observer) {
+  public static void output(@NonNull AppCompatActivity activity, @NonNull Observer<KeyValueEvent> observer) {
     instance.output(activity, observer);
   }
 
-  public static void updateUI(@NonNull Fragment fragment, @NonNull Observer<KeyValueEvent> observer) {
+  public static void output(@NonNull Fragment fragment, @NonNull Observer<KeyValueEvent> observer) {
     instance.output(fragment, observer);
   }
 
