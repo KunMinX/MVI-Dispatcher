@@ -62,13 +62,13 @@ public class MainActivity extends BaseActivity {
     // ~
     // Here you can see through dispatcher Input sends multiple events continuously without being overwritten
 
-    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_1));
-    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_2));
-    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_2));
-    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_2));
-    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_3));
-    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_3));
-    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_3));
-    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_3));
+//    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_1));
+//    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_2));
+//    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_2));
+//    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_2));
+//    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_3));
+//    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_3));
+//    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_3));
+//    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_3));
   }
 }

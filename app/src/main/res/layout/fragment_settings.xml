@@ -55,65 +55,73 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <RelativeLayout
-        android:id="@+id/rl_1"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp">
+        android:layout_height="match_parent"
+        android:background="@color/color_white"
+        android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_key_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="@string/string_test"
-            android:textColor="@color/color_black"
-            android:textSize="20sp" />
+        <RelativeLayout
+            android:id="@+id/rl_1"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_value_1"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:hint="@string/enter_please"
-            android:singleLine="true" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_key_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/string_test"
+                android:textColor="@color/color_black"
+                android:textSize="20sp" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_sure_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:text="@string/save"
-            tools:ignore="RelativeOverlap" />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_value_1"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:hint="@string/enter_please"
+                android:singleLine="true" />
 
-    </RelativeLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_sure_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="@string/save"
+                tools:ignore="RelativeOverlap" />
 
-    <RelativeLayout
-        android:id="@+id/rl_2"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp">
+        </RelativeLayout>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_key_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="@string/boolean_test"
-            android:textColor="@color/color_black"
-            android:textSize="20sp"
-            tools:ignore="RelativeOverlap" />
+        <RelativeLayout
+            android:id="@+id/rl_2"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/sw_value_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_key_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/boolean_test"
+                android:textColor="@color/color_black"
+                android:textSize="20sp"
+                tools:ignore="RelativeOverlap" />
 
-    </RelativeLayout>
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/sw_value_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true" />
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

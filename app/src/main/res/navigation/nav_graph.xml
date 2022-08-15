@@ -17,6 +17,13 @@
             app:exitAnim="@anim/x_fragment_exit"
             app:popEnterAnim="@anim/x_fragment_pop_enter"
             app:popExitAnim="@anim/x_fragment_pop_exit" />
+        <action
+            android:id="@+id/action_ListFragment_to_settingFragment"
+            app:destination="@id/settingFragment"
+            app:enterAnim="@anim/x_fragment_enter"
+            app:exitAnim="@anim/x_fragment_exit"
+            app:popEnterAnim="@anim/x_fragment_pop_enter"
+            app:popExitAnim="@anim/x_fragment_pop_exit" />
     </fragment>
 
     <fragment
@@ -25,4 +32,9 @@
         tools:layout="@layout/fragment_editor">
 
     </fragment>
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.kunminx.purenote.ui.page.SettingFragment"
+        android:label="SettingFragment"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

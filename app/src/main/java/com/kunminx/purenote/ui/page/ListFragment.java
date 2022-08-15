@@ -7,10 +7,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.kunminx.architecture.domain.dispatch.GlobalConfigs;
 import com.kunminx.architecture.ui.page.BaseFragment;
 import com.kunminx.architecture.ui.page.StateHolder;
 import com.kunminx.purenote.R;
 import com.kunminx.purenote.data.bean.Note;
+import com.kunminx.purenote.data.config.ConfigKey;
 import com.kunminx.purenote.databinding.FragmentListBinding;
 import com.kunminx.purenote.domain.event.Messages;
 import com.kunminx.purenote.domain.event.NoteEvent;
@@ -75,6 +77,18 @@ public class ListFragment extends BaseFragment {
           break;
       }
     });
+
+    //TODO tip 3: 更新配置并刷新界面，是日常开发高频操作，
+    // 当别处通过 keyValue-Dispatcher 为某配置 put 新值，此处响应并刷新 UI
+
+    GlobalConfigs.updateUI(this, keyValueEvent -> {
+      switch (keyValueEvent.currentKey) {
+        case ConfigKey.TEST_STRING:
+          break;
+        case ConfigKey.TEST_BOOLEAN:
+          break;
+      }
+    });
   }
 
   /**
@@ -98,6 +112,7 @@ public class ListFragment extends BaseFragment {
       }
     });
     mBinding.fab.setOnClickListener(v -> EditorFragment.start(nav(), new Note()));
+    mBinding.ivSearch.setOnClickListener(v -> nav().navigate(R.id.action_ListFragment_to_settingFragment));
     mNoteRequester.input(new NoteEvent(NoteEvent.EVENT_GET_NOTE_LIST));
   }
 
