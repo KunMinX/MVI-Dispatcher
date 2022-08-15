@@ -2,3 +2,4 @@ rootProject.name = "PureNote"
 include ':app'
 include ':architecture'
 include ':mvi-dispatch'
+include ':keyvalue-dispatch'

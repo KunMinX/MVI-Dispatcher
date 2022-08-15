@@ -4,7 +4,7 @@ group = 'com.github.KunMinX'
 
 ext {
     PUBLISH_GROUP_ID = 'com.kunminx.arch'
-    PUBLISH_ARTIFACT_ID = 'mvi-dispatch'
+    PUBLISH_ARTIFACT_ID = 'keyvalue-dispatch'
     PUBLISH_VERSION = appVersionName
     VERSION_CODE = appVersionCode
 
@@ -60,4 +60,5 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'com.kunminx.arch:unpeek-livedata:7.6.0'
+    implementation project(":mvi-dispatch")
 }
