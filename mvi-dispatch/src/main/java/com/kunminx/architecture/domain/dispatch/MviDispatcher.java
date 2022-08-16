@@ -1,8 +1,5 @@
 package com.kunminx.architecture.domain.dispatch;
 
-import android.content.Context;
-import android.os.PowerManager;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -29,27 +26,18 @@ public class MviDispatcher<E extends Event> extends ViewModel implements Default
   private final HashMap<Integer, LifecycleOwner> mFragmentOwner = new HashMap<>();
   private final HashMap<Integer, Observer<E>> mObservers = new HashMap<>();
   private final FixedLengthList<MutableResult<E>> mResults = new FixedLengthList<>();
-  private PowerManager mPowerManager;
 
   protected int initQueueMaxLength() {
     return DEFAULT_QUEUE_LENGTH;
   }
 
-  private void initPowerManager(Context context) {
-    if (mPowerManager == null) {
-      mPowerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-    }
-  }
-
   public final void output(@NonNull AppCompatActivity activity, @NonNull Observer<E> observer) {
-    initPowerManager(activity.getApplicationContext());
     activity.getLifecycle().addObserver(this);
     Integer identityId = System.identityHashCode(activity);
     outputTo(identityId, activity, observer);
   }
 
   public final void output(@NonNull Fragment fragment, @NonNull Observer<E> observer) {
-    initPowerManager(fragment.requireContext());
     fragment.getLifecycle().addObserver(this);
     Integer identityId = System.identityHashCode(fragment);
     this.mFragmentOwner.put(identityId, fragment);
@@ -101,8 +89,7 @@ public class MviDispatcher<E extends Event> extends ViewModel implements Default
         break;
       }
     }
-    boolean isScreenOn = mPowerManager == null || mPowerManager.isInteractive();
-    if (isScreenOn && result != null) result.setValue(event);
+    if (result != null) result.setValue(event);
   }
 
   public final void input(E event) {
