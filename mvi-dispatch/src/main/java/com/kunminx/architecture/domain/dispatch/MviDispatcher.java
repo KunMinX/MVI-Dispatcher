@@ -9,8 +9,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import com.kunminx.architecture.domain.event.Event;
-import com.kunminx.architecture.domain.message.MutableResult;
 import com.kunminx.architecture.domain.queue.FixedLengthList;
+import com.kunminx.architecture.domain.result.MutableResult;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -97,7 +97,6 @@ public class MviDispatcher<E extends Event> extends ViewModel implements Default
   }
 
   protected void onHandle(E event) {
-
   }
 
   @Override
@@ -120,4 +119,3 @@ public class MviDispatcher<E extends Event> extends ViewModel implements Default
     if (mObservers.size() == 0) mResults.clear();
   }
 }
-
