@@ -1,5 +1,6 @@
 package com.kunminx.purenote.ui.page;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,11 @@ import com.kunminx.purenote.R;
 import com.kunminx.purenote.data.bean.Note;
 import com.kunminx.purenote.data.config.Key;
 import com.kunminx.purenote.databinding.FragmentListBinding;
+import com.kunminx.purenote.domain.event.ComplexEvent;
 import com.kunminx.purenote.domain.event.Messages;
 import com.kunminx.purenote.domain.event.NoteEvent;
 import com.kunminx.purenote.domain.message.PageMessenger;
+import com.kunminx.purenote.domain.request.ComplexRequester;
 import com.kunminx.purenote.domain.request.NoteRequester;
 import com.kunminx.purenote.ui.adapter.NoteAdapter;
 
@@ -33,12 +36,14 @@ public class ListFragment extends BaseFragment {
   private NoteRequester mNoteRequester;
   private PageMessenger mMessenger;
   private NoteAdapter mAdapter;
+  private ComplexRequester mComplexRequester;
 
   @Override
   protected void onInitViewModel() {
     mStates = getFragmentScopeViewModel(ListViewModel.class);
     mNoteRequester = getFragmentScopeViewModel(NoteRequester.class);
     mMessenger = getApplicationScopeViewModel(PageMessenger.class);
+    mComplexRequester = getActivityScopeViewModel(ComplexRequester.class);
   }
 
   @Override
@@ -76,6 +81,14 @@ public class ListFragment extends BaseFragment {
         case NoteEvent.EVENT_REMOVE_ITEM:
           break;
       }
+    });
+
+    mComplexRequester.output(this, complexEvent -> {
+      if (complexEvent.eventId == ComplexEvent.EVENT_TEST_1) Log.d("f complexEvent", "---1");
+      else if (complexEvent.eventId == ComplexEvent.EVENT_TEST_2) Log.d("f complexEvent", "---2");
+      else if (complexEvent.eventId == ComplexEvent.EVENT_TEST_3) Log.d("f complexEvent", "---3");
+      else if (complexEvent.eventId == ComplexEvent.EVENT_TEST_4)
+        Log.d("f complexEvent", "---4 " + complexEvent.result.count);
     });
 
     //TODO tip 3: 更新配置并刷新界面，是日常开发高频操作，

@@ -7,12 +7,15 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
  * Create by KunMinX at 2022/7/5
  */
 public class ComplexRequester extends MviDispatcher<ComplexEvent> {
+
+  private Disposable mDisposable;
 
   /**
    * TODO tip 1：可初始化配置队列长度，自动丢弃队首过时消息
@@ -48,14 +51,15 @@ public class ComplexRequester extends MviDispatcher<ComplexEvent> {
         // Fixed length queue, on demand, never lose events
         // Here, rxjava polling simulation events are sent repeatedly, and the output can be seen in logcat debug
 
-        Observable.interval(1, TimeUnit.MILLISECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aLong -> {
-                  ComplexEvent event1 = new ComplexEvent(ComplexEvent.EVENT_TEST_4);
-                  event1.param.count = aLong;
-                  input(event1);
-                });
+        if (mDisposable == null)
+          mDisposable = Observable.interval(1000, TimeUnit.MILLISECONDS)
+                  .subscribeOn(Schedulers.io())
+                  .observeOn(AndroidSchedulers.mainThread())
+                  .subscribe(aLong -> {
+                    ComplexEvent event1 = new ComplexEvent(ComplexEvent.EVENT_TEST_4);
+                    event1.param.count = aLong;
+                    input(event1);
+                  });
         break;
       case ComplexEvent.EVENT_TEST_2:
         Observable.timer(200, TimeUnit.MILLISECONDS)
