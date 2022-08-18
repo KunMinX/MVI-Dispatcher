@@ -19,6 +19,10 @@ public class ListState<T> extends State<List<T>> {
     set(get());
   }
 
+  public void refresh(){
+    set(get());
+  }
+
   public List<T> getList() {
     return get();
   }

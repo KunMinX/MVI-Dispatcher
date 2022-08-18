@@ -1,7 +1,5 @@
 package com.kunminx.purenote.ui.page;
 
-import androidx.databinding.ObservableArrayList;
-
 import com.kunminx.architecture.domain.dispatch.GlobalConfigs;
 import com.kunminx.architecture.ui.bind.ClickProxy;
 import com.kunminx.architecture.ui.bind.ListState;
@@ -66,8 +64,8 @@ public class ListFragment extends BaseFragment {
           mStates.emptyViewShow.set(mStates.list.size() == 0);
           break;
         case NoteEvent.EVENT_MARK_ITEM:
-          break;
         case NoteEvent.EVENT_REMOVE_ITEM:
+          mStates.list.refresh();
           break;
       }
     });

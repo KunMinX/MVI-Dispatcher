@@ -39,9 +39,6 @@ public class NoteAdapter extends SimpleDataBindingAdapter<Note, AdapterNoteListB
       if (mOnItemClickListener != null) mOnItemClickListener.onItemClick(v.getId(), note, position);
     });
     binding.btnMark.setOnClickListener(v -> {
-      note.toggleType(Note.TYPE_MARKED);
-      notifyItemChanged(position);
-      notifyItemRangeChanged(position, 1);
       if (mOnItemClickListener != null) mOnItemClickListener.onItemClick(v.getId(), note, position);
     });
     binding.btnTopping.setOnClickListener(v -> {
@@ -49,9 +46,6 @@ public class NoteAdapter extends SimpleDataBindingAdapter<Note, AdapterNoteListB
       if (mOnItemClickListener != null) mOnItemClickListener.onItemClick(v.getId(), note, position);
     });
     binding.btnDelete.setOnClickListener(v -> {
-      notifyItemRemoved(position);
-      getCurrentList().remove(position);
-      notifyItemRangeRemoved(position, getCurrentList().size() - position);
       if (mOnItemClickListener != null) mOnItemClickListener.onItemClick(v.getId(), note, position);
     });
   }
