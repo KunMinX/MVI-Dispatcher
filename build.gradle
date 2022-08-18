@@ -7,8 +7,8 @@ buildscript {
     ext {
         appTargetSdk = 32
         appMinSdk = 23
-        appVersionCode = 7000100
-        appVersionName = "7.0.1-beta"
+        appVersionCode = 7000200
+        appVersionName = "7.0.2-beta"
         lifecycleVersion = "2.4.1"
         navigationVersion = "2.4.2"
     }
