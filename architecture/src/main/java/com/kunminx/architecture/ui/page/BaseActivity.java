@@ -30,25 +30,19 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModel;
 
 import com.kunminx.architecture.ui.scope.ViewModelScope;
 import com.kunminx.architecture.utils.AdaptScreenUtils;
 import com.kunminx.architecture.utils.Utils;
 
-
 /**
  * Create by KunMinX at 19/8/1
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends DataBindingActivity {
 
   private static final int STATUS_BAR_TRANSPARENT_COLOR = 0x00000000;
   private final ViewModelScope mViewModelScope = new ViewModelScope();
-
-  protected abstract void onInitViewModel();
-
-  protected abstract void onInitView();
 
   protected void onInitData() {
   }
@@ -62,18 +56,12 @@ public abstract class BaseActivity extends AppCompatActivity {
   @SuppressLint("SourceLockedOrientationActivity")
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
-
     transparentStatusBar(this);
-
     super.onCreate(savedInstanceState);
-
-    onInitViewModel();
-    onInitView();
     onInitData();
     onOutput();
     onInput();
   }
-
 
   public static void transparentStatusBar(@NonNull Activity activity) {
     Window window = activity.getWindow();

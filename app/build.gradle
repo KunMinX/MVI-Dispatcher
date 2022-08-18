@@ -20,7 +20,7 @@ android {
     }
 
     buildFeatures {
-        viewBinding true
+        dataBinding true
     }
 
     compileOptions {
@@ -47,6 +47,9 @@ dependencies {
     implementation "androidx.navigation:navigation-runtime:2.5.1"
 
     implementation 'com.github.KunMinX:Smooth-Navigation:v4.0.0'
+    implementation 'com.github.KunMinX.Strict-DataBinding:strict_databinding:5.6.0'
+    implementation 'com.github.KunMinX.Strict-DataBinding:binding_state:5.6.0'
+    implementation 'com.github.KunMinX.Strict-DataBinding:binding_recyclerview:5.6.0'
 
     implementation "androidx.room:room-runtime:2.4.2"
     annotationProcessor "androidx.room:room-compiler:2.4.2"

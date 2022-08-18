@@ -1,98 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/toolbar"
+    <data>
+
+        <variable
+            name="state"
+            type="com.kunminx.purenote.ui.page.ListFragment.ListStates" />
+
+        <variable
+            name="adapter"
+            type="androidx.recyclerview.widget.RecyclerView.Adapter" />
+
+        <variable
+            name="click"
+            type="com.kunminx.architecture.ui.bind.ClickProxy" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="89dp"
-        android:background="@color/color_white"
-        android:elevation="8dp"
-        android:orientation="horizontal"
-        android:paddingTop="25dp">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_logo"
-            android:layout_width="48dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="12dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/icon_avatar" />
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="89dp"
+            android:background="@color/color_white"
+            android:elevation="8dp"
+            android:orientation="horizontal"
+            android:paddingTop="25dp">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_title"
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:gravity="center_vertical"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:text="@string/app_name"
-                android:textColor="@color/color_black"
-                android:textSize="24sp" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_logo"
+                android:layout_width="48dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="12dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_avatar" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_content"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:gravity="center_vertical"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:text="@string/copyright"
-                android:textColor="@color/gray"
-                android:textSize="14sp" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:gravity="center_vertical"
+                    android:onClick="@{click.listener}"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:text="@string/app_name"
+                    android:textColor="@color/color_black"
+                    android:textSize="24sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:text="@string/copyright"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_search"
+                android:layout_width="48dp"
+                android:layout_height="56dp"
+                android:layout_marginEnd="12dp"
+                android:layout_weight="0"
+                android:onClick="@{click.listener}"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_search"
+                android:tint="@color/gray" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
+            adapter="@{adapter}"
+            submitList="@{state.list}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar"
+            android:background="@color/light_gray"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="9"
+            tools:listitem="@layout/adapter_note_list" />
+
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_search"
-            android:layout_width="48dp"
-            android:layout_height="56dp"
-            android:layout_marginEnd="12dp"
-            android:layout_weight="0"
-            android:scaleType="centerInside"
-            android:src="@drawable/icon_search"
-            android:tint="@color/gray" />
+            android:id="@+id/iv_empty"
+            visible="@{state.emptyViewShow}"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/bg_empty"
+            android:visibility="gone" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="16dp"
+            android:contentDescription="@string/new_note"
+            android:onClick="@{click.listener}"
+            android:src="@drawable/ic_baseline_add" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
-        android:background="@color/light_gray"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:itemCount="9"
-        tools:listitem="@layout/adapter_note_list" />
+    </RelativeLayout>
+</layout>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_empty"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerInParent="true"
-        android:src="@drawable/bg_empty"
-        android:visibility="gone" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="16dp"
-
-        android:contentDescription="@string/new_note"
-        android:src="@drawable/ic_baseline_add" />
-
-</RelativeLayout>
 
 

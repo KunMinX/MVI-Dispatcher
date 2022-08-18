@@ -20,7 +20,7 @@ android {
     }
 
     buildFeatures {
-        viewBinding true
+        dataBinding true
     }
 
     compileOptions {
@@ -39,6 +39,8 @@ dependencies {
     implementation "androidx.appcompat:appcompat:1.5.0"
     implementation "androidx.navigation:navigation-runtime:2.5.1"
     implementation 'com.github.KunMinX:Smooth-Navigation:v4.0.0'
+    implementation 'com.github.KunMinX.Strict-DataBinding:strict_databinding:5.6.0'
+    implementation 'com.github.KunMinX.Strict-DataBinding:binding_state:5.6.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation project(":mvi-dispatch")
 

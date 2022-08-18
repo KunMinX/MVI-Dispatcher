@@ -2,38 +2,35 @@ package com.kunminx.purenote.ui.page;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.navigation.NavController;
 
+import com.kunminx.architecture.ui.bind.ClickProxy;
 import com.kunminx.architecture.ui.page.BaseFragment;
+import com.kunminx.architecture.ui.page.DataBindingConfig;
 import com.kunminx.architecture.ui.page.StateHolder;
+import com.kunminx.architecture.ui.state.State;
 import com.kunminx.architecture.utils.ToastUtils;
+import com.kunminx.architecture.utils.Utils;
+import com.kunminx.purenote.BR;
 import com.kunminx.purenote.R;
 import com.kunminx.purenote.data.bean.Note;
-import com.kunminx.purenote.databinding.FragmentEditorBinding;
 import com.kunminx.purenote.domain.event.Messages;
 import com.kunminx.purenote.domain.event.NoteEvent;
 import com.kunminx.purenote.domain.message.PageMessenger;
 import com.kunminx.purenote.domain.request.NoteRequester;
 
-import java.util.Objects;
 import java.util.UUID;
 
 /**
  * Create by KunMinX at 2022/6/30
  */
 public class EditorFragment extends BaseFragment {
-
   private final static String NOTE = "NOTE";
-  private FragmentEditorBinding mBinding;
-  private EditorViewModel mStates;
+  private EditorStates mStates;
   private NoteRequester mNoteRequester;
   private PageMessenger mMessenger;
+  private ClickProxy mClickProxy;
 
   public static void start(NavController controller, Note note) {
     Bundle bundle = new Bundle();
@@ -42,32 +39,32 @@ public class EditorFragment extends BaseFragment {
   }
 
   @Override
-  protected void onInitViewModel() {
-    mStates = getFragmentScopeViewModel(EditorViewModel.class);
+  protected void initViewModel() {
+    mStates = getFragmentScopeViewModel(EditorStates.class);
     mNoteRequester = getFragmentScopeViewModel(NoteRequester.class);
     mMessenger = getApplicationScopeViewModel(PageMessenger.class);
   }
 
   @Override
-  protected View onInitView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
-    mBinding = FragmentEditorBinding.inflate(inflater, container, false);
-    return mBinding.getRoot();
+  protected DataBindingConfig getDataBindingConfig() {
+    return new DataBindingConfig(R.layout.fragment_editor, BR.state, mStates)
+            .addBindingParam(BR.click, mClickProxy = new ClickProxy());
   }
 
   @Override
   protected void onInitData() {
     if (getArguments() != null) {
       mStates.tempNote = getArguments().getParcelable(NOTE);
-      mStates.title = mStates.tempNote.title;
-      mStates.content = mStates.tempNote.content;
+      mStates.title.set(mStates.tempNote.title);
+      mStates.content.set(mStates.tempNote.content);
       if (TextUtils.isEmpty(mStates.tempNote.id)) {
-        mBinding.etTitle.requestFocus();
-        mBinding.etTitle.post(this::toggleSoftInput);
+        mStates.titleRequestFocus.set(true);
+        showKeyboard();
       } else {
-        mBinding.etTitle.setText(mStates.tempNote.title);
-        mBinding.etContent.setText(mStates.tempNote.content);
-        mBinding.tvTitle.setText(getString(R.string.last_time_modify));
-        mBinding.tvTime.setText(mStates.tempNote.getModifyDate());
+        mStates.title.set(mStates.tempNote.title);
+        mStates.content.set(mStates.tempNote.content);
+        mStates.tip.set(getString(R.string.last_time_modify));
+        mStates.time.set(mStates.tempNote.getModifyDate());
       }
     }
   }
@@ -99,16 +96,21 @@ public class EditorFragment extends BaseFragment {
    */
   @Override
   protected void onInput() {
-    mBinding.btnBack.setOnClickListener(v -> save());
+    mClickProxy.setOnClick(v -> {
+      if (v.getId() == R.id.btn_back) {
+        save();
+      }
+    });
   }
 
   private boolean save() {
-    mStates.tempNote.title = Objects.requireNonNull(mBinding.etTitle.getText()).toString();
-    mStates.tempNote.content = Objects.requireNonNull(mBinding.etContent.getText()).toString();
-    if (TextUtils.isEmpty(mStates.tempNote.title) && TextUtils.isEmpty(mStates.tempNote.content)
-            || mStates.tempNote.title.equals(mStates.title) && mStates.tempNote.content.equals(mStates.content)) {
+    if (TextUtils.isEmpty(mStates.title.get()) && TextUtils.isEmpty(mStates.content.get())
+            || mStates.tempNote.title.equals(mStates.title.get())
+            && mStates.tempNote.content.equals(mStates.content.get())) {
       return nav().navigateUp();
     }
+    mStates.tempNote.title = mStates.title.get();
+    mStates.tempNote.content = mStates.content.get();
     long time = System.currentTimeMillis();
     if (TextUtils.isEmpty(mStates.tempNote.id)) {
       mStates.tempNote.createTime = time;
@@ -125,9 +127,12 @@ public class EditorFragment extends BaseFragment {
     return save();
   }
 
-  public static class EditorViewModel extends StateHolder {
+  public static class EditorStates extends StateHolder {
     public Note tempNote = new Note();
-    public String title = "";
-    public String content = "";
+    public State<String> title = new State<>("");
+    public State<String> content = new State<>("");
+    public State<String> tip = new State<>(Utils.getApp().getString(R.string.edit));
+    public State<String> time = new State<>(Utils.getApp().getString(R.string.new_note));
+    public State<Boolean> titleRequestFocus = new State<>(false);
   }
 }
