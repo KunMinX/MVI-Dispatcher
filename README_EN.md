@@ -40,10 +40,6 @@ implementation 'com.kunminx.arch:keyvalue-dispatch:7.0.1-beta'
 
 &nbsp;
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vupvpzprj21o40h90wp.jpg)
-
-&nbsp;
-
 MVI-Dispatcher is applicable to Java, through which,
 
 > 1.Can completely eliminate mutable boilerplate code, no need to write one line

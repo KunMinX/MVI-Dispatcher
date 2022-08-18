@@ -43,10 +43,6 @@ implementation 'com.kunminx.arch:keyvalue-dispatch:7.0.1-beta'
 
 &nbsp;
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vupvpzprj21o40h90wp.jpg)
-
-&nbsp;
-
 亲爱的 MVI-Dispatcher，你已是个成熟的 '唯一可信源'，该学会自己去完成以下几点：
 
 > 1.**可彻底消除 mutable 样板代码**，一行不必写
