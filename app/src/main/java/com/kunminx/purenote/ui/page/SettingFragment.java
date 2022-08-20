@@ -34,13 +34,11 @@ public class SettingFragment extends BaseFragment {
   @Override
   protected void onInput() {
     mClickProxy.setOnClick(v -> {
-      if (v.getId() == R.id.btn_back) {
-        nav().navigateUp();
-      } else if (v.getId() == R.id.btn_sure_1) {
+      if (v.getId() == R.id.btn_back) nav().navigateUp();
+      else if (v.getId() == R.id.btn_sure_1)
         GlobalConfigs.put(Key.TEST_STRING, mStates.testString.get());
-      } else if (v.getId() == R.id.sw_value_2) {
+      else if (v.getId() == R.id.sw_value_2)
         GlobalConfigs.put(Key.TEST_BOOLEAN, mStates.testBoolean.get());
-      }
     });
   }
 

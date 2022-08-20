@@ -61,8 +61,6 @@ public class EditorFragment extends BaseFragment {
         mStates.titleRequestFocus.set(true);
         showKeyboard();
       } else {
-        mStates.title.set(mStates.tempNote.title);
-        mStates.content.set(mStates.tempNote.content);
         mStates.tip.set(getString(R.string.last_time_modify));
         mStates.time.set(mStates.tempNote.getModifyDate());
       }
@@ -97,14 +95,12 @@ public class EditorFragment extends BaseFragment {
   @Override
   protected void onInput() {
     mClickProxy.setOnClick(v -> {
-      if (v.getId() == R.id.btn_back) {
-        save();
-      }
+      if (v.getId() == R.id.btn_back) save();
     });
   }
 
   private boolean save() {
-    if (TextUtils.isEmpty(mStates.title.get()) && TextUtils.isEmpty(mStates.content.get())
+    if (TextUtils.isEmpty(mStates.title.get() + mStates.content.get())
             || mStates.tempNote.title.equals(mStates.title.get())
             && mStates.tempNote.content.equals(mStates.content.get())) {
       return nav().navigateUp();
@@ -117,7 +113,6 @@ public class EditorFragment extends BaseFragment {
       mStates.tempNote.id = UUID.randomUUID().toString();
     }
     mStates.tempNote.modifyTime = time;
-
     mNoteRequester.input(new NoteEvent(NoteEvent.EVENT_ADD_ITEM).setNote(mStates.tempNote));
     return true;
   }
