@@ -101,7 +101,7 @@ public class ListFragment extends BaseFragment {
     });
     mClickProxy.setOnClickListener(view -> {
       if (view.getId() == R.id.fab) EditorFragment.start(nav(), new Note());
-      else if (view.getId() == R.id.iv_search) nav().navigate(R.id.action_list_to_setting);
+      else if (view.getId() == R.id.iv_logo) nav().navigate(R.id.action_list_to_setting);
     });
     if (mStates.list.isEmpty()) mNoteRequester.input(NoteEvent.getList());
   }

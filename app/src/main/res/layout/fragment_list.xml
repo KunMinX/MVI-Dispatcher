@@ -36,6 +36,7 @@
                 android:layout_width="48dp"
                 android:layout_height="56dp"
                 android:layout_marginStart="12dp"
+                android:onClick="@{click.listener}"
                 android:scaleType="centerInside"
                 android:src="@drawable/icon_avatar" />
 
