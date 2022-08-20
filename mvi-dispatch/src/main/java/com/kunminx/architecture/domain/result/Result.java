@@ -52,7 +52,6 @@ public abstract class Result<T> {
       observer.activeStateChanged(false);
       return;
     }
-    Log.d("---", "observer.mLastVersion >= mVersion:" + (observer.mLastVersion >= mVersion));
     if (observer.mLastVersion >= mVersion) return;
     observer.mLastVersion = mVersion;
     observer.mObserver.onChanged((T) mData);
