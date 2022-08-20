@@ -1,36 +1,25 @@
 package com.kunminx.purenote.ui.adapter;
 
-import android.content.Context;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kunminx.binding_recyclerview.adapter.SimpleDataBindingAdapter;
+import com.kunminx.architecture.ui.adapter.BaseBindingAdapter;
 import com.kunminx.purenote.R;
 import com.kunminx.purenote.data.bean.Note;
 import com.kunminx.purenote.databinding.AdapterNoteListBinding;
 
+import java.util.List;
+
 /**
  * Create by KunMinX at 2022/7/3
  */
-public class NoteAdapter extends SimpleDataBindingAdapter<Note, AdapterNoteListBinding> {
-
-  public NoteAdapter(Context context) {
-    super(context, R.layout.adapter_note_list, new DiffUtil.ItemCallback<Note>() {
-      @Override
-      public boolean areItemsTheSame(@NonNull Note oldItem, @NonNull Note newItem) {
-        return oldItem.id.equals(newItem.id);
-      }
-      @Override
-      public boolean areContentsTheSame(@NonNull Note oldItem, @NonNull Note newItem) {
-        return oldItem.title.equals(newItem.title) &&
-                oldItem.content.equals(newItem.content) &&
-                oldItem.type == newItem.type;
-      }
-    });
+public class NoteAdapter extends BaseBindingAdapter<Note, AdapterNoteListBinding> {
+  public NoteAdapter(List<Note> list) {
+    super(list);
   }
-
+  @Override
+  protected int getLayoutResId(int viewType) {
+    return R.layout.adapter_note_list;
+  }
   @Override
   protected void onBindItem(AdapterNoteListBinding binding, Note note, RecyclerView.ViewHolder holder) {
     binding.setNote(note);
@@ -39,6 +28,9 @@ public class NoteAdapter extends SimpleDataBindingAdapter<Note, AdapterNoteListB
       if (mOnItemClickListener != null) mOnItemClickListener.onItemClick(v.getId(), note, position);
     });
     binding.btnMark.setOnClickListener(v -> {
+      note.toggleType(Note.TYPE_MARKED);
+      notifyItemChanged(position);
+      notifyItemRangeChanged(position, 1);
       if (mOnItemClickListener != null) mOnItemClickListener.onItemClick(v.getId(), note, position);
     });
     binding.btnTopping.setOnClickListener(v -> {
@@ -46,7 +38,14 @@ public class NoteAdapter extends SimpleDataBindingAdapter<Note, AdapterNoteListB
       if (mOnItemClickListener != null) mOnItemClickListener.onItemClick(v.getId(), note, position);
     });
     binding.btnDelete.setOnClickListener(v -> {
+      notifyItemRemoved(position);
+      getList().remove(position);
+      notifyItemRangeRemoved(position, getList().size() - position);
       if (mOnItemClickListener != null) mOnItemClickListener.onItemClick(v.getId(), note, position);
     });
+  }
+  @Override
+  public int getItemCount() {
+    return getList().size();
   }
 }

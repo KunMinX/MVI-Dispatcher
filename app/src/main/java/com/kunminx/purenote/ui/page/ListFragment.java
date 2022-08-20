@@ -2,7 +2,6 @@ package com.kunminx.purenote.ui.page;
 
 import com.kunminx.architecture.domain.dispatch.GlobalConfigs;
 import com.kunminx.architecture.ui.bind.ClickProxy;
-import com.kunminx.architecture.ui.bind.ListState;
 import com.kunminx.architecture.ui.page.BaseFragment;
 import com.kunminx.architecture.ui.page.DataBindingConfig;
 import com.kunminx.architecture.ui.page.StateHolder;
@@ -16,6 +15,9 @@ import com.kunminx.purenote.domain.event.NoteEvent;
 import com.kunminx.purenote.domain.message.PageMessenger;
 import com.kunminx.purenote.domain.request.NoteRequester;
 import com.kunminx.purenote.ui.adapter.NoteAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Create by KunMinX at 2022/6/30
@@ -37,7 +39,7 @@ public class ListFragment extends BaseFragment {
   @Override
   protected DataBindingConfig getDataBindingConfig() {
     return new DataBindingConfig(R.layout.fragment_list, BR.state, mStates)
-            .addBindingParam(BR.adapter, mAdapter = new NoteAdapter(mActivity))
+            .addBindingParam(BR.adapter, mAdapter = new NoteAdapter(mStates.list))
             .addBindingParam(BR.click, mClickProxy = new ClickProxy());
   }
 
@@ -60,12 +62,11 @@ public class ListFragment extends BaseFragment {
       switch (noteEvent.eventId) {
         case NoteEvent.EVENT_TOPPING_ITEM:
         case NoteEvent.EVENT_GET_NOTE_LIST:
-          mStates.list.refresh(noteEvent.result.notes);
+          mAdapter.refresh(noteEvent.result.notes);
           mStates.emptyViewShow.set(mStates.list.size() == 0);
           break;
         case NoteEvent.EVENT_MARK_ITEM:
         case NoteEvent.EVENT_REMOVE_ITEM:
-          mStates.list.refresh();
           break;
       }
     });
@@ -112,7 +113,7 @@ public class ListFragment extends BaseFragment {
   }
 
   public static class ListStates extends StateHolder {
-    public ListState<Note> list = new ListState<>();
+    public List<Note> list = new ArrayList<>();
     public State<Boolean> emptyViewShow = new State<>(false);
   }
 }
