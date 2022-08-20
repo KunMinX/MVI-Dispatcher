@@ -72,7 +72,7 @@ public class ListFragment extends BaseFragment {
     });
 
     //TODO tip 3: 更新配置并刷新界面，是日常开发高频操作，
-    // 当别处通过 keyValue-Dispatcher 为某配置 put 新值，此处响应并刷新 UI
+    // 当别处通过 GlobalConfigs 为某配置 put 新值，此处响应并刷新 UI
 
     GlobalConfigs.output(this, keyValueEvent -> {
       switch (keyValueEvent.currentKey) {
