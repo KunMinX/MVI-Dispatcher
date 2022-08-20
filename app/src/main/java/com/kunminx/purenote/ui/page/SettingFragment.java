@@ -33,7 +33,7 @@ public class SettingFragment extends BaseFragment {
 
   @Override
   protected void onInput() {
-    mClickProxy.setOnClick(v -> {
+    mClickProxy.setOnClickListener(v -> {
       if (v.getId() == R.id.btn_back) nav().navigateUp();
       else if (v.getId() == R.id.btn_sure_1)
         GlobalConfigs.put(Key.TEST_STRING, mStates.testString.get());

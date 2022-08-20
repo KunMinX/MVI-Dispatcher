@@ -52,7 +52,7 @@ public class ListFragment extends BaseFragment {
   protected void onOutput() {
     mMessenger.output(this, messages -> {
       if (messages.eventId == Messages.EVENT_REFRESH_NOTE_LIST) {
-        mNoteRequester.input(new NoteEvent(NoteEvent.EVENT_GET_NOTE_LIST));
+        mNoteRequester.input(NoteEvent.getList());
       }
     });
 
@@ -93,24 +93,16 @@ public class ListFragment extends BaseFragment {
   @Override
   protected void onInput() {
     mAdapter.setOnItemClickListener((viewId, item, position) -> {
-      if (viewId == R.id.btn_mark) {
-        mNoteRequester.input(new NoteEvent(NoteEvent.EVENT_MARK_ITEM).setNote(item));
-      } else if (viewId == R.id.btn_topping) {
-        mNoteRequester.input(new NoteEvent(NoteEvent.EVENT_TOPPING_ITEM).setNote(item));
-      } else if (viewId == R.id.btn_delete) {
-        mNoteRequester.input(new NoteEvent(NoteEvent.EVENT_REMOVE_ITEM).setNote(item));
-      } else if (viewId == R.id.cl) {
-        EditorFragment.start(nav(), item);
-      }
+      if (viewId == R.id.btn_mark) mNoteRequester.input(NoteEvent.markNote(item));
+      else if (viewId == R.id.btn_topping) mNoteRequester.input(NoteEvent.toppingNote(item));
+      else if (viewId == R.id.btn_delete) mNoteRequester.input(NoteEvent.removeNote(item));
+      else if (viewId == R.id.cl) EditorFragment.start(nav(), item);
     });
-    mClickProxy.setOnClick(view -> {
-      if (view.getId() == R.id.fab) {
-        EditorFragment.start(nav(), new Note());
-      } else if (view.getId() == R.id.iv_search) {
-        nav().navigate(R.id.action_ListFragment_to_settingFragment);
-      }
+    mClickProxy.setOnClickListener(view -> {
+      if (view.getId() == R.id.fab) EditorFragment.start(nav(), new Note());
+      else if (view.getId() == R.id.iv_search) nav().navigate(R.id.action_list_to_setting);
     });
-    if (mStates.list.isEmpty()) mNoteRequester.input(new NoteEvent(NoteEvent.EVENT_GET_NOTE_LIST));
+    if (mStates.list.isEmpty()) mNoteRequester.input(NoteEvent.getList());
   }
 
   @Override

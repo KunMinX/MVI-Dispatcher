@@ -7,7 +7,7 @@ import android.view.View;
 public class ClickProxy implements View.OnClickListener {
   public View.OnClickListener listener;
 
-  public void setOnClick(View.OnClickListener listener) {
+  public void setOnClickListener(View.OnClickListener listener) {
     this.listener = listener;
   }
   @Override

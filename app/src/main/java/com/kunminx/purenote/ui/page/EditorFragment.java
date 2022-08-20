@@ -35,7 +35,7 @@ public class EditorFragment extends BaseFragment {
   public static void start(NavController controller, Note note) {
     Bundle bundle = new Bundle();
     bundle.putParcelable(NOTE, note);
-    controller.navigate(R.id.action_ListFragment_to_EditorFragment, bundle);
+    controller.navigate(R.id.action_list_to_editor, bundle);
   }
 
   @Override
@@ -94,7 +94,7 @@ public class EditorFragment extends BaseFragment {
    */
   @Override
   protected void onInput() {
-    mClickProxy.setOnClick(v -> {
+    mClickProxy.setOnClickListener(v -> {
       if (v.getId() == R.id.btn_back) save();
     });
   }
@@ -113,7 +113,7 @@ public class EditorFragment extends BaseFragment {
       mStates.tempNote.id = UUID.randomUUID().toString();
     }
     mStates.tempNote.modifyTime = time;
-    mNoteRequester.input(new NoteEvent(NoteEvent.EVENT_ADD_ITEM).setNote(mStates.tempNote));
+    mNoteRequester.input(NoteEvent.addNote(mStates.tempNote));
     return true;
   }
 
