@@ -97,7 +97,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:hint="@string/enter_please"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:text="@={state.testString}" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_sure_1"
@@ -134,6 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
+                    android:checked="@={state.testBoolean}"
                     android:onClick="@{click.listener}" />
 
             </RelativeLayout>

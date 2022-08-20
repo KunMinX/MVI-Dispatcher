@@ -25,14 +25,14 @@ public class SettingFragment extends BaseFragment {
 
   @Override
   protected DataBindingConfig getDataBindingConfig() {
+    mStates.testString.set(GlobalConfigs.getString(Key.TEST_STRING));
+    mStates.testBoolean.set(GlobalConfigs.getBoolean(Key.TEST_BOOLEAN));
     return new DataBindingConfig(R.layout.fragment_settings, BR.state, mStates)
             .addBindingParam(BR.click, mClickProxy = new ClickProxy());
   }
 
   @Override
   protected void onInput() {
-    mStates.testString.set(GlobalConfigs.getString(Key.TEST_STRING));
-    mStates.testBoolean.set(GlobalConfigs.getBoolean(Key.TEST_BOOLEAN));
     mClickProxy.setOnClick(v -> {
       if (v.getId() == R.id.btn_back) {
         nav().navigateUp();
