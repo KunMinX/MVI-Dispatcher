@@ -11,9 +11,9 @@
     <string name="copyright">Product by KunMinX with love</string>
     <string name="setting">设置</string>
     <string name="setting_summary">配置读写，持久化存储</string>
-    <string name="string_test">String 测试</string>
+    <string name="string_test">String 读写</string>
     <string name="save">保存</string>
     <string name="enter_please">请输入</string>
-    <string name="boolean_test">Boolean 测试</string>
+    <string name="boolean_test">Boolean 读写</string>
 
 </resources>
