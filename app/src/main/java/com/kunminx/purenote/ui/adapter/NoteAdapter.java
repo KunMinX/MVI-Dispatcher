@@ -1,53 +1,51 @@
 package com.kunminx.purenote.ui.adapter;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.kunminx.architecture.ui.adapter.BaseAdapter;
+import com.kunminx.architecture.ui.adapter.BaseBindingAdapter;
 import com.kunminx.purenote.R;
 import com.kunminx.purenote.data.bean.Note;
 import com.kunminx.purenote.databinding.AdapterNoteListBinding;
 
+import java.util.List;
+
 /**
  * Create by KunMinX at 2022/7/3
  */
-public class NoteAdapter extends BaseAdapter<Note, AdapterNoteListBinding> {
-
-  public NoteAdapter() {
-    super();
+public class NoteAdapter extends BaseBindingAdapter<Note, AdapterNoteListBinding> {
+  public NoteAdapter(List<Note> list) {
+    super(list);
   }
-
   @Override
-  protected void onBindingData(BaseHolder<AdapterNoteListBinding> holder, Note note, int position) {
-    holder.getBinding().tvTitle.setText(note.title);
-    holder.getBinding().cl.setClipToOutline(true);
-    holder.getBinding().btnMark.setImageResource(note.isMarked() ? R.drawable.icon_star : R.drawable.icon_star_board);
-    holder.getBinding().tvTime.setText(note.getModifyDate());
-    holder.getBinding().tvTopped.setVisibility(note.isTopping() ? View.VISIBLE : View.GONE);
-    holder.getBinding().cl.setOnClickListener(v -> {
-      if (listener != null) listener.onItemClick(v.getId(), position, note);
+  protected int getLayoutResId(int viewType) {
+    return R.layout.adapter_note_list;
+  }
+  @Override
+  protected void onBindItem(AdapterNoteListBinding binding, Note note, RecyclerView.ViewHolder holder) {
+    binding.setNote(note);
+    int position = holder.getBindingAdapterPosition();
+    binding.cl.setOnClickListener(v -> {
+      if (mOnItemClickListener != null) mOnItemClickListener.onItemClick(v.getId(), note, position);
     });
-    holder.getBinding().btnMark.setOnClickListener(v -> {
+    binding.btnMark.setOnClickListener(v -> {
       note.toggleType(Note.TYPE_MARKED);
       notifyItemChanged(position);
       notifyItemRangeChanged(position, 1);
-      if (listener != null) listener.onItemClick(v.getId(), position, note);
+      if (mOnItemClickListener != null) mOnItemClickListener.onItemClick(v.getId(), note, position);
     });
-    holder.getBinding().btnTopping.setOnClickListener(v -> {
+    binding.btnTopping.setOnClickListener(v -> {
       note.toggleType(Note.TYPE_TOPPING);
-      if (listener != null) listener.onItemClick(v.getId(), position, note);
+      if (mOnItemClickListener != null) mOnItemClickListener.onItemClick(v.getId(), note, position);
     });
-    holder.getBinding().btnDelete.setOnClickListener(v -> {
+    binding.btnDelete.setOnClickListener(v -> {
       notifyItemRemoved(position);
-      getData().remove(position);
-      notifyItemRangeRemoved(position, getData().size() - position);
-      if (listener != null) listener.onItemClick(v.getId(), position, note);
+      getList().remove(position);
+      notifyItemRangeRemoved(position, getList().size() - position);
+      if (mOnItemClickListener != null) mOnItemClickListener.onItemClick(v.getId(), note, position);
     });
   }
-
   @Override
-  protected AdapterNoteListBinding onBindingView(ViewGroup viewGroup) {
-    return AdapterNoteListBinding.inflate(LayoutInflater.from(viewGroup.getContext()), viewGroup, false);
+  public int getItemCount() {
+    return getList().size();
   }
 }

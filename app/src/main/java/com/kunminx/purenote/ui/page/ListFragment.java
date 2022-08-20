@@ -1,25 +1,18 @@
 package com.kunminx.purenote.ui.page;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.kunminx.architecture.domain.dispatch.GlobalConfigs;
+import com.kunminx.architecture.ui.bind.ClickProxy;
 import com.kunminx.architecture.ui.page.BaseFragment;
+import com.kunminx.architecture.ui.page.DataBindingConfig;
 import com.kunminx.architecture.ui.page.StateHolder;
+import com.kunminx.architecture.ui.state.State;
+import com.kunminx.purenote.BR;
 import com.kunminx.purenote.R;
 import com.kunminx.purenote.data.bean.Note;
 import com.kunminx.purenote.data.config.Key;
-import com.kunminx.purenote.databinding.FragmentListBinding;
-import com.kunminx.purenote.domain.event.ComplexEvent;
 import com.kunminx.purenote.domain.event.Messages;
 import com.kunminx.purenote.domain.event.NoteEvent;
 import com.kunminx.purenote.domain.message.PageMessenger;
-import com.kunminx.purenote.domain.request.ComplexRequester;
 import com.kunminx.purenote.domain.request.NoteRequester;
 import com.kunminx.purenote.ui.adapter.NoteAdapter;
 
@@ -30,27 +23,24 @@ import java.util.List;
  * Create by KunMinX at 2022/6/30
  */
 public class ListFragment extends BaseFragment {
-
-  private FragmentListBinding mBinding;
-  private ListViewModel mStates;
+  private ListStates mStates;
   private NoteRequester mNoteRequester;
   private PageMessenger mMessenger;
   private NoteAdapter mAdapter;
-  private ComplexRequester mComplexRequester;
+  private ClickProxy mClickProxy;
 
   @Override
-  protected void onInitViewModel() {
-    mStates = getFragmentScopeViewModel(ListViewModel.class);
+  protected void initViewModel() {
+    mStates = getFragmentScopeViewModel(ListStates.class);
     mNoteRequester = getFragmentScopeViewModel(NoteRequester.class);
     mMessenger = getApplicationScopeViewModel(PageMessenger.class);
-    mComplexRequester = getActivityScopeViewModel(ComplexRequester.class);
   }
 
   @Override
-  protected View onInitView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
-    mBinding = FragmentListBinding.inflate(inflater, container, false);
-    mBinding.rv.setAdapter(mAdapter = new NoteAdapter());
-    return mBinding.getRoot();
+  protected DataBindingConfig getDataBindingConfig() {
+    return new DataBindingConfig(R.layout.fragment_list, BR.state, mStates)
+            .addBindingParam(BR.adapter, mAdapter = new NoteAdapter(mStates.list))
+            .addBindingParam(BR.click, mClickProxy = new ClickProxy());
   }
 
   /**
@@ -64,7 +54,7 @@ public class ListFragment extends BaseFragment {
   protected void onOutput() {
     mMessenger.output(this, messages -> {
       if (messages.eventId == Messages.EVENT_REFRESH_NOTE_LIST) {
-        mNoteRequester.input(new NoteEvent(NoteEvent.EVENT_GET_NOTE_LIST));
+        mNoteRequester.input(NoteEvent.getList());
       }
     });
 
@@ -72,23 +62,13 @@ public class ListFragment extends BaseFragment {
       switch (noteEvent.eventId) {
         case NoteEvent.EVENT_TOPPING_ITEM:
         case NoteEvent.EVENT_GET_NOTE_LIST:
-          mStates.list = noteEvent.result.notes;
-          mAdapter.setData(mStates.list);
-          mBinding.ivEmpty.setVisibility(mStates.list.size() == 0 ? View.VISIBLE : View.GONE);
+          mAdapter.refresh(noteEvent.result.notes);
+          mStates.emptyViewShow.set(mStates.list.size() == 0);
           break;
         case NoteEvent.EVENT_MARK_ITEM:
-          break;
         case NoteEvent.EVENT_REMOVE_ITEM:
           break;
       }
-    });
-
-    mComplexRequester.output(this, complexEvent -> {
-      if (complexEvent.eventId == ComplexEvent.EVENT_TEST_1) Log.d("f complexEvent", "---1");
-      else if (complexEvent.eventId == ComplexEvent.EVENT_TEST_2) Log.d("f complexEvent", "---2");
-      else if (complexEvent.eventId == ComplexEvent.EVENT_TEST_3) Log.d("f complexEvent", "---3");
-      else if (complexEvent.eventId == ComplexEvent.EVENT_TEST_4)
-        Log.d("f complexEvent", "---4 " + complexEvent.result.count);
     });
 
     //TODO tip 3: 更新配置并刷新界面，是日常开发高频操作，
@@ -113,20 +93,17 @@ public class ListFragment extends BaseFragment {
    */
   @Override
   protected void onInput() {
-    mAdapter.setListener((viewId, position, item) -> {
-      if (viewId == R.id.btn_mark) {
-        mNoteRequester.input(new NoteEvent(NoteEvent.EVENT_MARK_ITEM).setNote(item));
-      } else if (viewId == R.id.btn_topping) {
-        mNoteRequester.input(new NoteEvent(NoteEvent.EVENT_TOPPING_ITEM).setNote(item));
-      } else if (viewId == R.id.btn_delete) {
-        mNoteRequester.input(new NoteEvent(NoteEvent.EVENT_REMOVE_ITEM).setNote(item));
-      } else if (viewId == R.id.cl) {
-        EditorFragment.start(nav(), item);
-      }
+    mAdapter.setOnItemClickListener((viewId, item, position) -> {
+      if (viewId == R.id.btn_mark) mNoteRequester.input(NoteEvent.markNote(item));
+      else if (viewId == R.id.btn_topping) mNoteRequester.input(NoteEvent.toppingNote(item));
+      else if (viewId == R.id.btn_delete) mNoteRequester.input(NoteEvent.removeNote(item));
+      else if (viewId == R.id.cl) EditorFragment.start(nav(), item);
     });
-    mBinding.fab.setOnClickListener(v -> EditorFragment.start(nav(), new Note()));
-    mBinding.ivSearch.setOnClickListener(v -> nav().navigate(R.id.action_ListFragment_to_settingFragment));
-    mNoteRequester.input(new NoteEvent(NoteEvent.EVENT_GET_NOTE_LIST));
+    mClickProxy.setOnClickListener(view -> {
+      if (view.getId() == R.id.fab) EditorFragment.start(nav(), new Note());
+      else if (view.getId() == R.id.iv_search) nav().navigate(R.id.action_list_to_setting);
+    });
+    if (mStates.list.isEmpty()) mNoteRequester.input(NoteEvent.getList());
   }
 
   @Override
@@ -135,7 +112,8 @@ public class ListFragment extends BaseFragment {
     return super.onBackPressed();
   }
 
-  public static class ListViewModel extends StateHolder {
+  public static class ListStates extends StateHolder {
     public List<Note> list = new ArrayList<>();
+    public State<Boolean> emptyViewShow = new State<>(false);
   }
 }

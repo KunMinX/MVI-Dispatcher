@@ -22,6 +22,26 @@ public class NoteEvent extends Event<NoteEvent.Param, NoteEvent.Result> {
     this.result = new Result();
   }
 
+  public static NoteEvent addNote(Note note) {
+    return new NoteEvent(NoteEvent.EVENT_ADD_ITEM).setNote(note);
+  }
+
+  public static NoteEvent markNote(Note note) {
+    return new NoteEvent(NoteEvent.EVENT_MARK_ITEM).setNote(note);
+  }
+
+  public static NoteEvent toppingNote(Note note) {
+    return new NoteEvent(NoteEvent.EVENT_TOPPING_ITEM).setNote(note);
+  }
+
+  public static NoteEvent removeNote(Note note) {
+    return new NoteEvent(NoteEvent.EVENT_REMOVE_ITEM).setNote(note);
+  }
+
+  public static NoteEvent getList(){
+    return new NoteEvent(NoteEvent.EVENT_GET_NOTE_LIST);
+  }
+
   public NoteEvent setNote(Note note) {
     this.param.note = note;
     return this;

@@ -3,6 +3,9 @@ package com.kunminx.purenote.ui.page;
 import android.util.Log;
 
 import com.kunminx.architecture.ui.page.BaseActivity;
+import com.kunminx.architecture.ui.page.DataBindingConfig;
+import com.kunminx.architecture.ui.page.StateHolder;
+import com.kunminx.purenote.BR;
 import com.kunminx.purenote.R;
 import com.kunminx.purenote.domain.event.ComplexEvent;
 import com.kunminx.purenote.domain.event.Messages;
@@ -10,19 +13,19 @@ import com.kunminx.purenote.domain.message.PageMessenger;
 import com.kunminx.purenote.domain.request.ComplexRequester;
 
 public class MainActivity extends BaseActivity {
-
+  private MainAtyStates mStates;
   private PageMessenger mMessenger;
   private ComplexRequester mComplexRequester;
 
   @Override
-  protected void onInitViewModel() {
+  protected void initViewModel() {
     mMessenger = getApplicationScopeViewModel(PageMessenger.class);
     mComplexRequester = getActivityScopeViewModel(ComplexRequester.class);
   }
 
   @Override
-  protected void onInitView() {
-    setContentView(R.layout.activity_main);
+  protected DataBindingConfig getDataBindingConfig() {
+    return new DataBindingConfig(R.layout.activity_main, BR.state, mStates);
   }
 
   /**
@@ -56,7 +59,6 @@ public class MainActivity extends BaseActivity {
    */
   @Override
   protected void onInput() {
-    super.onInput();
 
     //TODO 此处展示通过 dispatcher.input 连续发送多事件而不被覆盖
     // ~
@@ -70,5 +72,8 @@ public class MainActivity extends BaseActivity {
     mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_3));
     mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_3));
     mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_3));
+  }
+
+  public static class MainAtyStates extends StateHolder {
   }
 }

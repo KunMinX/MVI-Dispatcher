@@ -10,6 +10,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.kunminx.architecture.utils.TimeUtils;
+import com.kunminx.purenote.R;
 
 /**
  * Created by KunMinX on 2015/7/31.
@@ -63,6 +64,11 @@ public class Note implements Parcelable {
     } else {
       type = type | param;
     }
+  }
+
+  @Ignore
+  public int markIcon(){
+    return isMarked() ? R.drawable.icon_star : R.drawable.icon_star_board;
   }
 
   public Note() {

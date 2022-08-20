@@ -1,79 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="state"
+            type="com.kunminx.purenote.ui.page.EditorFragment.EditorStates" />
+
+        <variable
+            name="click"
+            type="com.kunminx.architecture.ui.bind.ClickProxy" />
+    </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="89dp"
-        android:background="@color/color_white"
-        android:elevation="8dp"
-        android:orientation="horizontal"
-        android:paddingTop="25dp">
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/btn_back"
-            android:layout_width="36dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="12dp"
-            android:background="@color/transparent"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_baseline_arrow_back"
-            android:tint="@color/gray" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="89dp"
+            android:background="@color/color_white"
+            android:elevation="8dp"
+            android:orientation="horizontal"
+            android:paddingTop="25dp">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:gravity="center_vertical"
-                android:paddingStart="12dp"
-                android:paddingEnd="4dp"
-                android:text="@string/edit"
-                android:textColor="@color/gray"
-                android:textSize="24sp" />
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="36dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="12dp"
+                android:background="@color/transparent"
+                android:onClick="@{click.listener}"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_baseline_arrow_back"
+                android:tint="@color/gray" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_time"
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:gravity="center_vertical"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:text="@string/new_note"
-                android:textColor="@color/gray"
-                android:textSize="14sp" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="4dp"
+                    android:text="@{state.tip}"
+                    android:textColor="@color/gray"
+                    android:textSize="24sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:text="@{state.time}"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_title"
+            requestFocus="@{state.titleRequestFocus}"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/color_white"
+            android:gravity="center_vertical"
+            android:hint="@string/title"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:singleLine="true"
+            android:text="@={state.title}"
+            android:textSize="24sp" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_white"
+            android:gravity="top"
+            android:hint="@string/content"
+            android:padding="12dp"
+            android:text="@={state.content}"
+            android:textSize="16sp" />
+
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/et_title"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@color/color_white"
-        android:gravity="center_vertical"
-        android:hint="@string/title"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:singleLine="true"
-        android:textSize="24sp" />
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/et_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/color_white"
-        android:gravity="top"
-        android:hint="@string/content"
-        android:padding="12dp"
-        android:textSize="16sp" />
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

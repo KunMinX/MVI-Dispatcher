@@ -21,34 +21,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.kunminx.architecture.ui.scope.ViewModelScope;
 
-
 /**
  * Create by KunMinX at 19/7/11
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends DataBindingFragment {
 
   private final ViewModelScope mViewModelScope = new ViewModelScope();
   protected AppCompatActivity mActivity;
-
-  protected abstract void onInitViewModel();
-
-  protected abstract View onInitView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container);
 
   protected void onInitData() {
   }
@@ -68,14 +60,7 @@ public abstract class BaseFragment extends Fragment {
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    onInitViewModel();
     addOnBackPressed();
-  }
-
-  @Nullable
-  @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    return onInitView(inflater, container);
   }
 
   @Override
@@ -109,10 +94,13 @@ public abstract class BaseFragment extends Fragment {
     return NavHostFragment.findNavController(this);
   }
 
-
   protected void toggleSoftInput() {
     InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(Activity.INPUT_METHOD_SERVICE);
     imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+  }
+
+  protected void showKeyboard() {
+    if (mActivity != null) mActivity.getWindow().getDecorView().post(this::toggleSoftInput);
   }
 
   protected void openUrlInBrowser(String url) {
