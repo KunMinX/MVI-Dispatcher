@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion appTargetSdk
     defaultConfig {
-        minSdkVersion appMinSdk
+        minSdkVersion 23
         targetSdkVersion appTargetSdk
         versionCode appVersionCode
         versionName appVersionName
