@@ -1,4 +1,4 @@
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vz58k6asj218r0u0jwr.jpg)
+![](https://tva1.sinaimg.cn/large/e6c9d24ely1h5gqcmsjf6j219e0u0wiy.jpg)
 
 &nbsp;
 
@@ -28,11 +28,9 @@
 
 # 项目简介
 
-本人长期专注 “业务架构” 模式，所开源 [UnPeekLiveData](https://github.com/KunMinX/UnPeek-LiveData) 等组件已经过 QQ 音乐等月活过亿生产环境历练。
+本人长期专注 “业务架构” 模式，致力消除敏捷开发过程中 “不可预期问题”。
 
-在本案例中，我将为你展示，MVI-Dispatcher 是如何 **以简驭繁** 将原本 "繁杂易出错" 之消息分发流程，通过 **寥寥几行代码** 轻而易举完成。
-
-&nbsp;
+在本案例中，我将为您展示，MVI-Dispatcher 是如何将原本 "繁杂易出错" 消息分发流程，通过 **寥寥几行代码** 轻而易举完成。
 
 ```Groovy
 implementation 'com.kunminx.arch:mvi-dispatch:7.0.4-beta'
@@ -83,7 +81,7 @@ implementation 'com.kunminx.arch:keyvalue-dispatch:7.0.4-beta'
 
 # Thanks to
 
-感谢小伙伴冰咖啡、苏旗的测试反馈
+感谢小伙伴浓咖啡、苏旗的测试反馈
 
 [AndroidX](https://developer.android.google.cn/jetpack/androidx)
 
