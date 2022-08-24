@@ -13,7 +13,7 @@ public class HttpRequester extends MviDispatcher<ApiEvent> {
   protected void onHandle(ApiEvent event) {
     switch (event.api) {
       case ApiEvent.GET_WEATHER_INFO:
-        DataRepository.getInstance().getWeather(event.api, event.param.cityCode, dataResult -> {
+        DataRepository.getInstance().getWeatherInfo(event.api, event.param.cityCode, dataResult -> {
           event.result.live = dataResult.getResult();
           String errorMsg = dataResult.getResponseStatus().getMsg();
           if (TextUtils.isEmpty(errorMsg)) sendResult(event);

@@ -83,9 +83,9 @@ public class DataRepository {
     }, success -> result.onResult(new DataResult<>(success)));
   }
 
-  public void getWeather(String api, String cityCode, DataResult.Result<Weather.Live> result) {
+  public void getWeatherInfo(String api, String cityCode, DataResult.Result<Weather.Live> result) {
     WeatherService service = mRetrofit.create(WeatherService.class);
-    Call<Weather> call = service.getWeather(api, cityCode, ApiEvent.API_KEY);
+    Call<Weather> call = service.getWeatherInfo(api, cityCode, ApiEvent.API_KEY);
     call.enqueue(new Callback<Weather>() {
       @Override
       public void onResponse(@NonNull Call<Weather> call, @NonNull Response<Weather> response) {

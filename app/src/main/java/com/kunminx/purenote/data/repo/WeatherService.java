@@ -11,7 +11,7 @@ import retrofit2.http.Query;
  */
 public interface WeatherService {
   @GET("weather/{api}")
-  Call<Weather> getWeather(
+  Call<Weather> getWeatherInfo(
           @Path("api") String api,
           @Query("city") String city,
           @Query("key") String key
