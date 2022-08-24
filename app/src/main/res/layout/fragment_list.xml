@@ -71,6 +71,28 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
+            <FrameLayout
+                android:layout_width="80dp"
+                android:layout_height="56dp">
+
+                <ProgressBar
+                    android:id="@+id/progress"
+                    visible="@{state.loadingWeather}"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@{state.weather}"
+                    android:textColor="@color/gray"
+                    android:textSize="20sp"
+                    tools:text="@string/weather" />
+
+            </FrameLayout>
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_search"
                 android:layout_width="48dp"

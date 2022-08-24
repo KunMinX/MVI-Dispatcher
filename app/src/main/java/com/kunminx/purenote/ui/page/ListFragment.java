@@ -1,5 +1,7 @@
 package com.kunminx.purenote.ui.page;
 
+import android.text.TextUtils;
+
 import com.kunminx.architecture.domain.dispatch.GlobalConfigs;
 import com.kunminx.architecture.ui.bind.ClickProxy;
 import com.kunminx.architecture.ui.page.BaseFragment;
@@ -9,10 +11,13 @@ import com.kunminx.architecture.ui.state.State;
 import com.kunminx.purenote.BR;
 import com.kunminx.purenote.R;
 import com.kunminx.purenote.data.bean.Note;
+import com.kunminx.purenote.data.bean.Weather;
 import com.kunminx.purenote.data.config.Key;
+import com.kunminx.purenote.domain.event.ApiEvent;
 import com.kunminx.purenote.domain.event.Messages;
 import com.kunminx.purenote.domain.event.NoteEvent;
 import com.kunminx.purenote.domain.message.PageMessenger;
+import com.kunminx.purenote.domain.request.HttpRequester;
 import com.kunminx.purenote.domain.request.NoteRequester;
 import com.kunminx.purenote.ui.adapter.NoteAdapter;
 
@@ -25,6 +30,7 @@ import java.util.List;
 public class ListFragment extends BaseFragment {
   private ListStates mStates;
   private NoteRequester mNoteRequester;
+  private HttpRequester mHttpRequester;
   private PageMessenger mMessenger;
   private NoteAdapter mAdapter;
   private ClickProxy mClickProxy;
@@ -33,6 +39,7 @@ public class ListFragment extends BaseFragment {
   protected void initViewModel() {
     mStates = getFragmentScopeViewModel(ListStates.class);
     mNoteRequester = getFragmentScopeViewModel(NoteRequester.class);
+    mHttpRequester = getFragmentScopeViewModel(HttpRequester.class);
     mMessenger = getApplicationScopeViewModel(PageMessenger.class);
   }
 
@@ -71,6 +78,18 @@ public class ListFragment extends BaseFragment {
       }
     });
 
+    mHttpRequester.output(this, apiEvent -> {
+      switch (apiEvent.api) {
+        case ApiEvent.GET_WEATHER_INFO:
+          Weather.Live live = apiEvent.result.live;
+          if (live != null) mStates.weather.set(live.getWeather());
+          break;
+        case ApiEvent.ERROR:
+          break;
+      }
+      mStates.loadingWeather.set(false);
+    });
+
     //TODO tip 3: 更新配置并刷新界面，是日常开发高频操作，
     // 当别处通过 GlobalConfigs 为某配置 put 新值，此处响应并刷新 UI
 
@@ -103,6 +122,10 @@ public class ListFragment extends BaseFragment {
       if (view.getId() == R.id.fab) EditorFragment.start(nav(), new Note());
       else if (view.getId() == R.id.iv_logo) nav().navigate(R.id.action_list_to_setting);
     });
+    if (TextUtils.isEmpty(mStates.weather.get())) {
+      mStates.loadingWeather.set(true);
+      mHttpRequester.input(ApiEvent.getWeather(ApiEvent.CITY_CODE_BEIJING));
+    }
     if (mStates.list.isEmpty()) mNoteRequester.input(NoteEvent.getList());
   }
 
@@ -115,5 +138,7 @@ public class ListFragment extends BaseFragment {
   public static class ListStates extends StateHolder {
     public List<Note> list = new ArrayList<>();
     public State<Boolean> emptyViewShow = new State<>(false);
+    public State<Boolean> loadingWeather = new State<>(false);
+    public State<String> weather = new State<>("");
   }
 }

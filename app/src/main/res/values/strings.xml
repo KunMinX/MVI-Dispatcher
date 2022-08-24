@@ -15,5 +15,6 @@
     <string name="save">保存</string>
     <string name="enter_please">请输入</string>
     <string name="boolean_test">Boolean 读写</string>
+    <string name="weather">天气</string>
 
 </resources>

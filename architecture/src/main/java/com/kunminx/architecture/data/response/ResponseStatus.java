@@ -17,17 +17,27 @@
 package com.kunminx.architecture.data.response;
 
 /**
- * TODO：本类仅用作示例参考，请根据 "实际项目需求" 配置自定义的 "响应状态元信息"
- * <p>
  * Create by KunMinX at 19/10/11
  */
 public class ResponseStatus {
 
   private String responseCode = "";
+  private String msg = "";
   private boolean success = true;
   private Enum<ResultSource> source = ResultSource.NETWORK;
 
   public ResponseStatus() {
+  }
+
+  public ResponseStatus(String msg) {
+    this.msg = msg;
+    this.success = false;
+  }
+
+  public ResponseStatus(String msg, String responseCode, boolean success) {
+    this.msg = msg;
+    this.responseCode = responseCode;
+    this.success = success;
   }
 
   public ResponseStatus(String responseCode, boolean success) {
@@ -42,6 +52,10 @@ public class ResponseStatus {
 
   public String getResponseCode() {
     return responseCode;
+  }
+
+  public String getMsg() {
+    return msg;
   }
 
   public boolean isSuccess() {
