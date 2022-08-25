@@ -2,8 +2,8 @@
 
 &nbsp;
 
-development story:[《Jetpack Architecture Component Design Analysis and Improvement Suggestions
-》](https://medium.com/@kunminx/google-android-official-architecture-example-i-am-waiting-for-you-at-the-starting-line-b4752d97f283)
+development story:[《Android: Solving the Pain Points of MVI Architecture in Practice
+》](https://blog.devgenius.io/android-solving-the-pain-points-of-mvi-architecture-in-practice-4971fa9ed9c0)
 
 &nbsp;
 
