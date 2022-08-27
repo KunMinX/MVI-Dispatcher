@@ -49,7 +49,7 @@ implementation 'com.kunminx.arch:keyvalue-dispatch:7.0.4-beta'
 >
 > 3.**高性能定长队列，随取随用，用完即走，绝不丢失事件**
 >
-> 4.**可杜绝团队新手滥用** mutableLiveData.setValue( ) 于 Activity/Fragment
+> 4.**可杜绝团队新手滥用** mutable.setValue( ) 于 Activity/Fragment
 >
 > 5.开发者只需关注 input、output 二处，**从唯一入口 input 注入 Event，并于唯一出口 output 观察**
 >
