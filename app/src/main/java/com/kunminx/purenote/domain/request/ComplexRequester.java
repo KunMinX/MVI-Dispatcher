@@ -71,7 +71,7 @@ public class ComplexRequester extends MviDispatcher<ComplexEvent> {
         sendResult(event);
         break;
       case ComplexEvent.EVENT_TEST_4:
-        sendResult(ComplexEvent.copy(event, new ComplexEvent.Result(event.param.count)));
+        sendResult(event.copy(new ComplexEvent.Result(event.param.count)));
         break;
     }
   }

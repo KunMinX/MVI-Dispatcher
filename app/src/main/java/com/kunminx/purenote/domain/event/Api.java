@@ -5,7 +5,7 @@ import com.kunminx.purenote.data.bean.Weather;
 /**
  * Create by KunMinX at 2022/8/24
  */
-public class ApiEvent extends Event<ApiEvent.Param, ApiEvent.Result> {
+public class Api extends Event<Api.Param, Api.Result> {
   public final static String API_KEY = "32d8017dd7b9c2954aa55496a62033c5";
   public final static String BASE_URL = "https://restapi.amap.com/v3/";
 
@@ -14,19 +14,19 @@ public class ApiEvent extends Event<ApiEvent.Param, ApiEvent.Result> {
 
   public final static String CITY_CODE_BEIJING = "110000";
 
-  public final String api;
+  public final String node;
 
-  public ApiEvent(String api) {
+  public Api(String node) {
     super(0);
-    this.api = api;
+    this.node = node;
   }
-  public ApiEvent(String api, Param param) {
+  public Api(String node, Param param) {
     super(0, param);
-    this.api = api;
+    this.node = node;
   }
-  public ApiEvent(String api, Param param, Result result) {
+  public Api(String node, Param param, Result result) {
     super(0, param, result);
-    this.api = api;
+    this.node = node;
   }
 
   public static class Param {
@@ -49,15 +49,15 @@ public class ApiEvent extends Event<ApiEvent.Param, ApiEvent.Result> {
     }
   }
 
-  public static ApiEvent getWeather(String cityCode) {
-    return new ApiEvent(GET_WEATHER_INFO, new Param(cityCode));
+  public static Api getWeather(String cityCode) {
+    return new Api(GET_WEATHER_INFO, new Param(cityCode));
   }
 
-  public static ApiEvent copy(ApiEvent event, Result result) {
-    return new ApiEvent(event.api, event.param, result);
+  public Api copy(Result result) {
+    return new Api(node, param, result);
   }
 
-  public static ApiEvent onError(ApiEvent event, String msg) {
-    return new ApiEvent(ERROR, event.param, new Result(msg));
+  public static Api onError(Api event, String msg) {
+    return new Api(ERROR, event.param, new Result(msg));
   }
 }

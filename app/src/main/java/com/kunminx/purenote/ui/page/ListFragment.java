@@ -13,7 +13,7 @@ import com.kunminx.purenote.R;
 import com.kunminx.purenote.data.bean.Note;
 import com.kunminx.purenote.data.bean.Weather;
 import com.kunminx.purenote.data.config.Key;
-import com.kunminx.purenote.domain.event.ApiEvent;
+import com.kunminx.purenote.domain.event.Api;
 import com.kunminx.purenote.domain.event.Messages;
 import com.kunminx.purenote.domain.event.NoteEvent;
 import com.kunminx.purenote.domain.message.PageMessenger;
@@ -79,12 +79,12 @@ public class ListFragment extends BaseFragment {
     });
 
     mHttpRequester.output(this, apiEvent -> {
-      switch (apiEvent.api) {
-        case ApiEvent.GET_WEATHER_INFO:
+      switch (apiEvent.node) {
+        case Api.GET_WEATHER_INFO:
           Weather.Live live = apiEvent.result.live;
           if (live != null) mStates.weather.set(live.getWeather());
           break;
-        case ApiEvent.ERROR:
+        case Api.ERROR:
           break;
       }
       mStates.loadingWeather.set(false);
@@ -124,7 +124,7 @@ public class ListFragment extends BaseFragment {
     });
     if (TextUtils.isEmpty(mStates.weather.get())) {
       mStates.loadingWeather.set(true);
-      mHttpRequester.input(ApiEvent.getWeather(ApiEvent.CITY_CODE_BEIJING));
+      mHttpRequester.input(Api.getWeather(Api.CITY_CODE_BEIJING));
     }
     if (mStates.list.isEmpty()) mNoteRequester.input(NoteEvent.getList());
   }

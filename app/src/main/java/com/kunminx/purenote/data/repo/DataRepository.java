@@ -9,7 +9,7 @@ import com.kunminx.architecture.data.response.ResponseStatus;
 import com.kunminx.architecture.utils.Utils;
 import com.kunminx.purenote.data.bean.Note;
 import com.kunminx.purenote.data.bean.Weather;
-import com.kunminx.purenote.domain.event.ApiEvent;
+import com.kunminx.purenote.domain.event.Api;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -41,7 +41,7 @@ public class DataRepository {
             .addInterceptor(logging)
             .build();
     mRetrofit = new Retrofit.Builder()
-            .baseUrl(ApiEvent.BASE_URL)
+            .baseUrl(Api.BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
@@ -84,7 +84,7 @@ public class DataRepository {
 
   public void getWeatherInfo(String api, String cityCode, DataResult.Result<Weather.Live> result) {
     WeatherService service = mRetrofit.create(WeatherService.class);
-    Call<Weather> call = service.getWeatherInfo(api, cityCode, ApiEvent.API_KEY);
+    Call<Weather> call = service.getWeatherInfo(api, cityCode, Api.API_KEY);
     call.enqueue(new Callback<Weather>() {
       @Override
       public void onResponse(@NonNull Call<Weather> call, @NonNull Response<Weather> response) {

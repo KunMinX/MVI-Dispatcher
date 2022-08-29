@@ -35,7 +35,7 @@ public class ComplexEvent extends Event<ComplexEvent.Param, ComplexEvent.Result>
     }
   }
 
-  public static ComplexEvent copy(ComplexEvent event, Result result) {
-    return new ComplexEvent(event.eventId, event.param, result);
+  public ComplexEvent copy(Result result) {
+    return new ComplexEvent(this.eventId, this.param, result);
   }
 }

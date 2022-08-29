@@ -69,7 +69,7 @@ public class NoteEvent extends Event<NoteEvent.Param, NoteEvent.Result> {
     return new NoteEvent(NoteEvent.EVENT_GET_NOTE_LIST);
   }
 
-  public static NoteEvent copy(NoteEvent event, NoteEvent.Result result) {
-    return new NoteEvent(event.eventId, event.param, result);
+  public NoteEvent copy(NoteEvent.Result result) {
+    return new NoteEvent(this.eventId, this.param, result);
   }
 }
