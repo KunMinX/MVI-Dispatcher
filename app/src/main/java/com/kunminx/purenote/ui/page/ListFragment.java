@@ -23,6 +23,7 @@ import com.kunminx.purenote.ui.adapter.NoteAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Create by KunMinX at 2022/6/30
@@ -69,7 +70,7 @@ public class ListFragment extends BaseFragment {
       switch (noteEvent.eventId) {
         case NoteEvent.EVENT_TOPPING_ITEM:
         case NoteEvent.EVENT_GET_NOTE_LIST:
-          mAdapter.refresh(noteEvent.result.notes);
+          mAdapter.refresh(Objects.requireNonNull(noteEvent.result).notes);
           mStates.emptyViewShow.set(mStates.list.size() == 0);
           break;
         case NoteEvent.EVENT_MARK_ITEM:
@@ -78,10 +79,10 @@ public class ListFragment extends BaseFragment {
       }
     });
 
-    mHttpRequester.output(this, apiEvent -> {
-      switch (apiEvent.node) {
+    mHttpRequester.output(this, api -> {
+      switch (api.node) {
         case Api.GET_WEATHER_INFO:
-          Weather.Live live = apiEvent.result.live;
+          Weather.Live live = Objects.requireNonNull(api.result).live;
           if (live != null) mStates.weather.set(live.getWeather());
           break;
         case Api.ERROR:
