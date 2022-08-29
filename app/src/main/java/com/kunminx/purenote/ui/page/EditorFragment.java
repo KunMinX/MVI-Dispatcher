@@ -20,6 +20,7 @@ import com.kunminx.purenote.domain.event.NoteEvent;
 import com.kunminx.purenote.domain.message.PageMessenger;
 import com.kunminx.purenote.domain.request.NoteRequester;
 
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -54,14 +55,15 @@ public class EditorFragment extends BaseFragment {
   @Override
   protected void onInitData() {
     if (getArguments() != null) {
-      mStates.tempNote = getArguments().getParcelable(NOTE);
-      mStates.title.set(mStates.tempNote.title);
-      mStates.content.set(mStates.tempNote.content);
-      if (TextUtils.isEmpty(mStates.tempNote.id)) {
+      mStates.tempNote.set(getArguments().getParcelable(NOTE));
+      Note tempNote = Objects.requireNonNull(mStates.tempNote.get());
+      mStates.title.set(tempNote.getTitle());
+      mStates.content.set(tempNote.getContent());
+      if (TextUtils.isEmpty(tempNote.getId())) {
         mStates.titleRequestFocus.set(true);
       } else {
         mStates.tip.set(getString(R.string.last_time_modify));
-        mStates.time.set(mStates.tempNote.getModifyDate());
+        mStates.time.set(tempNote.getModifyDate());
       }
     }
   }
@@ -99,20 +101,21 @@ public class EditorFragment extends BaseFragment {
   }
 
   private boolean save() {
-    if (TextUtils.isEmpty(mStates.title.get() + mStates.content.get())
-            || mStates.tempNote.title.equals(mStates.title.get())
-            && mStates.tempNote.content.equals(mStates.content.get())) {
+    Note tempNote = Objects.requireNonNull(mStates.tempNote.get());
+    String title = mStates.title.get();
+    String content = mStates.content.get();
+    if (TextUtils.isEmpty(title + content)
+            || tempNote.getTitle().equals(title) && tempNote.getContent().equals(content)) {
       return nav().navigateUp();
     }
-    mStates.tempNote.title = mStates.title.get();
-    mStates.tempNote.content = mStates.content.get();
+    Note note;
     long time = System.currentTimeMillis();
-    if (TextUtils.isEmpty(mStates.tempNote.id)) {
-      mStates.tempNote.createTime = time;
-      mStates.tempNote.id = UUID.randomUUID().toString();
+    if (TextUtils.isEmpty(tempNote.getId())) {
+      note = new Note(UUID.randomUUID().toString(), title, content, time, time, 0);
+    } else {
+      note = new Note(tempNote.getId(), title, content, tempNote.getCreateTime(), time, tempNote.getType());
     }
-    mStates.tempNote.modifyTime = time;
-    mNoteRequester.input(NoteEvent.addNote(mStates.tempNote));
+    mNoteRequester.input(NoteEvent.addNote(note));
     return true;
   }
 
@@ -122,11 +125,11 @@ public class EditorFragment extends BaseFragment {
   }
 
   public static class EditorStates extends StateHolder {
-    public Note tempNote = new Note();
-    public State<String> title = new State<>("");
-    public State<String> content = new State<>("");
-    public State<String> tip = new State<>(Utils.getApp().getString(R.string.edit));
-    public State<String> time = new State<>(Utils.getApp().getString(R.string.new_note));
-    public State<Boolean> titleRequestFocus = new State<>(false);
+    public final State<Note> tempNote = new State<>(new Note());
+    public final State<String> title = new State<>("");
+    public final State<String> content = new State<>("");
+    public final State<String> tip = new State<>(Utils.getApp().getString(R.string.edit));
+    public final State<String> time = new State<>(Utils.getApp().getString(R.string.new_note));
+    public final State<Boolean> titleRequestFocus = new State<>(false);
   }
 }

@@ -22,19 +22,19 @@ public class Note implements Parcelable {
 
   @PrimaryKey
   @NonNull
-  public String id = "";
+  private String id = "";
 
-  public String title = "";
+  private String title = "";
 
-  public String content = "";
+  private String content = "";
 
   @ColumnInfo(name = "create_time")
-  public long createTime;
+  private long createTime;
 
   @ColumnInfo(name = "modify_time")
-  public long modifyTime;
+  private long modifyTime;
 
-  public int type;
+  private int type;
 
   @Ignore
   public String getCreateDate() {
@@ -70,7 +70,37 @@ public class Note implements Parcelable {
     return isMarked() ? R.drawable.icon_star : R.drawable.icon_star_board;
   }
 
+  @Ignore
   public Note() {
+  }
+
+  public Note(@NonNull String id, String title, String content, long createTime, long modifyTime, int type) {
+    this.id = id;
+    this.title = title;
+    this.content = content;
+    this.createTime = createTime;
+    this.modifyTime = modifyTime;
+    this.type = type;
+  }
+
+  @NonNull
+  public String getId() {
+    return id;
+  }
+  public String getTitle() {
+    return title;
+  }
+  public String getContent() {
+    return content;
+  }
+  public long getCreateTime() {
+    return createTime;
+  }
+  public long getModifyTime() {
+    return modifyTime;
+  }
+  public int getType() {
+    return type;
   }
 
   protected Note(Parcel in) {

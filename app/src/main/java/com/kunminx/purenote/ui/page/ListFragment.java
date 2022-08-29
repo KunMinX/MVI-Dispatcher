@@ -136,9 +136,9 @@ public class ListFragment extends BaseFragment {
   }
 
   public static class ListStates extends StateHolder {
-    public List<Note> list = new ArrayList<>();
-    public State<Boolean> emptyViewShow = new State<>(false);
-    public State<Boolean> loadingWeather = new State<>(false);
-    public State<String> weather = new State<>("");
+    public final List<Note> list = new ArrayList<>();
+    public final State<Boolean> emptyViewShow = new State<>(false);
+    public final State<Boolean> loadingWeather = new State<>(false);
+    public final State<String> weather = new State<>("");
   }
 }
