@@ -13,13 +13,16 @@ import java.util.List;
  * Create by KunMinX at 2022/7/3
  */
 public class NoteAdapter extends BaseBindingAdapter<Note, AdapterNoteListBinding> {
+
   public NoteAdapter(List<Note> list) {
     super(list);
   }
+
   @Override
   protected int getLayoutResId(int viewType) {
     return R.layout.adapter_note_list;
   }
+
   @Override
   protected void onBindItem(AdapterNoteListBinding binding, Note note, RecyclerView.ViewHolder holder) {
     binding.setNote(note);
@@ -44,6 +47,7 @@ public class NoteAdapter extends BaseBindingAdapter<Note, AdapterNoteListBinding
       if (mOnItemClickListener != null) mOnItemClickListener.onItemClick(v.getId(), note, position);
     });
   }
+
   @Override
   public int getItemCount() {
     return getList().size();

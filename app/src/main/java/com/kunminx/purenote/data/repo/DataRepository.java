@@ -26,7 +26,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Create by KunMinX at 2022/6/14
  */
 public class DataRepository {
-
   private static final DataRepository instance = new DataRepository();
   private static final String DATABASE_NAME = "NOTE_DB.db";
   private final NoteDataBase mDataBase;

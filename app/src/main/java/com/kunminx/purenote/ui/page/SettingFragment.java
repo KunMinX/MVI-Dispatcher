@@ -14,7 +14,6 @@ import com.kunminx.purenote.data.config.Key;
  * Create by KunMinX at 2022/8/15
  */
 public class SettingFragment extends BaseFragment {
-
   private SettingStates mStates;
   private ClickProxy mClickProxy;
 

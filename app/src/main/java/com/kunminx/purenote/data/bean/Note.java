@@ -17,7 +17,6 @@ import com.kunminx.purenote.R;
  */
 @Entity
 public class Note implements Parcelable {
-
   public final static int TYPE_TOPPING = 0x0001;
   public final static int TYPE_MARKED = 0x0002;
 
@@ -67,7 +66,7 @@ public class Note implements Parcelable {
   }
 
   @Ignore
-  public int markIcon(){
+  public int markIcon() {
     return isMarked() ? R.drawable.icon_star : R.drawable.icon_star_board;
   }
 

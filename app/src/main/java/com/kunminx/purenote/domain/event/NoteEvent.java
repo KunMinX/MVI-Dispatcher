@@ -38,7 +38,7 @@ public class NoteEvent extends Event<NoteEvent.Param, NoteEvent.Result> {
     return new NoteEvent(NoteEvent.EVENT_REMOVE_ITEM).setNote(note);
   }
 
-  public static NoteEvent getList(){
+  public static NoteEvent getList() {
     return new NoteEvent(NoteEvent.EVENT_GET_NOTE_LIST);
   }
 
