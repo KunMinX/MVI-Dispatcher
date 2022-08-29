@@ -16,11 +16,15 @@
 
 package com.kunminx.architecture.ui.bind;
 
+import android.content.Context;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
+
+import com.kunminx.architecture.utils.Utils;
 
 /**
  * Create by KunMinX at 19/9/18
@@ -67,5 +71,11 @@ public class CommonBindingAdapter {
   @BindingAdapter(value = {"requestFocus"}, requireAll = false)
   public static void requestFocus(View view, boolean requestFocus) {
     if (requestFocus) view.requestFocus();
+  }
+
+  @BindingAdapter(value = {"showKeyboard"}, requireAll = false)
+  public static void showKeyboard(View view, boolean showKeyboard) {
+    InputMethodManager imm = (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
+    imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
   }
 }

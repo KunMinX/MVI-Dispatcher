@@ -26,7 +26,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -94,11 +93,6 @@ public abstract class BaseActivity extends DataBindingActivity {
     } else {
       return AdaptScreenUtils.adaptHeight(super.getResources(), 640);
     }
-  }
-
-  protected void toggleSoftInput() {
-    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
   }
 
   protected void openUrlInBrowser(String url) {

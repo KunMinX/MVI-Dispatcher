@@ -16,13 +16,11 @@
 
 package com.kunminx.architecture.ui.page;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -92,15 +90,6 @@ public abstract class BaseFragment extends DataBindingFragment {
 
   protected NavController nav() {
     return NavHostFragment.findNavController(this);
-  }
-
-  protected void toggleSoftInput() {
-    InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-  }
-
-  protected void showKeyboard() {
-    if (mActivity != null) mActivity.getWindow().getDecorView().post(this::toggleSoftInput);
   }
 
   protected void openUrlInBrowser(String url) {

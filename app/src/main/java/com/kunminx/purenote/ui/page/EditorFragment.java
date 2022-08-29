@@ -59,7 +59,6 @@ public class EditorFragment extends BaseFragment {
       mStates.content.set(mStates.tempNote.content);
       if (TextUtils.isEmpty(mStates.tempNote.id)) {
         mStates.titleRequestFocus.set(true);
-        showKeyboard();
       } else {
         mStates.tip.set(getString(R.string.last_time_modify));
         mStates.time.set(mStates.tempNote.getModifyDate());

@@ -71,6 +71,7 @@
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_title"
             requestFocus="@{state.titleRequestFocus}"
+            showKeyboard="@{state.titleRequestFocus}"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:background="@color/color_white"
