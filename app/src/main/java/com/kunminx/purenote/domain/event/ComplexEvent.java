@@ -12,9 +12,7 @@ public class ComplexEvent extends Event<ComplexEvent.Param, ComplexEvent.Result>
   public final static int EVENT_TEST_4 = 4;
 
   public ComplexEvent(int eventId) {
-    this.eventId = eventId;
-    this.param = new Param();
-    this.result = new Result();
+    super(eventId, new Param(), new Result());
   }
 
   public static class Param {

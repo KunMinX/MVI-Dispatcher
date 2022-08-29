@@ -17,9 +17,7 @@ public class NoteEvent extends Event<NoteEvent.Param, NoteEvent.Result> {
   public final static int EVENT_ADD_ITEM = 6;
 
   public NoteEvent(int eventId) {
-    this.eventId = eventId;
-    this.param = new Param();
-    this.result = new Result();
+    super(eventId, new Param(), new Result());
   }
 
   public static NoteEvent addNote(Note note) {

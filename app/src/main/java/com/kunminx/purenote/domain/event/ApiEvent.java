@@ -14,12 +14,11 @@ public class ApiEvent extends Event<ApiEvent.Param, ApiEvent.Result> {
 
   public final static String CITY_CODE_BEIJING = "110000";
 
-  public String api;
+  public final String api;
 
   public ApiEvent(String api) {
+    super(0, new Param(), new Result());
     this.api = api;
-    this.param = new Param();
-    this.result = new Result();
   }
 
   public static class Param {
