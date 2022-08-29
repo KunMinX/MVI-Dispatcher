@@ -42,7 +42,7 @@ public class NoteRequester extends MviDispatcher<NoteEvent> {
         DataRepository.getInstance().updateNote(event.param.note, dataResult -> {
           if (dataResult.getResult()) {
             DataRepository.getInstance().getNotes(dataResult1 -> {
-              sendResult(event.copy(new NoteEvent.Result(dataResult.getResult())));
+              sendResult(event.copy(new NoteEvent.Result(dataResult1.getResult())));
             });
           }
         });

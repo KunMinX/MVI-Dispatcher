@@ -17,11 +17,11 @@ public class Api extends Event<Api.Param, Api.Result> {
   public final String node;
 
   public Api(String node) {
-    super(0);
+    super(0, new Param(), new Result());
     this.node = node;
   }
   public Api(String node, Param param) {
-    super(0, param);
+    super(0, param, new Result());
     this.node = node;
   }
   public Api(String node, Param param, Result result) {
@@ -34,18 +34,27 @@ public class Api extends Event<Api.Param, Api.Result> {
     public Param(String cityCode) {
       this.cityCode = cityCode;
     }
+    public Param() {
+      this.cityCode = CITY_CODE_BEIJING;
+    }
   }
 
   public static class Result {
     public final Weather.Live live;
     public final String errorInfo;
-    public Result(Weather.Live live) {
+    public Result(Weather.Live live, String errorInfo) {
       this.live = live;
-      this.errorInfo = "";
+      this.errorInfo = errorInfo;
+    }
+    public Result(Weather.Live live) {
+      this(live, "");
     }
     public Result(String errorInfo) {
-      this.live = null;
-      this.errorInfo = errorInfo;
+      this(new Weather.Live(), errorInfo);
+    }
+    public Result() {
+      this.live = new Weather.Live();
+      this.errorInfo = "";
     }
   }
 

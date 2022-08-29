@@ -3,6 +3,7 @@ package com.kunminx.purenote.domain.event;
 import com.kunminx.architecture.domain.event.Event;
 import com.kunminx.purenote.data.bean.Note;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,19 +18,20 @@ public class NoteEvent extends Event<NoteEvent.Param, NoteEvent.Result> {
   public final static int EVENT_ADD_ITEM = 6;
 
   public NoteEvent(int eventId) {
-    super(eventId);
+    super(eventId, new Param(), new Result());
   }
-
   public NoteEvent(int eventId, Param param) {
-    super(eventId, param);
+    super(eventId, param, new Result());
   }
-
   public NoteEvent(int eventId, Param param, Result result) {
     super(eventId, param, result);
   }
 
   public static class Param {
     public final Note note;
+    public Param() {
+      this.note = new Note();
+    }
     public Param(Note note) {
       this.note = note;
     }
@@ -39,13 +41,18 @@ public class NoteEvent extends Event<NoteEvent.Param, NoteEvent.Result> {
     public final List<Note> notes;
     public final boolean isSuccess;
 
-    public Result(List<Note> notes) {
+    public Result(List<Note> notes, boolean isSuccess) {
       this.notes = notes;
-      this.isSuccess = true;
+      this.isSuccess = isSuccess;
+    }
+    public Result(List<Note> notes) {
+      this(notes, true);
     }
     public Result(boolean isSuccess) {
-      this.notes = null;
-      this.isSuccess = isSuccess;
+      this(new ArrayList<>(), isSuccess);
+    }
+    public Result() {
+      this(new ArrayList<>(), true);
     }
   }
 

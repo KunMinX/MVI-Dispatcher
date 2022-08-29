@@ -12,10 +12,10 @@ public class ComplexEvent extends Event<ComplexEvent.Param, ComplexEvent.Result>
   public final static int EVENT_TEST_4 = 4;
 
   public ComplexEvent(int eventId) {
-    super(eventId);
+    super(eventId, new Param(), new Result());
   }
   public ComplexEvent(int eventId, Param param) {
-    super(eventId, param);
+    super(eventId, param, new Result());
   }
   public ComplexEvent(int eventId, Param param, Result result) {
     super(eventId, param, result);
@@ -23,6 +23,9 @@ public class ComplexEvent extends Event<ComplexEvent.Param, ComplexEvent.Result>
 
   public static class Param {
     public final long count;
+    public Param() {
+      this.count = 0;
+    }
     public Param(long count) {
       this.count = count;
     }
@@ -30,6 +33,9 @@ public class ComplexEvent extends Event<ComplexEvent.Param, ComplexEvent.Result>
 
   public static class Result {
     public final long count;
+    public Result() {
+      this.count = 0;
+    }
     public Result(long count) {
       this.count = count;
     }
