@@ -8,6 +8,18 @@ public class Event<P, R> {
   public final P param;
   public final R result;
 
+  public Event(int eventId) {
+    this.eventId = eventId;
+    this.param = null;
+    this.result = null;
+  }
+
+  public Event(int eventId, P param) {
+    this.eventId = eventId;
+    this.param = param;
+    this.result = null;
+  }
+
   public Event(int eventId, P param, R result) {
     this.eventId = eventId;
     this.param = param;

@@ -17,40 +17,59 @@ public class NoteEvent extends Event<NoteEvent.Param, NoteEvent.Result> {
   public final static int EVENT_ADD_ITEM = 6;
 
   public NoteEvent(int eventId) {
-    super(eventId, new Param(), new Result());
+    super(eventId);
+  }
+
+  public NoteEvent(int eventId, Param param) {
+    super(eventId, param);
+  }
+
+  public NoteEvent(int eventId, Param param, Result result) {
+    super(eventId, param, result);
+  }
+
+  public static class Param {
+    public final Note note;
+    public Param(Note note) {
+      this.note = note;
+    }
+  }
+
+  public static class Result {
+    public final List<Note> notes;
+    public final boolean isSuccess;
+
+    public Result(List<Note> notes) {
+      this.notes = notes;
+      this.isSuccess = true;
+    }
+    public Result(boolean isSuccess) {
+      this.notes = null;
+      this.isSuccess = isSuccess;
+    }
   }
 
   public static NoteEvent addNote(Note note) {
-    return new NoteEvent(NoteEvent.EVENT_ADD_ITEM).setNote(note);
+    return new NoteEvent(NoteEvent.EVENT_ADD_ITEM, new Param(note));
   }
 
   public static NoteEvent markNote(Note note) {
-    return new NoteEvent(NoteEvent.EVENT_MARK_ITEM).setNote(note);
+    return new NoteEvent(NoteEvent.EVENT_MARK_ITEM, new Param(note));
   }
 
   public static NoteEvent toppingNote(Note note) {
-    return new NoteEvent(NoteEvent.EVENT_TOPPING_ITEM).setNote(note);
+    return new NoteEvent(NoteEvent.EVENT_TOPPING_ITEM, new Param(note));
   }
 
   public static NoteEvent removeNote(Note note) {
-    return new NoteEvent(NoteEvent.EVENT_REMOVE_ITEM).setNote(note);
+    return new NoteEvent(NoteEvent.EVENT_REMOVE_ITEM, new Param(note));
   }
 
   public static NoteEvent getList() {
     return new NoteEvent(NoteEvent.EVENT_GET_NOTE_LIST);
   }
 
-  public NoteEvent setNote(Note note) {
-    this.param.note = note;
-    return this;
-  }
-
-  public static class Param {
-    public Note note;
-  }
-
-  public static class Result {
-    public List<Note> notes;
-    public boolean isSuccess;
+  public static NoteEvent copy(NoteEvent event, NoteEvent.Result result) {
+    return new NoteEvent(event.eventId, event.param, result);
   }
 }

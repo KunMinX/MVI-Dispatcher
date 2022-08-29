@@ -56,9 +56,7 @@ public class ComplexRequester extends MviDispatcher<ComplexEvent> {
                   .subscribeOn(Schedulers.io())
                   .observeOn(AndroidSchedulers.mainThread())
                   .subscribe(aLong -> {
-                    ComplexEvent event1 = new ComplexEvent(ComplexEvent.EVENT_TEST_4);
-                    event1.param.count = aLong;
-                    input(event1);
+                    input(new ComplexEvent(ComplexEvent.EVENT_TEST_4, new ComplexEvent.Param(aLong)));
                   });
         break;
       case ComplexEvent.EVENT_TEST_2:
@@ -73,8 +71,7 @@ public class ComplexRequester extends MviDispatcher<ComplexEvent> {
         sendResult(event);
         break;
       case ComplexEvent.EVENT_TEST_4:
-        event.result.count = event.param.count;
-        sendResult(event);
+        sendResult(ComplexEvent.copy(event, new ComplexEvent.Result(event.param.count)));
         break;
     }
   }

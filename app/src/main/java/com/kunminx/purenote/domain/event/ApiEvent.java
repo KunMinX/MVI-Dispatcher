@@ -17,28 +17,47 @@ public class ApiEvent extends Event<ApiEvent.Param, ApiEvent.Result> {
   public final String api;
 
   public ApiEvent(String api) {
-    super(0, new Param(), new Result());
+    super(0);
+    this.api = api;
+  }
+  public ApiEvent(String api, Param param) {
+    super(0, param);
+    this.api = api;
+  }
+  public ApiEvent(String api, Param param, Result result) {
+    super(0, param, result);
     this.api = api;
   }
 
   public static class Param {
-    public String cityCode;
+    public final String cityCode;
+    public Param(String cityCode) {
+      this.cityCode = cityCode;
+    }
   }
 
   public static class Result {
-    public Weather.Live live;
-    public String errorInfo;
+    public final Weather.Live live;
+    public final String errorInfo;
+    public Result(Weather.Live live) {
+      this.live = live;
+      this.errorInfo = "";
+    }
+    public Result(String errorInfo) {
+      this.live = null;
+      this.errorInfo = errorInfo;
+    }
   }
 
   public static ApiEvent getWeather(String cityCode) {
-    ApiEvent apiEvent = new ApiEvent(GET_WEATHER_INFO);
-    apiEvent.param.cityCode = cityCode;
-    return apiEvent;
+    return new ApiEvent(GET_WEATHER_INFO, new Param(cityCode));
   }
 
-  public static ApiEvent onError(String msg) {
-    ApiEvent apiEvent = new ApiEvent(ERROR);
-    apiEvent.result.errorInfo = msg;
-    return apiEvent;
+  public static ApiEvent copy(ApiEvent event, Result result) {
+    return new ApiEvent(event.api, event.param, result);
+  }
+
+  public static ApiEvent onError(ApiEvent event, String msg) {
+    return new ApiEvent(ERROR, event.param, new Result(msg));
   }
 }

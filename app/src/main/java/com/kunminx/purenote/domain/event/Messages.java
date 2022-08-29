@@ -10,7 +10,7 @@ public class Messages extends Event<Messages.Param, Messages.Result> {
   public final static int EVENT_FINISH_ACTIVITY = 2;
 
   public Messages(int eventId) {
-    super(eventId, new Param(), new Result());
+    super(eventId);
   }
 
   public static class Param {

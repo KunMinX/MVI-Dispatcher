@@ -29,38 +29,32 @@ public class NoteRequester extends MviDispatcher<NoteEvent> {
     switch (event.eventId) {
       case NoteEvent.EVENT_GET_NOTE_LIST:
         DataRepository.getInstance().getNotes(dataResult -> {
-          event.result.notes = dataResult.getResult();
-          sendResult(event);
+          sendResult(NoteEvent.copy(event, new NoteEvent.Result(dataResult.getResult())));
         });
         break;
       case NoteEvent.EVENT_UPDATE_ITEM:
       case NoteEvent.EVENT_MARK_ITEM:
         DataRepository.getInstance().updateNote(event.param.note, dataResult -> {
-          event.result.isSuccess = dataResult.getResult();
-          sendResult(event);
+          sendResult(NoteEvent.copy(event, new NoteEvent.Result(dataResult.getResult())));
         });
         break;
       case NoteEvent.EVENT_TOPPING_ITEM:
         DataRepository.getInstance().updateNote(event.param.note, dataResult -> {
-          event.result.isSuccess = dataResult.getResult();
-          if (event.result.isSuccess) {
+          if (dataResult.getResult()) {
             DataRepository.getInstance().getNotes(dataResult1 -> {
-              event.result.notes = dataResult1.getResult();
-              sendResult(event);
+              sendResult(NoteEvent.copy(event, new NoteEvent.Result(dataResult.getResult())));
             });
           }
         });
         break;
       case NoteEvent.EVENT_ADD_ITEM:
         DataRepository.getInstance().insertNote(event.param.note, dataResult -> {
-          event.result.isSuccess = dataResult.getResult();
-          sendResult(event);
+          NoteEvent.copy(event, new NoteEvent.Result(dataResult.getResult()));
         });
         break;
       case NoteEvent.EVENT_REMOVE_ITEM:
         DataRepository.getInstance().deleteNote(event.param.note, dataResult -> {
-          event.result.isSuccess = dataResult.getResult();
-          sendResult(event);
+          NoteEvent.copy(event, new NoteEvent.Result(dataResult.getResult()));
         });
         break;
     }
