@@ -18,8 +18,7 @@ public class HttpRequester extends MviDispatcher<Api> {
         Api.GetWeatherInfo getWeatherInfo = (Api.GetWeatherInfo) intent;
         DataRepository.getInstance().getWeatherInfo(getWeatherInfo.paramCityCode, dataResult -> {
           String errorMsg = dataResult.getResponseStatus().getMsg();
-          if (TextUtils.isEmpty(errorMsg))
-            sendResult(getWeatherInfo.copy(dataResult.getResult()));
+          if (TextUtils.isEmpty(errorMsg)) sendResult(getWeatherInfo.copy(dataResult.getResult()));
           else input(Api.OnError(errorMsg));
         });
         break;
