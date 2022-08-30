@@ -32,10 +32,10 @@ In this case, I will show you how MVI-Dispatcher can simplify the otherwise “c
 &nbsp;
 
 ```Groovy
-implementation 'com.kunminx.arch:mvi-dispatch:7.2.0-beta'
+implementation 'com.kunminx.arch:mvi-dispatch:7.3.0-beta'
 
 //Optional branch, easy and safe to read and write config
-implementation 'com.kunminx.arch:keyvalue-dispatch:7.2.0-beta'
+implementation 'com.kunminx.arch:keyvalue-dispatch:7.3.0-beta'
 ```
 
 &nbsp;

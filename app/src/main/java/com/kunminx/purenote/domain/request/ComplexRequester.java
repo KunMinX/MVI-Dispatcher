@@ -1,7 +1,7 @@
 package com.kunminx.purenote.domain.request;
 
 import com.kunminx.architecture.domain.dispatch.MviDispatcher;
-import com.kunminx.purenote.domain.event.ComplexEvent;
+import com.kunminx.purenote.domain.event.ComplexIntent;
 
 import java.util.concurrent.TimeUnit;
 
@@ -13,7 +13,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Create by KunMinX at 2022/7/5
  */
-public class ComplexRequester extends MviDispatcher<ComplexEvent> {
+public class ComplexRequester extends MviDispatcher<ComplexIntent> {
 
   private Disposable mDisposable;
 
@@ -41,9 +41,9 @@ public class ComplexRequester extends MviDispatcher<ComplexEvent> {
    *  & Livedata serial event coverage & mutableLiveData.setValue abuse".
    */
   @Override
-  protected void onHandle(ComplexEvent event) {
-    switch (event.eventId) {
-      case ComplexEvent.EVENT_TEST_1:
+  protected void onHandle(ComplexIntent intent) {
+    switch (intent.id) {
+      case ComplexIntent.Test1.ID:
 
         //TODO tip 3: 定长队列，随取随用，绝不丢失事件
         // 此处通过 RxJava 轮询模拟事件连发，可于 Logcat Debug 见输出
@@ -56,22 +56,23 @@ public class ComplexRequester extends MviDispatcher<ComplexEvent> {
                   .subscribeOn(Schedulers.io())
                   .observeOn(AndroidSchedulers.mainThread())
                   .subscribe(aLong -> {
-                    input(new ComplexEvent(ComplexEvent.EVENT_TEST_4, new ComplexEvent.Param(aLong)));
+                    input(ComplexIntent.Test4(aLong.intValue()));
                   });
         break;
-      case ComplexEvent.EVENT_TEST_2:
+      case ComplexIntent.Test2.ID:
         Observable.timer(200, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aLong -> {
-                  sendResult(event);
+                  sendResult(intent);
                 });
         break;
-      case ComplexEvent.EVENT_TEST_3:
-        sendResult(event);
+      case ComplexIntent.Test3.ID:
+        sendResult(intent);
         break;
-      case ComplexEvent.EVENT_TEST_4:
-        sendResult(event.copy(new ComplexEvent.Result(event.param.count)));
+      case ComplexIntent.Test4.ID:
+        ComplexIntent.Test4 test4 = (ComplexIntent.Test4) intent;
+        sendResult(test4.copy(test4.resultCount1));
         break;
     }
   }

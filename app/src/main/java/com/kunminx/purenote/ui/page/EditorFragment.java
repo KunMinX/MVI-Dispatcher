@@ -16,7 +16,7 @@ import com.kunminx.purenote.BR;
 import com.kunminx.purenote.R;
 import com.kunminx.purenote.data.bean.Note;
 import com.kunminx.purenote.domain.event.Messages;
-import com.kunminx.purenote.domain.event.NoteEvent;
+import com.kunminx.purenote.domain.event.NoteIntent;
 import com.kunminx.purenote.domain.message.PageMessenger;
 import com.kunminx.purenote.domain.request.NoteRequester;
 
@@ -77,9 +77,9 @@ public class EditorFragment extends BaseFragment {
    */
   @Override
   protected void onOutput() {
-    mNoteRequester.output(this, noteEvent -> {
-      if (noteEvent.eventId == NoteEvent.EVENT_ADD_ITEM) {
-        mMessenger.input(new Messages(Messages.EVENT_REFRESH_NOTE_LIST));
+    mNoteRequester.output(this, noteIntent -> {
+      if (Objects.equals(noteIntent.id, NoteIntent.AddItem.ID)) {
+        mMessenger.input(Messages.RefreshNoteList());
         ToastUtils.showShortToast(getString(R.string.saved));
         nav().navigateUp();
       }
@@ -104,8 +104,7 @@ public class EditorFragment extends BaseFragment {
     Note tempNote = Objects.requireNonNull(mStates.tempNote.get());
     String title = mStates.title.get();
     String content = mStates.content.get();
-    if (TextUtils.isEmpty(title + content)
-            || tempNote.getTitle().equals(title) && tempNote.getContent().equals(content)) {
+    if (TextUtils.isEmpty(title + content) || tempNote.getTitle().equals(title) && tempNote.getContent().equals(content)) {
       return nav().navigateUp();
     }
     Note note;
@@ -115,7 +114,7 @@ public class EditorFragment extends BaseFragment {
     } else {
       note = new Note(tempNote.getId(), title, content, tempNote.getCreateTime(), time, tempNote.getType());
     }
-    mNoteRequester.input(NoteEvent.addNote(note));
+    mNoteRequester.input(NoteIntent.AddItem(note));
     return true;
   }
 

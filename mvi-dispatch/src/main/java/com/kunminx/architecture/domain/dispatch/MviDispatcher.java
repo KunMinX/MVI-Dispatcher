@@ -8,7 +8,6 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
-import com.kunminx.architecture.domain.event.Event;
 import com.kunminx.architecture.domain.queue.FixedLengthList;
 import com.kunminx.architecture.domain.result.MutableResult;
 
@@ -19,60 +18,59 @@ import java.util.Objects;
 /**
  * Create by KunMinX at 2022/7/3
  */
-public class MviDispatcher<E extends Event> extends ViewModel implements DefaultLifecycleObserver {
-
+public class MviDispatcher<T> extends ViewModel implements DefaultLifecycleObserver {
   private final static int DEFAULT_QUEUE_LENGTH = 10;
   private final HashMap<Integer, LifecycleOwner> mOwner = new HashMap<>();
   private final HashMap<Integer, LifecycleOwner> mFragmentOwner = new HashMap<>();
-  private final HashMap<Integer, Observer<E>> mObservers = new HashMap<>();
-  private final FixedLengthList<MutableResult<E>> mResults = new FixedLengthList<>();
+  private final HashMap<Integer, Observer<T>> mObservers = new HashMap<>();
+  private final FixedLengthList<MutableResult<T>> mResults = new FixedLengthList<>();
 
   protected int initQueueMaxLength() {
     return DEFAULT_QUEUE_LENGTH;
   }
 
-  public final void output(@NonNull AppCompatActivity activity, @NonNull Observer<E> observer) {
+  public final void output(@NonNull AppCompatActivity activity, @NonNull Observer<T> observer) {
     activity.getLifecycle().addObserver(this);
     Integer identityId = System.identityHashCode(activity);
     outputTo(identityId, activity, observer);
   }
 
-  public final void output(@NonNull Fragment fragment, @NonNull Observer<E> observer) {
+  public final void output(@NonNull Fragment fragment, @NonNull Observer<T> observer) {
     fragment.getLifecycle().addObserver(this);
     Integer identityId = System.identityHashCode(fragment);
     this.mFragmentOwner.put(identityId, fragment);
     outputTo(identityId, fragment.getViewLifecycleOwner(), observer);
   }
 
-  private void outputTo(Integer identityId, LifecycleOwner owner, Observer<E> observer) {
+  private void outputTo(Integer identityId, LifecycleOwner owner, Observer<T> observer) {
     this.mOwner.put(identityId, owner);
     this.mObservers.put(identityId, observer);
-    for (MutableResult<E> result : mResults) {
+    for (MutableResult<T> result : mResults) {
       result.observe(owner, observer);
     }
   }
 
-  protected final void sendResult(@NonNull E event) {
+  protected final void sendResult(@NonNull T intent) {
     mResults.init(initQueueMaxLength(), mutableResult -> {
-      for (Map.Entry<Integer, Observer<E>> entry : mObservers.entrySet()) {
-        Observer<E> observer = entry.getValue();
+      for (Map.Entry<Integer, Observer<T>> entry : mObservers.entrySet()) {
+        Observer<T> observer = entry.getValue();
         mutableResult.removeObserver(observer);
       }
     });
     boolean eventExist = false;
-    for (MutableResult<E> result : mResults) {
+    for (MutableResult<T> result : mResults) {
       int id1 = System.identityHashCode(result.getValue());
-      int id2 = System.identityHashCode(event);
+      int id2 = System.identityHashCode(intent);
       if (id1 == id2) {
         eventExist = true;
         break;
       }
     }
     if (!eventExist) {
-      MutableResult<E> result = new MutableResult<>(event);
-      for (Map.Entry<Integer, Observer<E>> entry : mObservers.entrySet()) {
+      MutableResult<T> result = new MutableResult<>(intent);
+      for (Map.Entry<Integer, Observer<T>> entry : mObservers.entrySet()) {
         Integer key = entry.getKey();
-        Observer<E> observer = entry.getValue();
+        Observer<T> observer = entry.getValue();
         LifecycleOwner owner = mOwner.get(key);
         assert owner != null;
         result.observe(owner, observer);
@@ -80,23 +78,23 @@ public class MviDispatcher<E extends Event> extends ViewModel implements Default
       mResults.add(result);
     }
 
-    MutableResult<E> result = null;
-    for (MutableResult<E> r : mResults) {
+    MutableResult<T> result = null;
+    for (MutableResult<T> r : mResults) {
       int id1 = System.identityHashCode(r.getValue());
-      int id2 = System.identityHashCode(event);
+      int id2 = System.identityHashCode(intent);
       if (id1 == id2) {
         result = r;
         break;
       }
     }
-    if (result != null) result.setValue(event);
+    if (result != null) result.setValue(intent);
   }
 
-  public final void input(E event) {
-    onHandle(event);
+  public final void input(T intent) {
+    onHandle(intent);
   }
 
-  protected void onHandle(E event) {
+  protected void onHandle(T intent) {
   }
 
   @Override
@@ -109,7 +107,7 @@ public class MviDispatcher<E extends Event> extends ViewModel implements Default
         Integer key = entry.getKey();
         mOwner.remove(key);
         if (isFragment) mFragmentOwner.remove(key);
-        for (MutableResult<E> mutableResult : mResults) {
+        for (MutableResult<T> mutableResult : mResults) {
           mutableResult.removeObserver(Objects.requireNonNull(mObservers.get(key)));
         }
         mObservers.remove(key);

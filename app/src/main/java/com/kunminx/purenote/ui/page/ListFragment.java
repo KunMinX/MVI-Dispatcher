@@ -15,7 +15,7 @@ import com.kunminx.purenote.data.bean.Weather;
 import com.kunminx.purenote.data.config.Key;
 import com.kunminx.purenote.domain.event.Api;
 import com.kunminx.purenote.domain.event.Messages;
-import com.kunminx.purenote.domain.event.NoteEvent;
+import com.kunminx.purenote.domain.event.NoteIntent;
 import com.kunminx.purenote.domain.message.PageMessenger;
 import com.kunminx.purenote.domain.request.HttpRequester;
 import com.kunminx.purenote.domain.request.NoteRequester;
@@ -23,6 +23,7 @@ import com.kunminx.purenote.ui.adapter.NoteAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Create by KunMinX at 2022/6/30
@@ -60,31 +61,33 @@ public class ListFragment extends BaseFragment {
   @Override
   protected void onOutput() {
     mMessenger.output(this, messages -> {
-      if (messages.eventId == Messages.EVENT_REFRESH_NOTE_LIST) {
-        mNoteRequester.input(NoteEvent.getList());
+      if (Objects.equals(messages.id, Messages.RefreshNoteList.ID)) {
+        mNoteRequester.input(NoteIntent.GetNoteList());
       }
     });
 
-    mNoteRequester.output(this, noteEvent -> {
-      switch (noteEvent.eventId) {
-        case NoteEvent.EVENT_TOPPING_ITEM:
-        case NoteEvent.EVENT_GET_NOTE_LIST:
-          mAdapter.refresh(noteEvent.result.notes);
+    mNoteRequester.output(this, noteIntent -> {
+      switch (noteIntent.id) {
+        case NoteIntent.ToppingItem.ID:
+        case NoteIntent.GetNoteList.ID:
+          NoteIntent.GetNoteList getNoteList = (NoteIntent.GetNoteList) noteIntent;
+          mAdapter.refresh(getNoteList.resultNotes);
           mStates.emptyViewShow.set(mStates.list.size() == 0);
           break;
-        case NoteEvent.EVENT_MARK_ITEM:
-        case NoteEvent.EVENT_REMOVE_ITEM:
+        case NoteIntent.MarkItem.ID:
+        case NoteIntent.RemoveItem.ID:
           break;
       }
     });
 
     mHttpRequester.output(this, api -> {
-      switch (api.node) {
-        case Api.GET_WEATHER_INFO:
-          Weather.Live live = api.result.live;
+      switch (api.id) {
+        case Api.GetWeatherInfo.ID:
+          Api.GetWeatherInfo weatherInfo = (Api.GetWeatherInfo) api;
+          Weather.Live live = weatherInfo.resultLive;
           if (live != null) mStates.weather.set(live.getWeather());
           break;
-        case Api.ERROR:
+        case Api.OnError.ID:
           break;
       }
       mStates.loadingWeather.set(false);
@@ -113,9 +116,9 @@ public class ListFragment extends BaseFragment {
   @Override
   protected void onInput() {
     mAdapter.setOnItemClickListener((viewId, item, position) -> {
-      if (viewId == R.id.btn_mark) mNoteRequester.input(NoteEvent.markNote(item));
-      else if (viewId == R.id.btn_topping) mNoteRequester.input(NoteEvent.toppingNote(item));
-      else if (viewId == R.id.btn_delete) mNoteRequester.input(NoteEvent.removeNote(item));
+      if (viewId == R.id.btn_mark) mNoteRequester.input(NoteIntent.MarkItem(item));
+      else if (viewId == R.id.btn_topping) mNoteRequester.input(NoteIntent.ToppingItem(item));
+      else if (viewId == R.id.btn_delete) mNoteRequester.input(NoteIntent.RemoveItem(item));
       else if (viewId == R.id.cl) EditorFragment.start(nav(), item);
     });
     mClickProxy.setOnClickListener(view -> {
@@ -124,14 +127,14 @@ public class ListFragment extends BaseFragment {
     });
     if (TextUtils.isEmpty(mStates.weather.get())) {
       mStates.loadingWeather.set(true);
-      mHttpRequester.input(Api.getWeather(Api.CITY_CODE_BEIJING));
+      mHttpRequester.input(Api.GetWeatherInfo(HttpRequester.CITY_CODE_BEIJING));
     }
-    if (mStates.list.isEmpty()) mNoteRequester.input(NoteEvent.getList());
+    if (mStates.list.isEmpty()) mNoteRequester.input(NoteIntent.GetNoteList());
   }
 
   @Override
   protected boolean onBackPressed() {
-    mMessenger.input(new Messages(Messages.EVENT_FINISH_ACTIVITY));
+    mMessenger.input(Messages.FinishActivity());
     return super.onBackPressed();
   }
 

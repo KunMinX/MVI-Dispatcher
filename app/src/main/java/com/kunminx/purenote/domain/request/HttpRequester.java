@@ -9,19 +9,22 @@ import com.kunminx.purenote.domain.event.Api;
  * Create by KunMinX at 2022/8/24
  */
 public class HttpRequester extends MviDispatcher<Api> {
+  public final static String CITY_CODE_BEIJING = "110000";
+
   @Override
-  protected void onHandle(Api event) {
-    switch (event.node) {
-      case Api.GET_WEATHER_INFO:
-        DataRepository.getInstance().getWeatherInfo(event.node, event.param.cityCode, dataResult -> {
+  protected void onHandle(Api intent) {
+    switch (intent.id) {
+      case Api.GetWeatherInfo.ID:
+        Api.GetWeatherInfo getWeatherInfo = (Api.GetWeatherInfo) intent;
+        DataRepository.getInstance().getWeatherInfo(getWeatherInfo.paramCityCode, dataResult -> {
           String errorMsg = dataResult.getResponseStatus().getMsg();
           if (TextUtils.isEmpty(errorMsg))
-            sendResult(event.copy(new Api.Result(dataResult.getResult())));
-          else input(Api.onError(event, errorMsg));
+            sendResult(getWeatherInfo.copy(dataResult.getResult()));
+          else input(Api.OnError(errorMsg));
         });
         break;
-      case Api.ERROR:
-        sendResult(event);
+      case Api.OnError.ID:
+        sendResult(intent);
         break;
     }
   }

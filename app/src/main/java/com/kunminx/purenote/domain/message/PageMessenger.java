@@ -24,8 +24,8 @@ public class PageMessenger extends MviDispatcher<Messages> {
    *  & Livedata serial event coverage & mutableLiveData.setValue abuse".
    */
   @Override
-  protected void onHandle(Messages event) {
-    sendResult(event);
+  protected void onHandle(Messages intent) {
+    sendResult(intent);
 
     // TODO：tip 2：除接收 Activity/Fragment 事件，亦可从 Dispatcher 内部发送事件（作为副作用）：
     //  ~

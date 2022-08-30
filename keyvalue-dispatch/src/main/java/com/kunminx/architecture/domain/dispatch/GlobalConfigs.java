@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
-import com.kunminx.architecture.domain.event.KeyValueEvent;
+import com.kunminx.architecture.domain.event.KeyValueCallback;
 
 /**
  * TODO tip: 此处基于 KeyValueDispatcher 提供全局配置的默认实现，
@@ -19,11 +19,11 @@ public class GlobalConfigs {
   private GlobalConfigs() {
   }
 
-  public static void output(@NonNull AppCompatActivity activity, @NonNull Observer<KeyValueEvent> observer) {
+  public static void output(@NonNull AppCompatActivity activity, @NonNull Observer<KeyValueCallback> observer) {
     instance.output(activity, observer);
   }
 
-  public static void output(@NonNull Fragment fragment, @NonNull Observer<KeyValueEvent> observer) {
+  public static void output(@NonNull Fragment fragment, @NonNull Observer<KeyValueCallback> observer) {
     instance.output(fragment, observer);
   }
 

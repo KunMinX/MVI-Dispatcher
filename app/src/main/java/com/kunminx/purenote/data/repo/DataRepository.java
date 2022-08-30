@@ -9,7 +9,6 @@ import com.kunminx.architecture.data.response.ResponseStatus;
 import com.kunminx.architecture.utils.Utils;
 import com.kunminx.purenote.data.bean.Note;
 import com.kunminx.purenote.data.bean.Weather;
-import com.kunminx.purenote.domain.event.Api;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -26,6 +25,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Create by KunMinX at 2022/6/14
  */
 public class DataRepository {
+  public final static String API_KEY = "32d8017dd7b9c2954aa55496a62033c5";
+  public final static String BASE_URL = "https://restapi.amap.com/v3/";
+
   private static final DataRepository instance = new DataRepository();
   private static final String DATABASE_NAME = "NOTE_DB.db";
   private final NoteDataBase mDataBase;
@@ -41,7 +43,7 @@ public class DataRepository {
             .addInterceptor(logging)
             .build();
     mRetrofit = new Retrofit.Builder()
-            .baseUrl(Api.BASE_URL)
+            .baseUrl(BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
@@ -82,9 +84,9 @@ public class DataRepository {
     }, success -> result.onResult(new DataResult<>(success)));
   }
 
-  public void getWeatherInfo(String api, String cityCode, DataResult.Result<Weather.Live> result) {
+  public void getWeatherInfo(String cityCode, DataResult.Result<Weather.Live> result) {
     WeatherService service = mRetrofit.create(WeatherService.class);
-    Call<Weather> call = service.getWeatherInfo(api, cityCode, Api.API_KEY);
+    Call<Weather> call = service.getWeatherInfo(cityCode, API_KEY);
     call.enqueue(new Callback<Weather>() {
       @Override
       public void onResponse(@NonNull Call<Weather> call, @NonNull Response<Weather> response) {

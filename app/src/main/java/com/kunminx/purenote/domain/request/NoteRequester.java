@@ -2,12 +2,12 @@ package com.kunminx.purenote.domain.request;
 
 import com.kunminx.architecture.domain.dispatch.MviDispatcher;
 import com.kunminx.purenote.data.repo.DataRepository;
-import com.kunminx.purenote.domain.event.NoteEvent;
+import com.kunminx.purenote.domain.event.NoteIntent;
 
 /**
  * Create by KunMinX at 2022/6/14
  */
-public class NoteRequester extends MviDispatcher<NoteEvent> {
+public class NoteRequester extends MviDispatcher<NoteIntent> {
 
   /**
    * TODO tip 1：
@@ -25,36 +25,46 @@ public class NoteRequester extends MviDispatcher<NoteEvent> {
    *  & Livedata serial event coverage & mutableLiveData.setValue abuse".
    */
   @Override
-  protected void onHandle(NoteEvent event) {
-    switch (event.eventId) {
-      case NoteEvent.EVENT_GET_NOTE_LIST:
+  protected void onHandle(NoteIntent intent) {
+    switch (intent.id) {
+      case NoteIntent.GetNoteList.ID:
+        NoteIntent.GetNoteList getNoteList = (NoteIntent.GetNoteList) intent;
         DataRepository.getInstance().getNotes(dataResult -> {
-          sendResult(event.copy(new NoteEvent.Result(dataResult.getResult())));
+          sendResult(getNoteList.copy(dataResult.getResult()));
         });
         break;
-      case NoteEvent.EVENT_UPDATE_ITEM:
-      case NoteEvent.EVENT_MARK_ITEM:
-        DataRepository.getInstance().updateNote(event.param.note, dataResult -> {
-          sendResult(event.copy(new NoteEvent.Result(dataResult.getResult())));
+      case NoteIntent.UpdateItem.ID:
+        NoteIntent.UpdateItem updateItem = (NoteIntent.UpdateItem) intent;
+        DataRepository.getInstance().updateNote(updateItem.paramNote, dataResult -> {
+          sendResult(updateItem.copy(dataResult.getResult()));
         });
         break;
-      case NoteEvent.EVENT_TOPPING_ITEM:
-        DataRepository.getInstance().updateNote(event.param.note, dataResult -> {
+      case NoteIntent.MarkItem.ID:
+        NoteIntent.MarkItem markItem = (NoteIntent.MarkItem) intent;
+        DataRepository.getInstance().updateNote(markItem.paramNote, dataResult -> {
+          sendResult(markItem.copy(dataResult.getResult()));
+        });
+        break;
+      case NoteIntent.ToppingItem.ID:
+        NoteIntent.ToppingItem toppingItem = (NoteIntent.ToppingItem) intent;
+        DataRepository.getInstance().updateNote(toppingItem.paramNote, dataResult -> {
           if (dataResult.getResult()) {
             DataRepository.getInstance().getNotes(dataResult1 -> {
-              sendResult(event.copy(new NoteEvent.Result(dataResult1.getResult())));
+              sendResult(NoteIntent.GetNoteList(dataResult1.getResult()));
             });
           }
         });
         break;
-      case NoteEvent.EVENT_ADD_ITEM:
-        DataRepository.getInstance().insertNote(event.param.note, dataResult -> {
-          sendResult(event.copy(new NoteEvent.Result(dataResult.getResult())));
+      case NoteIntent.AddItem.ID:
+        NoteIntent.AddItem addItem = (NoteIntent.AddItem) intent;
+        DataRepository.getInstance().insertNote(addItem.paramNote, dataResult -> {
+          sendResult(addItem.copy(dataResult.getResult()));
         });
         break;
-      case NoteEvent.EVENT_REMOVE_ITEM:
-        DataRepository.getInstance().deleteNote(event.param.note, dataResult -> {
-          sendResult(event.copy(new NoteEvent.Result(dataResult.getResult())));
+      case NoteIntent.RemoveItem.ID:
+        NoteIntent.RemoveItem removeItem = (NoteIntent.RemoveItem) intent;
+        DataRepository.getInstance().deleteNote(removeItem.paramNote, dataResult -> {
+          sendResult(removeItem.copy(dataResult.getResult()));
         });
         break;
     }

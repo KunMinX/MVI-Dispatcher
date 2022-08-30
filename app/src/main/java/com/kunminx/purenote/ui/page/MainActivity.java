@@ -7,10 +7,12 @@ import com.kunminx.architecture.ui.page.DataBindingConfig;
 import com.kunminx.architecture.ui.page.StateHolder;
 import com.kunminx.purenote.BR;
 import com.kunminx.purenote.R;
-import com.kunminx.purenote.domain.event.ComplexEvent;
+import com.kunminx.purenote.domain.event.ComplexIntent;
 import com.kunminx.purenote.domain.event.Messages;
 import com.kunminx.purenote.domain.message.PageMessenger;
 import com.kunminx.purenote.domain.request.ComplexRequester;
+
+import java.util.Objects;
 
 public class MainActivity extends BaseActivity {
   private MainAtyStates mStates;
@@ -38,15 +40,25 @@ public class MainActivity extends BaseActivity {
   @Override
   protected void onOutput() {
     mMessenger.output(this, messages -> {
-      if (messages.eventId == Messages.EVENT_FINISH_ACTIVITY) finish();
+      if (Objects.equals(messages.id, Messages.FinishActivity.ID)) finish();
     });
 
-    mComplexRequester.output(this, complexEvent -> {
-      if (complexEvent.eventId == ComplexEvent.EVENT_TEST_1) Log.d("complexEvent", "---1");
-      else if (complexEvent.eventId == ComplexEvent.EVENT_TEST_2) Log.d("complexEvent", "---2");
-      else if (complexEvent.eventId == ComplexEvent.EVENT_TEST_3) Log.d("complexEvent", "---3");
-      else if (complexEvent.eventId == ComplexEvent.EVENT_TEST_4)
-        Log.d("complexEvent", "---4 " + complexEvent.result.count);
+    mComplexRequester.output(this, complexIntent -> {
+      switch (complexIntent.id) {
+        case ComplexIntent.Test1.ID:
+          Log.d("ComplexIntent", "---1");
+          break;
+        case ComplexIntent.Test2.ID:
+          Log.d("ComplexIntent", "---2");
+          break;
+        case ComplexIntent.Test3.ID:
+          Log.d("ComplexIntent", "---3");
+          break;
+        case ComplexIntent.Test4.ID:
+          ComplexIntent.Test4 test4 = (ComplexIntent.Test4) complexIntent;
+          Log.d("ComplexIntent", "---4 " + test4.resultCount1);
+          break;
+      }
     });
   }
 
@@ -64,14 +76,14 @@ public class MainActivity extends BaseActivity {
     // ~
     // Here you can see through dispatcher Input sends multiple events continuously without being overwritten
 
-    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_1));
-    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_2));
-    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_2));
-    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_2));
-    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_3));
-    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_3));
-    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_3));
-    mComplexRequester.input(new ComplexEvent(ComplexEvent.EVENT_TEST_3));
+    mComplexRequester.input(ComplexIntent.Test1(1));
+    mComplexRequester.input(ComplexIntent.Test2(2));
+    mComplexRequester.input(ComplexIntent.Test2(2));
+    mComplexRequester.input(ComplexIntent.Test2(2));
+    mComplexRequester.input(ComplexIntent.Test3(3));
+    mComplexRequester.input(ComplexIntent.Test3(3));
+    mComplexRequester.input(ComplexIntent.Test3(3));
+    mComplexRequester.input(ComplexIntent.Test3(3));
   }
 
   public static class MainAtyStates extends StateHolder {

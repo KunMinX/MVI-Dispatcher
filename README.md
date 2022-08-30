@@ -33,10 +33,10 @@
 在本案例中，我将为您展示，MVI-Dispatcher 是如何将原本 "繁杂易出错" 消息分发流程，通过 **寥寥几行代码** 轻而易举完成。
 
 ```Groovy
-implementation 'com.kunminx.arch:mvi-dispatch:7.2.0-beta'
+implementation 'com.kunminx.arch:mvi-dispatch:7.3.0-beta'
 
 //可选分支，简便安全完成 Config 读写
-implementation 'com.kunminx.arch:keyvalue-dispatch:7.2.0-beta'
+implementation 'com.kunminx.arch:keyvalue-dispatch:7.3.0-beta'
 ```
 
 &nbsp;
