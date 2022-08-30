@@ -55,17 +55,13 @@ public class ComplexRequester extends MviDispatcher<ComplexIntent> {
           mDisposable = Observable.interval(1000, TimeUnit.MILLISECONDS)
                   .subscribeOn(Schedulers.io())
                   .observeOn(AndroidSchedulers.mainThread())
-                  .subscribe(aLong -> {
-                    input(ComplexIntent.Test4(aLong.intValue()));
-                  });
+                  .subscribe(aLong -> input(ComplexIntent.Test4(aLong.intValue())));
         break;
       case ComplexIntent.Test2.ID:
         Observable.timer(200, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aLong -> {
-                  sendResult(intent);
-                });
+                .subscribe(aLong -> sendResult(intent));
         break;
       case ComplexIntent.Test3.ID:
         sendResult(intent);
