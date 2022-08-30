@@ -72,7 +72,7 @@ public class ComplexRequester extends MviDispatcher<ComplexIntent> {
         break;
       case ComplexIntent.Test4.ID:
         ComplexIntent.Test4 test4 = (ComplexIntent.Test4) intent;
-        sendResult(test4.copy(test4.resultCount1));
+        sendResult(test4.copy(test4.paramCount));
         break;
     }
   }
