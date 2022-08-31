@@ -1,6 +1,6 @@
 package com.kunminx.architecture.domain.dispatch;
 
-import com.kunminx.architecture.domain.event.KeyValueCallback;
+import com.kunminx.architecture.domain.event.KeyValueMsg;
 import com.kunminx.architecture.utils.SPUtils;
 
 import java.util.HashMap;
@@ -12,7 +12,7 @@ import java.util.HashMap;
  *
  * Create by KunMinX at 2022/8/15
  */
-public class KeyValueDispatcher extends MviDispatcher<KeyValueCallback> {
+public class KeyValueDispatcher extends MviDispatcher<KeyValueMsg> {
   private final HashMap<String, Object> keyValues = new HashMap<>();
   private final SPUtils mSPUtils = SPUtils.getInstance(moduleName());
 
@@ -21,38 +21,38 @@ public class KeyValueDispatcher extends MviDispatcher<KeyValueCallback> {
   }
 
   @Override
-  protected void onHandle(KeyValueCallback intent) {
+  protected void onHandle(KeyValueMsg intent) {
     sendResult(intent);
   }
 
   public void put(String key, String value) {
     keyValues.put(key, value);
     mSPUtils.put(key, value);
-    input(new KeyValueCallback(key));
+    input(new KeyValueMsg(key));
   }
 
   public void put(String key, Integer value) {
     keyValues.put(key, value);
     mSPUtils.put(key, value);
-    input(new KeyValueCallback(key));
+    input(new KeyValueMsg(key));
   }
 
   public void put(String key, Long value) {
     keyValues.put(key, value);
     mSPUtils.put(key, value);
-    input(new KeyValueCallback(key));
+    input(new KeyValueMsg(key));
   }
 
   public void put(String key, Float value) {
     keyValues.put(key, value);
     mSPUtils.put(key, value);
-    input(new KeyValueCallback(key));
+    input(new KeyValueMsg(key));
   }
 
   public void put(String key, Boolean value) {
     keyValues.put(key, value);
     mSPUtils.put(key, value);
-    input(new KeyValueCallback(key));
+    input(new KeyValueMsg(key));
   }
 
   public String getString(String key) {
