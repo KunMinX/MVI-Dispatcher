@@ -14,8 +14,7 @@ public class NoteRequester extends MviDispatcher<NoteIntent> {
    *  此为领域层组件，接收发自页面消息，内部统一处理业务逻辑，并通过 sendResult 结果分发。
    *  可为同业务不同页面复用。
    *  ~
-   *  与此同时，本组件高度封装，
-   *  自动消除 “mutable 样板代码 + LiveData 连发事件覆盖 + LiveData.setValue 误用滥用” 高频痛点。
+   *  本组件通过封装，自动消除 “mutable 样板代码 + LiveData 连发事件覆盖 + LiveData.setValue 误用滥用” 高频痛点。
    *  ~
    *  ~
    *  As the 'only credible source', it receives messages sent from the page,
