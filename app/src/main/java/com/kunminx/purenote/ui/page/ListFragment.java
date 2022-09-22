@@ -145,7 +145,7 @@ public class ListFragment extends BaseFragment {
    *  响应式编程便于单元测试和关注点分离，同时也使同质化的业务逻辑分散在多个 ViewModel 中，造成修改时的不一致，
    *  ~
    *  故综合考虑，本项目示例采用三层架构，即 表现层、领域层、数据层，
-   *  StateHolder 属于表现层，MVI-Dispatcher 属于领域层，
+   *  StateHolder 属于表现层，为页面专属；MVI-Dispatcher 属于领域层，可供同业务不同页面复用，
    *  领域层组件通过 PublishSubject（例如 SharedFlow）分发结果至表现层，
    *  对于状态，由 BehaviorSubject（例如以下 State 组件）响应和兜着；对于事件，则一次性执行，
    *
