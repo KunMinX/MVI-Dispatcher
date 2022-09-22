@@ -82,6 +82,9 @@ public class ListFragment extends BaseFragment {
 
     mHttpRequester.output(this, api -> {
       switch (api.id) {
+        case Api.OnLoading.ID:
+          mStates.loadingWeather.set(((Api.OnLoading) api).resultIsLoading);
+          break;
         case Api.GetWeatherInfo.ID:
           Api.GetWeatherInfo weatherInfo = (Api.GetWeatherInfo) api;
           Weather.Live live = weatherInfo.resultLive;
@@ -90,7 +93,6 @@ public class ListFragment extends BaseFragment {
         case Api.OnError.ID:
           break;
       }
-      mStates.loadingWeather.set(false);
     });
 
     //TODO tip 3: 更新配置并刷新界面，是日常开发高频操作，
@@ -126,7 +128,6 @@ public class ListFragment extends BaseFragment {
       else if (view.getId() == R.id.iv_logo) nav().navigate(R.id.action_list_to_setting);
     });
     if (TextUtils.isEmpty(mStates.weather.get())) {
-      mStates.loadingWeather.set(true);
       mHttpRequester.input(Api.GetWeatherInfo(HttpRequester.CITY_CODE_BEIJING));
     }
     if (mStates.list.isEmpty()) mNoteRequester.input(NoteIntent.GetNoteList());
@@ -148,7 +149,7 @@ public class ListFragment extends BaseFragment {
    *  StateHolder 属于表现层，为页面专属；MVI-Dispatcher 属于领域层，可供同业务不同页面复用，
    *  领域层组件通过 PublishSubject（例如 SharedFlow）分发结果至表现层，
    *  对于状态，由 BehaviorSubject（例如以下 State 组件）响应和兜着；对于事件，则一次性执行，
-   *
+   * <p>
    * 具体可参见《解决 MVI 实战痛点》解析
    * https://juejin.cn/post/7134594010642907149
    */

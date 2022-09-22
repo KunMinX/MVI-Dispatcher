@@ -11,6 +11,7 @@ import com.kunminx.sealed.annotation.SealedClass;
  */
 @SealedClass
 public interface _Api {
+  void onLoading(boolean isLoading);
   void getWeatherInfo(@Param String cityCode, Weather.Live live);
   void onError(String errorInfo);
 }

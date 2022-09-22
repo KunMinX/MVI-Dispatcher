@@ -14,16 +14,19 @@ public class HttpRequester extends MviDispatcher<Api> {
   @Override
   protected void onHandle(Api intent) {
     switch (intent.id) {
+      case Api.OnLoading.ID:
+      case Api.OnError.ID:
+        sendResult(intent);
+        break;
       case Api.GetWeatherInfo.ID:
+        input(Api.OnLoading(true));
         Api.GetWeatherInfo getWeatherInfo = (Api.GetWeatherInfo) intent;
         DataRepository.getInstance().getWeatherInfo(getWeatherInfo.paramCityCode, dataResult -> {
           String errorMsg = dataResult.getResponseStatus().getMsg();
           if (TextUtils.isEmpty(errorMsg)) sendResult(getWeatherInfo.copy(dataResult.getResult()));
           else input(Api.OnError(errorMsg));
+          input(Api.OnLoading(false));
         });
-        break;
-      case Api.OnError.ID:
-        sendResult(intent);
         break;
     }
   }
