@@ -123,6 +123,15 @@ public class EditorFragment extends BaseFragment {
     return save();
   }
 
+  /**
+   * TODO tip 3：本项目为三层架构，即 表现层、领域层、数据层
+   *  StateHolder 属于表现层，MVI-Dispatcher 属于领域层，
+   *  领域层组件通过 PublishSubject（例如 SharedFlow）分发结果至表现层，
+   *  对于状态，由 BehaviorSubject（例如以下 State 组件）响应和兜着；对于事件，则一次性执行，
+   *
+   * 具体可参见《解决 MVI 实战痛点》解析
+   * https://juejin.cn/post/7134594010642907149
+   */
   public static class EditorStates extends StateHolder {
     public final State<Note> tempNote = new State<>(new Note());
     public final State<String> title = new State<>("");
