@@ -127,7 +127,7 @@ public class EditorFragment extends BaseFragment {
    * TODO tip 3：传统 MVI 属于对响应式编程的填坑和升级，
    *  故通常是两层架构：表现层和数据层，
    *  ViewModel 是表现层组件，业务逻辑状态改变都在 ViewModel 中写，
-   *  响应式编程便于单元测试和关注点分离，同时也使同质化的业务逻辑分散在多个 ViewModel 中，造成修改时的不一致，
+   *  响应式编程便于单元测试和关注点分离，同时也使同质化的业务逻辑分散在多个 ViewModel 中，易造成修改时的不一致，
    *  ~
    *  故综合考虑，本项目示例采用三层架构，即 表现层、领域层、数据层，
    *  StateHolder 属于表现层，为页面专属；MVI-Dispatcher 属于领域层，可供同业务不同页面复用，
