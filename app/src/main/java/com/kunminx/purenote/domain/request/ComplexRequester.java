@@ -1,7 +1,7 @@
 package com.kunminx.purenote.domain.request;
 
 import com.kunminx.architecture.domain.dispatch.MviDispatcher;
-import com.kunminx.purenote.domain.event.ComplexIntent;
+import com.kunminx.purenote.domain.intent.ComplexIntent;
 
 import java.util.concurrent.TimeUnit;
 

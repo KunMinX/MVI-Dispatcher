@@ -1,4 +1,4 @@
-package com.kunminx.purenote.domain.event;
+package com.kunminx.purenote.domain.intent;
 
 import com.kunminx.purenote.data.bean.Weather;
 import com.kunminx.sealed.annotation.Param;

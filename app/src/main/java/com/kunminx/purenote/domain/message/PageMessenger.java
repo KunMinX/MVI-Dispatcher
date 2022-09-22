@@ -1,7 +1,7 @@
 package com.kunminx.purenote.domain.message;
 
 import com.kunminx.architecture.domain.dispatch.MviDispatcher;
-import com.kunminx.purenote.domain.event.Messages;
+import com.kunminx.purenote.domain.intent.Messages;
 
 /**
  * Create by KunMinX at 2022/6/14

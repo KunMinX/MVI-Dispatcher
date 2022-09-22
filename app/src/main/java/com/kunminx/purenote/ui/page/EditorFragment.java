@@ -15,8 +15,8 @@ import com.kunminx.architecture.utils.Utils;
 import com.kunminx.purenote.BR;
 import com.kunminx.purenote.R;
 import com.kunminx.purenote.data.bean.Note;
-import com.kunminx.purenote.domain.event.Messages;
-import com.kunminx.purenote.domain.event.NoteIntent;
+import com.kunminx.purenote.domain.intent.Messages;
+import com.kunminx.purenote.domain.intent.NoteIntent;
 import com.kunminx.purenote.domain.message.PageMessenger;
 import com.kunminx.purenote.domain.request.NoteRequester;
 

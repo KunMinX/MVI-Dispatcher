@@ -2,7 +2,7 @@ package com.kunminx.purenote.domain.request;
 
 import com.kunminx.architecture.domain.dispatch.MviDispatcher;
 import com.kunminx.purenote.data.repo.DataRepository;
-import com.kunminx.purenote.domain.event.NoteIntent;
+import com.kunminx.purenote.domain.intent.NoteIntent;
 
 /**
  * Create by KunMinX at 2022/6/14

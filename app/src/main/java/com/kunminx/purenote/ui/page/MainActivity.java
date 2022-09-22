@@ -7,8 +7,8 @@ import com.kunminx.architecture.ui.page.DataBindingConfig;
 import com.kunminx.architecture.ui.page.StateHolder;
 import com.kunminx.purenote.BR;
 import com.kunminx.purenote.R;
-import com.kunminx.purenote.domain.event.ComplexIntent;
-import com.kunminx.purenote.domain.event.Messages;
+import com.kunminx.purenote.domain.intent.ComplexIntent;
+import com.kunminx.purenote.domain.intent.Messages;
 import com.kunminx.purenote.domain.message.PageMessenger;
 import com.kunminx.purenote.domain.request.ComplexRequester;
 
