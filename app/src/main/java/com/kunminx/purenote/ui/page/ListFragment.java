@@ -134,9 +134,8 @@ public class ListFragment extends BaseFragment {
   }
 
   @Override
-  protected boolean onBackPressed() {
+  protected void onBackPressed() {
     mMessenger.input(Messages.FinishActivity());
-    return super.onBackPressed();
   }
 
   /**

@@ -100,12 +100,13 @@ public class EditorFragment extends BaseFragment {
     });
   }
 
-  private boolean save() {
+  private void save() {
     Note tempNote = Objects.requireNonNull(mStates.tempNote.get());
     String title = mStates.title.get();
     String content = mStates.content.get();
     if (TextUtils.isEmpty(title + content) || tempNote.getTitle().equals(title) && tempNote.getContent().equals(content)) {
-      return nav().navigateUp();
+      nav().navigateUp();
+      return;
     }
     Note note;
     long time = System.currentTimeMillis();
@@ -115,12 +116,11 @@ public class EditorFragment extends BaseFragment {
       note = new Note(tempNote.getId(), title, content, tempNote.getCreateTime(), time, tempNote.getType());
     }
     mNoteRequester.input(NoteIntent.AddItem(note));
-    return true;
   }
 
   @Override
-  protected boolean onBackPressed() {
-    return save();
+  protected void onBackPressed() {
+    save();
   }
 
   /**
@@ -133,7 +133,7 @@ public class EditorFragment extends BaseFragment {
    *  StateHolder 属于表现层，为页面专属；MVI-Dispatcher 属于领域层，可供同业务不同页面复用，
    *  领域层组件通过 PublishSubject（例如 SharedFlow）分发结果至表现层，
    *  对于状态，由 BehaviorSubject（例如以下 State 组件）响应和兜着；对于事件，则一次性执行，
-   *
+   * <p>
    * 具体可参见《解决 MVI 实战痛点》解析
    * https://juejin.cn/post/7134594010642907149
    */
