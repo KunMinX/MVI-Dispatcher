@@ -41,11 +41,6 @@ public class SettingFragment extends BaseFragment {
     });
   }
 
-  @Override
-  protected void onBackPressed() {
-    nav().navigateUp();
-  }
-
   /**
    * TODO tip 3：传统 MVI 属于对响应式编程的填坑和升级，
    *  故通常是两层架构：表现层和数据层，

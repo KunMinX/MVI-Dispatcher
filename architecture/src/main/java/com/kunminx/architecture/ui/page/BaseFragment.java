@@ -39,11 +39,6 @@ public abstract class BaseFragment extends DataBindingFragment {
 
   private final ViewModelScope mViewModelScope = new ViewModelScope();
   protected AppCompatActivity mActivity;
-  private boolean mIsAllowBackPress = true;
-
-  public void setAllowBackPress(boolean allowBackPress) {
-    mIsAllowBackPress = allowBackPress;
-  }
 
   protected void onInitData() {
   }
@@ -63,7 +58,7 @@ public abstract class BaseFragment extends DataBindingFragment {
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    if (mIsAllowBackPress) addOnBackPressed();
+    addOnBackPressed();
   }
 
   @Override
@@ -117,6 +112,6 @@ public abstract class BaseFragment extends DataBindingFragment {
   }
 
   protected void onBackPressed() {
-
+    nav().navigateUp();
   }
 }
