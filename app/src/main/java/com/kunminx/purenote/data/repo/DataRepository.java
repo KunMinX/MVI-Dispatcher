@@ -26,8 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class DataRepository {
 
-  //TODO 由于有人挪用和滥用本 API_KEY，本账号已被封，所属天气 API 也不再能使用，
-  // 如有需要，请自行在 "高德开放平台" 获取和填入
+  //TODO 天气服务使用高德 API_KEY，如有需要，请自行在 "高德开放平台" 获取和在 DataRepository 类填入
 
   public final static String API_KEY = "";
   public final static String BASE_URL = "https://restapi.amap.com/v3/";
