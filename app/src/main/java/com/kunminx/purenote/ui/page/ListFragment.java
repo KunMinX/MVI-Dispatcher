@@ -127,9 +127,13 @@ public class ListFragment extends BaseFragment {
       if (view.getId() == R.id.fab) EditorFragment.start(nav(), new Note());
       else if (view.getId() == R.id.iv_logo) nav().navigate(R.id.action_list_to_setting);
     });
-    if (TextUtils.isEmpty(mStates.weather.get())) {
-      mHttpRequester.input(Api.GetWeatherInfo(HttpRequester.CITY_CODE_BEIJING));
-    }
+
+    //TODO 由于有人挪用和滥用本 API_KEY，本账号已受限，所属天气 API 也不再能使用，
+    // 如有需要，请自行在 "高德开放平台" 获取和在 DataRepository 类填入
+    //    if (TextUtils.isEmpty(mStates.weather.get())) {
+    //      mHttpRequester.input(Api.GetWeatherInfo(HttpRequester.CITY_CODE_BEIJING));
+    //    }
+
     if (mStates.list.isEmpty()) mNoteRequester.input(NoteIntent.GetNoteList());
   }
 
