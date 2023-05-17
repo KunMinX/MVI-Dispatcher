@@ -1,80 +1,77 @@
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h48wrrwn0oj21890u00y9.jpg)
+**Development story**:
+
+[《Android: Solving the Pain Points of MVI Architecture in Practice》](https://blog.devgenius.io/android-solving-the-pain-points-of-mvi-architecture-in-practice-4971fa9ed9c0)
 
 &nbsp;
 
-development story:[《Android: Solving the Pain Points of MVI Architecture in Practice
-》](https://blog.devgenius.io/android-solving-the-pain-points-of-mvi-architecture-in-practice-4971fa9ed9c0)
+Reactive programming is conducive to unit testing, but it has its own flaws. MVI is designed to eliminate these flaws.
+
+MVI has a certain threshold and is more cumbersome to implement. It also has performance issues, which may cause some colleagues to give up and return to traditional methods.
+
+Overall, MVI is suitable for implementing a "modern development model" in combination with Jetpack Compose.
+
+On the other hand, if you are pursuing "low cost, reusability, and stability", the problem can be solved from the source by following the "single responsibility principle".
+
+In response to this, MVI-Dispatcher was born.
 
 &nbsp;
-
-# Foreword
-
-With the popularity of LiveData and ViewModel, developers also try to eliminate mutable boilerplate code by “local MVI pattern”.
-
-According to the actual situation, most of the company’s “ancient giant projects” still need to upgrade and maintain Java, and Java is a frequent source of consistency problems, and “architectural components” are urgently needed to help eliminate hidden dangers.
-
-Unfortunately, the current Android MVI articles or code cases are all written based on Kotlin language features, which are not friendly to Java, which makes Java developers interested in MVI mode in a dilemma.
-
-The good news is that this issue comes with a well-polished MVI practice case.
 
 |                      Collect or topped                       |                      Smooth transition                       |                         Delete notes                         |
 | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vup9ck57g20u01o0hbm.gif) | ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vupfbex2g20u01o0qv6.gif) | ![](https://tva1.sinaimg.cn/large/e6c9d24ely1h3vuplwiuqg20u01o0x2t.gif) |
+| ![](https://images.xiaozhuanlan.com/photo/2022/3555d17b46e04054154916d00f1214f8.gif) | ![](https://images.xiaozhuanlan.com/photo/2022/d20a18e90cda8aa1f7d6977dca7b7135.gif) | ![](https://images.xiaozhuanlan.com/photo/2022/5786c16f17612661b0b490dd40e78608.gif) |
 
 &nbsp;
 
 # Project Description
 
-I have been focusing on the “business architecture” model for a long time, and the open source components such as [UnPeekLiveData](https://github.com/KunMinX/UnPeek-LiveData) have been experienced in production environments such as QQ Music with over 100 million monthly lives.
+The author has long focused on the "business architecture" pattern and is committed to eliminating unexpected issues in the agile development process.
 
-In this case, I will show you how MVI-Dispatcher can simplify the otherwise “complicated and error-prone” message distribution process with just a few lines of code.
-
-&nbsp;
+In this case, I will show you how MVI-Dispatcher can easily accomplish the previously complicated and error-prone message distribution process with just a few lines of code.
 
 ```Groovy
 implementation 'com.kunminx.arch:mvi-dispatch:7.5.0'
-
-//Optional branch, easy and safe to read and write config
-implementation 'com.kunminx.arch:keyvalue-dispatch:7.5.0'
 ```
 
 &nbsp;
 
-MVI-Dispatcher is applicable to Java, through which,
+A complete "domain layer" message distribution component should at least meet the following requirements:
 
-> 1.Can completely eliminate mutable boilerplate code, no need to write one line
->
-> 2.Multiple events can be sent continuously to solve MVI scene LiveData event coverage
->
-> 3.High performance fixed length queue, use as you go, run out of it, and never lose events
->
-> 4.It can prevent team newbies from indiscriminately using mutableLiveData.setValue( ) in Activity/Fragment
->
-> 5.Developers only need to pay attention to input and output, inject events from the unique entry input (), and observe at the unique exit output ()
->
-> 6.If the new team members are not familiar with LiveData, UnPeekLiveData, mutable and MVI, they can also automatically realize the development of “one-way data flow” based on the simple and easy-to-understand I/O design of MVI-Dispatcher “single entry + single exit”
->
-> 7.It can be seamlessly integrated into jetpack MVVM and other mode projects
+1. It contains a message queue that can store messages that have been sent but not consumed.
+2. When the page is not visible, any messages sent during the queue storage period will be automatically consumed when the page becomes visible again.
+
+MVI-Dispatcher was born to meet these needs.
 
 &nbsp;
 
-![](https://tva1.sinaimg.cn/large/e6c9d24ely1h4al1milgpj21dj0u045c.jpg)
+Furthermore, the improvements and optimizations of MVI-Dispatcher include:
+
+> 1. It can completely eliminate mutable boilerplate code, without writing a single line.
+> 2. It can prevent new team members from misusing mutable.setValue() in Activity/Fragment.
+> 3. Developers only need to focus on input and output. They inject events through the unique input entry point and observe them through the unique output exit point.
+> 4. New team members can automatically implement "reactive" development based on the concise and easy-to-understand input-output design of MVI-Dispatcher without being familiar with LiveData, UnPeekLiveData, SharedFlow, mutable, or MVI.
+> 5. It can be seamlessly integrated into Jetpack MVVM and other pattern projects.
 
 &nbsp;
 
-In addition to mastering "Single Source of Truth" best practices in “Simple and Simple” code, you can also get content from this project including:
+![](https://s2.loli.net/2023/05/18/JXHyColB2Knxmkq.jpg)
 
-1.Clean code style & standard naming conventions
+&nbsp;
 
-2.In-depth understanding of “view controller” knowledge points & correct use
+MVI-Dispatcher provide the minimum necessary source code implementation to complete a notepad software.
 
-3.Full use of AndroidX and Material Design
+Therefore, through this example, you can also obtain content including:
 
-4.ConstraintLayout Constraint Layout Best Practices
-
-5.Best Practices for Hex Compound State Management
-
-6.Excellent User Experience & Interaction Design
+> 1.Clean code style & standard naming conventions
+>
+> 2.In-depth understanding of “Reactive programming” knowledge points & correct use
+>
+> 3.Full use of AndroidX and Material Design
+>
+> 4.ConstraintLayout Constraint Layout Best Practices
+>
+> 5.Best Practices for Hex Compound State Management
+>
+> 6.Excellent User Experience & Interaction Design
 
 
 &nbsp;
