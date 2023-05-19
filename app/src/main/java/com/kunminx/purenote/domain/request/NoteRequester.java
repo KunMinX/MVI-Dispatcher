@@ -15,7 +15,7 @@ public class NoteRequester extends MviDispatcher<NoteIntent> {
    *  可为同业务不同页面复用。
    *  ~
    *  本组件通过封装，默使数据从 "领域层" 到 "表现层" 单向流动，
-   *  消除 “mutable 样板代码 + LiveData 连发事件覆盖 + LiveData.setValue 误用滥用” 等高频痛点。
+   *  消除 “mutable 样板代码 + 连发事件覆盖 + mutable.setValue 误用滥用” 等高频痛点。
    */
   @Override
   protected void onHandle(NoteIntent intent) {
