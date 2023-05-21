@@ -1,7 +1,5 @@
 package com.kunminx.purenote.ui.page;
 
-import android.text.TextUtils;
-
 import com.kunminx.architecture.domain.dispatch.GlobalConfigs;
 import com.kunminx.architecture.ui.bind.ClickProxy;
 import com.kunminx.architecture.ui.page.BaseFragment;
@@ -17,7 +15,7 @@ import com.kunminx.purenote.domain.intent.Api;
 import com.kunminx.purenote.domain.intent.Messages;
 import com.kunminx.purenote.domain.intent.NoteIntent;
 import com.kunminx.purenote.domain.message.PageMessenger;
-import com.kunminx.purenote.domain.request.HttpRequester;
+import com.kunminx.purenote.domain.request.WeatherRequester;
 import com.kunminx.purenote.domain.request.NoteRequester;
 import com.kunminx.purenote.ui.adapter.NoteAdapter;
 
@@ -31,7 +29,7 @@ import java.util.Objects;
 public class ListFragment extends BaseFragment {
   private ListStates mStates;
   private NoteRequester mNoteRequester;
-  private HttpRequester mHttpRequester;
+  private WeatherRequester mWeatherRequester;
   private PageMessenger mMessenger;
   private NoteAdapter mAdapter;
   private ClickProxy mClickProxy;
@@ -40,7 +38,7 @@ public class ListFragment extends BaseFragment {
   protected void initViewModel() {
     mStates = getFragmentScopeViewModel(ListStates.class);
     mNoteRequester = getFragmentScopeViewModel(NoteRequester.class);
-    mHttpRequester = getFragmentScopeViewModel(HttpRequester.class);
+    mWeatherRequester = getFragmentScopeViewModel(WeatherRequester.class);
     mMessenger = getApplicationScopeViewModel(PageMessenger.class);
   }
 
@@ -77,7 +75,7 @@ public class ListFragment extends BaseFragment {
       }
     });
 
-    mHttpRequester.output(this, api -> {
+    mWeatherRequester.output(this, api -> {
       switch (api.id) {
         case Api.OnLoading.ID:
           mStates.loadingWeather.set(((Api.OnLoading) api).resultIsLoading);

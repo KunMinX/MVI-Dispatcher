@@ -8,7 +8,7 @@ import com.kunminx.purenote.domain.intent.Api;
 /**
  * Create by KunMinX at 2022/8/24
  */
-public class HttpRequester extends MviDispatcher<Api> {
+public class WeatherRequester extends MviDispatcher<Api> {
   public final static String CITY_CODE_BEIJING = "110000";
 
   /**
