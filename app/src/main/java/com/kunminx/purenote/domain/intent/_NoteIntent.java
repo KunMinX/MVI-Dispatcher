@@ -27,4 +27,5 @@ public interface _NoteIntent {
   void markItem(@Param Note note, boolean isSuccess);
   void toppingItem(@Param Note note, boolean isSuccess);
   void addItem(@Param Note note, boolean isSuccess);
+  void initItem(@Param Note note);
 }

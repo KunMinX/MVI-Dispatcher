@@ -20,6 +20,10 @@ public class NoteRequester extends MviDispatcher<NoteIntent> {
   @Override
   protected void onHandle(NoteIntent intent) {
     switch (intent.id) {
+      case NoteIntent.InitItem.ID:
+        NoteIntent.InitItem initItem = (NoteIntent.InitItem) intent;
+        sendResult(initItem.copy());
+        break;
       case NoteIntent.GetNoteList.ID:
         NoteIntent.GetNoteList getNoteList = (NoteIntent.GetNoteList) intent;
         DataRepository.getInstance().getNotes(dataResult -> {

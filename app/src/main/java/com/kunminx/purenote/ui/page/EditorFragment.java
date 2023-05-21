@@ -52,22 +52,6 @@ public class EditorFragment extends BaseFragment {
             .addBindingParam(BR.click, mClickProxy = new ClickProxy());
   }
 
-  @Override
-  protected void onInitData() {
-    if (getArguments() != null) {
-      mStates.tempNote.set(getArguments().getParcelable(NOTE));
-      Note tempNote = Objects.requireNonNull(mStates.tempNote.get());
-      mStates.title.set(tempNote.getTitle());
-      mStates.content.set(tempNote.getContent());
-      if (TextUtils.isEmpty(tempNote.getId())) {
-        mStates.titleRequestFocus.set(true);
-      } else {
-        mStates.tip.set(getString(R.string.last_time_modify));
-        mStates.time.set(tempNote.getModifyDate());
-      }
-    }
-  }
-
   /**
    * TODO tip 1：
    *  通过唯一出口 'dispatcher.output' 统一接收 '可信源' 回推之消息，根据 id 分流处理 UI 逻辑。
@@ -75,7 +59,18 @@ public class EditorFragment extends BaseFragment {
   @Override
   protected void onOutput() {
     mNoteRequester.output(this, noteIntent -> {
-      if (Objects.equals(noteIntent.id, NoteIntent.AddItem.ID)) {
+      if (Objects.equals(noteIntent.id, NoteIntent.InitItem.ID)) {
+        mStates.tempNote.set(((NoteIntent.InitItem) noteIntent).paramNote);
+        Note tempNote = Objects.requireNonNull(mStates.tempNote.get());
+        mStates.title.set(tempNote.getTitle());
+        mStates.content.set(tempNote.getContent());
+        if (TextUtils.isEmpty(tempNote.getId())) {
+          mStates.titleRequestFocus.set(true);
+        } else {
+          mStates.tip.set(getString(R.string.last_time_modify));
+          mStates.time.set(tempNote.getModifyDate());
+        }
+      } else if (Objects.equals(noteIntent.id, NoteIntent.AddItem.ID)) {
         mMessenger.input(Messages.RefreshNoteList());
         ToastUtils.showShortToast(getString(R.string.saved));
         nav().navigateUp();
@@ -92,6 +87,8 @@ public class EditorFragment extends BaseFragment {
     mClickProxy.setOnClickListener(v -> {
       if (v.getId() == R.id.btn_back) save();
     });
+    if (getArguments() != null)
+      mNoteRequester.input(NoteIntent.InitItem(getArguments().getParcelable(NOTE)));
   }
 
   private void save() {

@@ -43,9 +43,6 @@ public abstract class BaseActivity extends DataBindingActivity {
   private static final int STATUS_BAR_TRANSPARENT_COLOR = 0x00000000;
   private final ViewModelScope mViewModelScope = new ViewModelScope();
 
-  protected void onInitData() {
-  }
-
   protected void onOutput() {
   }
 
@@ -57,7 +54,6 @@ public abstract class BaseActivity extends DataBindingActivity {
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     transparentStatusBar(this);
     super.onCreate(savedInstanceState);
-    onInitData();
     onOutput();
     onInput();
   }

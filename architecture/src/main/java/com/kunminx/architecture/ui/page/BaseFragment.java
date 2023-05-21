@@ -40,9 +40,6 @@ public abstract class BaseFragment extends DataBindingFragment {
   private final ViewModelScope mViewModelScope = new ViewModelScope();
   protected AppCompatActivity mActivity;
 
-  protected void onInitData() {
-  }
-
   protected void onOutput() {
   }
 
@@ -64,7 +61,6 @@ public abstract class BaseFragment extends DataBindingFragment {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    onInitData();
     onOutput();
     onInput();
   }
