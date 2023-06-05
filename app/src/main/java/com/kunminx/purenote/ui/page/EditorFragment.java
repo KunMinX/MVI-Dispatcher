@@ -54,7 +54,8 @@ public class EditorFragment extends BaseFragment {
 
   /**
    * TODO tip 1：
-   *  通过唯一出口 'dispatcher.output' 统一接收 '可信源' 回推之消息，根据 id 分流处理 UI 逻辑。
+   * 通过 PublishSubject 接收数据，并在唯一出口 output{ ... } 中响应数据的变化，
+   * 通过 BehaviorSubject 通知所绑定控件属性重新渲染，并为其兜住最后一次状态，
    */
   @Override
   protected void onOutput() {
@@ -80,7 +81,7 @@ public class EditorFragment extends BaseFragment {
 
   /**
    * TODO tip 2：
-   *  通过唯一入口 'dispatcher.input' 发消息至 "可信源"，由其内部统一处理业务逻辑和结果分发。
+   * 通过唯一入口 input() 发消息至 "可信源"，由其内部统一处理业务逻辑和结果分发。
    */
   @Override
   protected void onInput() {
@@ -115,16 +116,11 @@ public class EditorFragment extends BaseFragment {
   }
 
   /**
-   * TODO tip 3：传统 MVI 属于对响应式编程的填坑和升级，
-   *  故通常是两层架构：表现层和数据层，
-   *  ViewModel 是表现层组件，业务逻辑状态改变都在 ViewModel 中写，
-   *  响应式编程便于单元测试和关注点分离，同时也使同质化的业务逻辑分散在多个 ViewModel 中，易造成修改时的不一致，
-   *  ~
-   *  故综合考虑，本项目示例采用三层架构，即 表现层、领域层、数据层，
-   *  StateHolder 属于表现层，为页面专属，MVI-Dispatcher 属于领域层，可供同业务不同页面复用，
-   *  领域层组件通过 PublishSubject 分发结果至表现层，
-   *  对于状态，交由 BehaviorSubject（例如以下 State 组件）响应和兜着。对于事件，则一次性执行，
-   * <p>
+   * TODO tip 3：
+   * 基于单一职责原则，抽取 Jetpack ViewModel "状态保存和恢复" 的能力作为 StateHolder，
+   * 并使用 ObservableField 的改良版子类 State 来承担 BehaviorSubject，用作所绑定控件的 "可信数据源"，
+   * 从而在收到来自 PublishSubject 的结果回推后，响应结果数据的变化，也即通知控件属性重新渲染，并为其兜住最后一次状态，
+   *
    * 具体可参见《解决 MVI 实战痛点》解析
    * https://juejin.cn/post/7134594010642907149
    */
