@@ -1,7 +1,5 @@
 package com.kunminx.purenote.data.repo;
 
-import android.annotation.SuppressLint;
-
 import androidx.annotation.NonNull;
 import androidx.room.Room;
 
@@ -71,15 +69,24 @@ public class DataRepository {
   }
 
   public Observable<Boolean> insertNote(Note note) {
-    return AsyncTask.doIO(emitter -> mDataBase.noteDao().insertNote(note));
+    return AsyncTask.doIO(emitter -> {
+      mDataBase.noteDao().insertNote(note);
+      emitter.onNext(true);
+    });
   }
 
   public Observable<Boolean> updateNote(Note note) {
-    return AsyncTask.doIO(emitter -> mDataBase.noteDao().updateNote(note));
+    return AsyncTask.doIO(emitter -> {
+      mDataBase.noteDao().updateNote(note);
+      emitter.onNext(true);
+    });
   }
 
   public Observable<Boolean> deleteNote(Note note) {
-    return AsyncTask.doIO(emitter -> mDataBase.noteDao().deleteNote(note));
+    return AsyncTask.doIO(emitter -> {
+      mDataBase.noteDao().deleteNote(note);
+      emitter.onNext(true);
+    });
   }
 
   public void getWeatherInfo(String cityCode, DataResult.Result<Weather.Live> result) {
