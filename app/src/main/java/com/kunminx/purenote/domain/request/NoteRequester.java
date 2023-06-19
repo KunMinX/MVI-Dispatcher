@@ -39,24 +39,24 @@ public class NoteRequester extends MviDispatcher<NoteIntent> {
         break;
       case NoteIntent.UpdateItem.ID:
         NoteIntent.UpdateItem updateItem = (NoteIntent.UpdateItem) intent;
-        repo.updateNote(updateItem.paramNote).subscribe(success -> sendResult(updateItem.copy(success)));
+        repo.updateNote(updateItem.paramNote).subscribe(it -> sendResult(updateItem.copy(it)));
         break;
       case NoteIntent.MarkItem.ID:
         NoteIntent.MarkItem markItem = (NoteIntent.MarkItem) intent;
-        repo.updateNote(markItem.paramNote).subscribe(success -> sendResult(markItem.copy(success)));
+        repo.updateNote(markItem.paramNote).subscribe(it -> sendResult(markItem.copy(it)));
         break;
       case NoteIntent.ToppingItem.ID:
         NoteIntent.ToppingItem toppingItem = (NoteIntent.ToppingItem) intent;
-        repo.updateNote(toppingItem.paramNote).subscribe(success ->
+        repo.updateNote(toppingItem.paramNote).subscribe(it ->
                 repo.getNotes().subscribe(notes -> sendResult(NoteIntent.GetNoteList(notes))));
         break;
       case NoteIntent.AddItem.ID:
         NoteIntent.AddItem addItem = (NoteIntent.AddItem) intent;
-        repo.insertNote(addItem.paramNote).subscribe(success -> sendResult(addItem.copy(success)));
+        repo.insertNote(addItem.paramNote).subscribe(it -> sendResult(addItem.copy(it)));
         break;
       case NoteIntent.RemoveItem.ID:
         NoteIntent.RemoveItem removeItem = (NoteIntent.RemoveItem) intent;
-        repo.deleteNote(removeItem.paramNote).subscribe(success -> sendResult(removeItem.copy(success)));
+        repo.deleteNote(removeItem.paramNote).subscribe(it -> sendResult(removeItem.copy(it)));
         break;
     }
   }
