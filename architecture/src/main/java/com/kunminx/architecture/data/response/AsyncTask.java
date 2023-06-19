@@ -6,6 +6,8 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -29,5 +31,18 @@ public class AsyncTask {
 
   public interface Action<T> {
     void onEmit(ObservableEmitter<T> emitter);
+  }
+
+  public interface Observer<T> extends io.reactivex.Observer<T> {
+    default void onSubscribe(@NonNull Disposable d) {
+    }
+
+    void onNext(@NonNull T t);
+
+    default void onError(@NonNull Throwable e) {
+    }
+
+    default void onComplete() {
+    }
   }
 }

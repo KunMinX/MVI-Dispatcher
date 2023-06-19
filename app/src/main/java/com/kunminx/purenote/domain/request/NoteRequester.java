@@ -47,10 +47,8 @@ public class NoteRequester extends MviDispatcher<NoteIntent> {
         break;
       case NoteIntent.ToppingItem.ID:
         NoteIntent.ToppingItem toppingItem = (NoteIntent.ToppingItem) intent;
-        repo.updateNote(toppingItem.paramNote).subscribe(success -> {
-          if (success)
-            repo.getNotes().subscribe(notes -> sendResult(NoteIntent.GetNoteList(notes)));
-        });
+        repo.updateNote(toppingItem.paramNote).subscribe(success ->
+                repo.getNotes().subscribe(notes -> sendResult(NoteIntent.GetNoteList(notes))));
         break;
       case NoteIntent.AddItem.ID:
         NoteIntent.AddItem addItem = (NoteIntent.AddItem) intent;
