@@ -1,10 +1,12 @@
 package com.kunminx.purenote.domain.request;
 
-import android.text.TextUtils;
-
 import com.kunminx.architecture.domain.dispatch.MviDispatcher;
+import com.kunminx.purenote.data.bean.Weather;
 import com.kunminx.purenote.data.repo.DataRepository;
 import com.kunminx.purenote.domain.intent.Api;
+
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * TODO tip 1：让 UI 和业务分离，让数据总是从生产者流向消费者
@@ -14,7 +16,7 @@ import com.kunminx.purenote.domain.intent.Api;
  * 换言之，"领域层组件" 中应当只关注数据的生成，而不关注数据的使用，
  * 改变 UI 状态的逻辑代码，只应在表现层页面中编写、在 Observer 回调中响应数据的变化，
  * 将来升级到 Jetpack Compose 更是如此，
- *
+ * <p>
  * Create by KunMinX at 2022/8/24
  */
 public class WeatherRequester extends MviDispatcher<Api> {
@@ -30,19 +32,31 @@ public class WeatherRequester extends MviDispatcher<Api> {
    */
   @Override
   protected void onHandle(Api intent) {
+    DataRepository repo = DataRepository.getInstance();
     switch (intent.id) {
       case Api.OnLoading.ID:
       case Api.OnError.ID:
         sendResult(intent);
         break;
       case Api.GetWeatherInfo.ID:
-        input(Api.OnLoading(true));
         Api.GetWeatherInfo getWeatherInfo = (Api.GetWeatherInfo) intent;
-        DataRepository.getInstance().getWeatherInfo(getWeatherInfo.paramCityCode, dataResult -> {
-          String errorMsg = dataResult.getResponseStatus().getMsg();
-          if (TextUtils.isEmpty(errorMsg)) sendResult(getWeatherInfo.copy(dataResult.getResult()));
-          else input(Api.OnError(errorMsg));
-          input(Api.OnLoading(false));
+        repo.getWeatherInfo(getWeatherInfo.paramCityCode).subscribe(new Observer<Weather>() {
+          @Override
+          public void onSubscribe(Disposable d) {
+            input(Api.OnLoading(true));
+          }
+          @Override
+          public void onNext(Weather weather) {
+            sendResult(getWeatherInfo.copy(weather.getLives().get(0)));
+          }
+          @Override
+          public void onError(Throwable e) {
+            input(Api.OnError(e.getMessage()));
+          }
+          @Override
+          public void onComplete() {
+            input(Api.OnLoading(false));
+          }
         });
         break;
     }

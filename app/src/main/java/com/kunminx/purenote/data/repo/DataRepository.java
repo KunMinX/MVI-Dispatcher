@@ -1,5 +1,7 @@
 package com.kunminx.purenote.data.repo;
 
+import android.annotation.SuppressLint;
+
 import androidx.annotation.NonNull;
 import androidx.room.Room;
 
@@ -14,6 +16,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -89,21 +93,11 @@ public class DataRepository {
     });
   }
 
-  public void getWeatherInfo(String cityCode, DataResult.Result<Weather.Live> result) {
+  @SuppressLint("CheckResult")
+  public Observable<Weather> getWeatherInfo(String cityCode) {
     WeatherService service = mRetrofit.create(WeatherService.class);
-    Call<Weather> call = service.getWeatherInfo(cityCode, API_KEY);
-    call.enqueue(new Callback<Weather>() {
-      @Override
-      public void onResponse(@NonNull Call<Weather> call, @NonNull Response<Weather> response) {
-        Weather weather = response.body();
-        if (weather != null && weather.getLives() != null && !weather.getLives().isEmpty()) {
-          result.onResult(new DataResult<>(weather.getLives().get(0)));
-        }
-      }
-      @Override
-      public void onFailure(@NonNull Call<Weather> call, @NonNull Throwable t) {
-        result.onResult(new DataResult<>(new Weather.Live(), new ResponseStatus(t.getMessage())));
-      }
-    });
+    return service.getWeatherInfo(cityCode, API_KEY)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread());
   }
 }
