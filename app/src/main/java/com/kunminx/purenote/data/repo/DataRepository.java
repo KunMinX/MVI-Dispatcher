@@ -1,5 +1,7 @@
 package com.kunminx.purenote.data.repo;
 
+import android.annotation.SuppressLint;
+
 import androidx.annotation.NonNull;
 import androidx.room.Room;
 
@@ -13,12 +15,14 @@ import com.kunminx.purenote.data.bean.Weather;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -49,6 +53,7 @@ public class DataRepository {
             .baseUrl(BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build();
   }
 
@@ -61,30 +66,20 @@ public class DataRepository {
             NoteDataBase.class, DATABASE_NAME).build();
   }
 
-  public void getNotes(DataResult.Result<List<Note>> result) {
-    AsyncTask.doAction(() -> mDataBase.noteDao().getNotes(),
-            notes -> result.onResult(new DataResult<>(notes)));
+  public Observable<List<Note>> getNotes() {
+    return AsyncTask.doIO(emitter -> emitter.onNext(mDataBase.noteDao().getNotes()));
   }
 
-  public void insertNote(Note note, DataResult.Result<Boolean> result) {
-    AsyncTask.doAction(() -> {
-      mDataBase.noteDao().insertNote(note);
-      return true;
-    }, success -> result.onResult(new DataResult<>(success)));
+  public Observable<Boolean> insertNote(Note note) {
+    return AsyncTask.doIO(emitter -> mDataBase.noteDao().insertNote(note));
   }
 
-  public void updateNote(Note note, DataResult.Result<Boolean> result) {
-    AsyncTask.doAction(() -> {
-      mDataBase.noteDao().updateNote(note);
-      return true;
-    }, success -> result.onResult(new DataResult<>(success)));
+  public Observable<Boolean> updateNote(Note note) {
+    return AsyncTask.doIO(emitter -> mDataBase.noteDao().updateNote(note));
   }
 
-  public void deleteNote(Note note, DataResult.Result<Boolean> result) {
-    AsyncTask.doAction(() -> {
-      mDataBase.noteDao().deleteNote(note);
-      return true;
-    }, success -> result.onResult(new DataResult<>(success)));
+  public Observable<Boolean> deleteNote(Note note) {
+    return AsyncTask.doIO(emitter -> mDataBase.noteDao().deleteNote(note));
   }
 
   public void getWeatherInfo(String cityCode, DataResult.Result<Weather.Live> result) {

@@ -12,7 +12,7 @@ import com.kunminx.purenote.domain.intent.NoteIntent;
  * 换言之，"领域层组件" 中应当只关注数据的生成，而不关注数据的使用，
  * 改变 UI 状态的逻辑代码，只应在表现层页面中编写、在 Observer 回调中响应数据的变化，
  * 将来升级到 Jetpack Compose 更是如此，
- *
+ * <p>
  * Create by KunMinX at 2022/6/14
  */
 public class NoteRequester extends MviDispatcher<NoteIntent> {
@@ -27,6 +27,7 @@ public class NoteRequester extends MviDispatcher<NoteIntent> {
    */
   @Override
   protected void onHandle(NoteIntent intent) {
+    DataRepository repo = DataRepository.getInstance();
     switch (intent.id) {
       case NoteIntent.InitItem.ID:
         NoteIntent.InitItem initItem = (NoteIntent.InitItem) intent;
@@ -34,43 +35,30 @@ public class NoteRequester extends MviDispatcher<NoteIntent> {
         break;
       case NoteIntent.GetNoteList.ID:
         NoteIntent.GetNoteList getNoteList = (NoteIntent.GetNoteList) intent;
-        DataRepository.getInstance().getNotes(dataResult -> {
-          sendResult(getNoteList.copy(dataResult.getResult()));
-        });
+        repo.getNotes().subscribe(notes -> sendResult(getNoteList.copy(notes)));
         break;
       case NoteIntent.UpdateItem.ID:
         NoteIntent.UpdateItem updateItem = (NoteIntent.UpdateItem) intent;
-        DataRepository.getInstance().updateNote(updateItem.paramNote, dataResult -> {
-          sendResult(updateItem.copy(dataResult.getResult()));
-        });
+        repo.updateNote(updateItem.paramNote).subscribe(success -> sendResult(updateItem.copy(success)));
         break;
       case NoteIntent.MarkItem.ID:
         NoteIntent.MarkItem markItem = (NoteIntent.MarkItem) intent;
-        DataRepository.getInstance().updateNote(markItem.paramNote, dataResult -> {
-          sendResult(markItem.copy(dataResult.getResult()));
-        });
+        repo.updateNote(markItem.paramNote).subscribe(success -> sendResult(markItem.copy(success)));
         break;
       case NoteIntent.ToppingItem.ID:
         NoteIntent.ToppingItem toppingItem = (NoteIntent.ToppingItem) intent;
-        DataRepository.getInstance().updateNote(toppingItem.paramNote, dataResult -> {
-          if (dataResult.getResult()) {
-            DataRepository.getInstance().getNotes(dataResult1 -> {
-              sendResult(NoteIntent.GetNoteList(dataResult1.getResult()));
-            });
-          }
+        repo.updateNote(toppingItem.paramNote).subscribe(success -> {
+          if (success)
+            repo.getNotes().subscribe(notes -> sendResult(NoteIntent.GetNoteList(notes)));
         });
         break;
       case NoteIntent.AddItem.ID:
         NoteIntent.AddItem addItem = (NoteIntent.AddItem) intent;
-        DataRepository.getInstance().insertNote(addItem.paramNote, dataResult -> {
-          sendResult(addItem.copy(dataResult.getResult()));
-        });
+        repo.insertNote(addItem.paramNote).subscribe(success -> sendResult(addItem.copy(success)));
         break;
       case NoteIntent.RemoveItem.ID:
         NoteIntent.RemoveItem removeItem = (NoteIntent.RemoveItem) intent;
-        DataRepository.getInstance().deleteNote(removeItem.paramNote, dataResult -> {
-          sendResult(removeItem.copy(dataResult.getResult()));
-        });
+        repo.deleteNote(removeItem.paramNote).subscribe(success -> sendResult(removeItem.copy(success)));
         break;
     }
   }

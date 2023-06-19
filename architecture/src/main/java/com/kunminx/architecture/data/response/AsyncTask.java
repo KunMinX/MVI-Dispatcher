@@ -3,6 +3,7 @@ package com.kunminx.architecture.data.response;
 import android.annotation.SuppressLint;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -13,18 +14,20 @@ import io.reactivex.schedulers.Schedulers;
 public class AsyncTask {
 
   @SuppressLint("CheckResult")
-  public static <T> void doAction(ActionStart<T> start, ActionEnd<T> end) {
-    Observable.create((ObservableOnSubscribe<T>) emitter -> emitter.onNext(start.getData()))
+  public static <T> Observable<T> doIO(Action<T> start) {
+    return Observable.create((ObservableOnSubscribe<T>) start::onEmit)
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(end::onResult);
+            .observeOn(AndroidSchedulers.mainThread());
   }
 
-  public interface ActionStart<T> {
-    T getData();
+  @SuppressLint("CheckResult")
+  public static <T> Observable<T> doCalculate(Action<T> start) {
+    return Observable.create((ObservableOnSubscribe<T>) start::onEmit)
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread());
   }
 
-  public interface ActionEnd<T> {
-    void onResult(T t);
+  public interface Action<T> {
+    void onEmit(ObservableEmitter<T> emitter);
   }
 }
