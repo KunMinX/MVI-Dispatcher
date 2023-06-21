@@ -17,14 +17,14 @@ public class AsyncTask {
 
   @SuppressLint("CheckResult")
   public static <T> Observable<T> doIO(Action<T> start) {
-    return Observable.create((ObservableOnSubscribe<T>) start::onEmit)
+    return Observable.create(start::onEmit)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread());
   }
 
   @SuppressLint("CheckResult")
   public static <T> Observable<T> doCalculate(Action<T> start) {
-    return Observable.create((ObservableOnSubscribe<T>) start::onEmit)
+    return Observable.create(start::onEmit)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread());
   }
