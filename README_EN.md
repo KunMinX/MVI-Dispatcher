@@ -29,7 +29,7 @@ The author has long focused on the "business architecture" pattern and is commit
 In this case, I will show you how MVI-Dispatcher can easily accomplish the previously complicated and error-prone message distribution process with just a few lines of code.
 
 ```Groovy
-implementation 'com.kunminx.arch:mvi-dispatch:7.5.0'
+implementation 'com.kunminx.arch:mvi-dispatch:7.6.0'
 ```
 
 &nbsp;

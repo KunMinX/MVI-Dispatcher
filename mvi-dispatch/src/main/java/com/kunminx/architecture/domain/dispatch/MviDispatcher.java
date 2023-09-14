@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import com.kunminx.architecture.domain.queue.FixedLengthList;
-import com.kunminx.architecture.domain.result.MutableResult;
+import com.kunminx.architecture.domain.result.OneTimeMessage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +23,7 @@ public class MviDispatcher<T> extends ViewModel implements DefaultLifecycleObser
   private final HashMap<Integer, LifecycleOwner> mOwner = new HashMap<>();
   private final HashMap<Integer, LifecycleOwner> mFragmentOwner = new HashMap<>();
   private final HashMap<Integer, Observer<T>> mObservers = new HashMap<>();
-  private final FixedLengthList<MutableResult<T>> mResults = new FixedLengthList<>();
+  private final FixedLengthList<OneTimeMessage<T>> mResults = new FixedLengthList<>();
 
   protected int initQueueMaxLength() {
     return DEFAULT_QUEUE_LENGTH;
@@ -45,7 +45,7 @@ public class MviDispatcher<T> extends ViewModel implements DefaultLifecycleObser
   private void outputTo(Integer identityId, LifecycleOwner owner, Observer<T> observer) {
     this.mOwner.put(identityId, owner);
     this.mObservers.put(identityId, observer);
-    for (MutableResult<T> result : mResults) {
+    for (OneTimeMessage<T> result : mResults) {
       result.observe(owner, observer);
     }
   }
@@ -58,8 +58,8 @@ public class MviDispatcher<T> extends ViewModel implements DefaultLifecycleObser
       }
     });
     boolean eventExist = false;
-    for (MutableResult<T> result : mResults) {
-      int id1 = System.identityHashCode(result.getValue());
+    for (OneTimeMessage<T> result : mResults) {
+      int id1 = System.identityHashCode(result.get());
       int id2 = System.identityHashCode(intent);
       if (id1 == id2) {
         eventExist = true;
@@ -67,7 +67,7 @@ public class MviDispatcher<T> extends ViewModel implements DefaultLifecycleObser
       }
     }
     if (!eventExist) {
-      MutableResult<T> result = new MutableResult<>(intent);
+      OneTimeMessage<T> result = new OneTimeMessage<>(intent);
       for (Map.Entry<Integer, Observer<T>> entry : mObservers.entrySet()) {
         Integer key = entry.getKey();
         Observer<T> observer = entry.getValue();
@@ -78,16 +78,16 @@ public class MviDispatcher<T> extends ViewModel implements DefaultLifecycleObser
       mResults.add(result);
     }
 
-    MutableResult<T> result = null;
-    for (MutableResult<T> r : mResults) {
-      int id1 = System.identityHashCode(r.getValue());
+    OneTimeMessage<T> result = null;
+    for (OneTimeMessage<T> r : mResults) {
+      int id1 = System.identityHashCode(r.get());
       int id2 = System.identityHashCode(intent);
       if (id1 == id2) {
         result = r;
         break;
       }
     }
-    if (result != null) result.setValue(intent);
+    if (result != null) result.set(intent);
   }
 
   public final void input(T intent) {
@@ -107,7 +107,7 @@ public class MviDispatcher<T> extends ViewModel implements DefaultLifecycleObser
         Integer key = entry.getKey();
         mOwner.remove(key);
         if (isFragment) mFragmentOwner.remove(key);
-        for (MutableResult<T> mutableResult : mResults) {
+        for (OneTimeMessage<T> mutableResult : mResults) {
           mutableResult.removeObserver(Objects.requireNonNull(mObservers.get(key)));
         }
         mObservers.remove(key);
