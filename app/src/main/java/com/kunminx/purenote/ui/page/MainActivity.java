@@ -68,14 +68,17 @@ public class MainActivity extends BaseActivity {
    */
   @Override
   protected void onInput() {
+    //TODO tip 3：Test1 可用于验证 "app 处于后台时，推送的数据会兜着，回到前台时，会回推，但此后环境重建也不会再回推，做到消费且只消费一次"
+    //在单独观察 Test1 能力时，可将 Test2、Test3 的测试注释
+
     mComplexRequester.input(ComplexIntent.Test1(1));
-    mComplexRequester.input(ComplexIntent.Test2(2));
-    mComplexRequester.input(ComplexIntent.Test2(2));
-    mComplexRequester.input(ComplexIntent.Test2(2));
-    mComplexRequester.input(ComplexIntent.Test3(3));
-    mComplexRequester.input(ComplexIntent.Test3(3));
-    mComplexRequester.input(ComplexIntent.Test3(3));
-    mComplexRequester.input(ComplexIntent.Test3(3));
+//    mComplexRequester.input(ComplexIntent.Test2(2));
+//    mComplexRequester.input(ComplexIntent.Test2(2));
+//    mComplexRequester.input(ComplexIntent.Test2(2));
+//    mComplexRequester.input(ComplexIntent.Test3(3));
+//    mComplexRequester.input(ComplexIntent.Test3(3));
+//    mComplexRequester.input(ComplexIntent.Test3(3));
+//    mComplexRequester.input(ComplexIntent.Test3(3));
   }
 
   public static class MainAtyStates extends StateHolder {

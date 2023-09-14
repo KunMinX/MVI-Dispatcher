@@ -49,6 +49,9 @@ public class ComplexRequester extends MviDispatcher<ComplexIntent> {
         //TODO tip 3: 定长队列，随取随用，绝不丢失事件
         //此处通过 RxJava 轮询模拟事件连发，可于 Logcat Debug 见输出
 
+        //通过判断 mDisposable，维持环境重建后还是同一 Rx 实例在回推数据，
+        //此 case 可用于验证 "app 处于后台时，推送的数据会兜着，回到前台时，会回推，但此后环境重建也不会再回推，做到消费且只消费一次"
+
         if (mDisposable == null)
           mDisposable = Observable.interval(1000, TimeUnit.MILLISECONDS)
                   .subscribeOn(Schedulers.io())
