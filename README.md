@@ -65,7 +65,7 @@ MVI-Dispatcher 应运而生，
 >
 > 2.**可杜绝团队新手滥用** mutable.setValue( ) 于 Activity/Fragment
 >
-> 3.开发者只需关注 input、output 二处，**从唯一入口 input 注入 Event，并于唯一出口 output 观察**
+> 3.开发者只需关注 input、output 二处，**从唯一入口 input 发起请求，并于唯一出口 output 观察**
 >
 > 4.团队新手在不熟 LiveData、UnPeekLiveData、SharedFlow、mutable、MVI 情况下，仅根据 MVI-Dispatcher 简明易懂 input-output 设计亦可自动实现 “响应式” 开发
 >
@@ -113,7 +113,7 @@ MVI-Dispatcher 以 “备忘录场景” 为例，提供完成一款 “记事�
 
 本项目场景案例及 MVI-Dispatcher 框架，均属本人独立原创设计，本人对此享有最终解释权。
 
-任何个人或组织，未经与作者本人当面沟通许可，不得将本项目代码设计及本人对 “唯一可信源” 及 MVI 独家理解用于 "**打包贩卖、出书、卖课**" 等商业用途。
+任何个人或组织，未经与作者本人当面沟通许可，不得将本项目代码设计及本人对 "响应式编程漏洞和 MVI" 独家理解用于 "**打包贩卖、出书、卖课**" 等商业用途。
 
 如需引用借鉴 “本项目框架设计背景及思路” 写作发行，请注明**链接出处**。
 
