@@ -44,17 +44,17 @@ public class MainActivity extends BaseActivity {
     mComplexRequester.output(this, complexIntent -> {
       switch (complexIntent.id) {
         case ComplexIntent.Test1.ID:
-          Log.d("ComplexIntent", "---1");
+          Log.i("ComplexIntent", "---1");
           break;
         case ComplexIntent.Test2.ID:
-          Log.d("ComplexIntent", "---2");
+          Log.i("ComplexIntent", "---2");
           break;
         case ComplexIntent.Test3.ID:
-          Log.d("ComplexIntent", "---3");
+          Log.i("ComplexIntent", "---3");
           break;
         case ComplexIntent.Test4.ID:
           ComplexIntent.Test4 test4 = (ComplexIntent.Test4) complexIntent;
-          Log.d("ComplexIntent", "---4 " + test4.resultCount1);
+          Log.i("ComplexIntent", "---4 " + test4.resultCount1);
           break;
       }
     });
